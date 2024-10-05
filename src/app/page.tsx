@@ -6,9 +6,8 @@ import {
 } from "@/generated/graphql";
 import { CREATE_USER } from "@/graphql/mutations/userMutations";
 import { GET_USERS } from "@/graphql/queries/userQueries";
-import { useMutation, useQuery } from "@apollo/client";
 import { useState } from "react";
-
+import { useMutation, useQuery } from "@apollo/client";
 
 export default function Home() {
   const { loading, error, data } = useQuery<GetUsersQuery>(GET_USERS);
