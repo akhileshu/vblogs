@@ -1,0 +1,88 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Blog {
+  id             Int                 @id @default(autoincrement())
+  title          String
+  content        String
+  metadata       BlogMetaData?
+  video          Video?
+  categorization BlogCategorization?
+  createdAt      DateTime            @default(now())
+  updatedAt      DateTime            @updatedAt
+}
+
+model Video {
+  id                             Int                             @id @default(autoincrement())
+  blog                           Blog                            @relation(fields: [blogId], references: [id])
+  blogId                         Int                             @unique
+  dataSaverUrl                   String
+  highQualityUrl                 String
+  contentToVideoTimelineMappings ContentToVideoTimelineMapping[]
+}
+
+model ContentToVideoTimelineMapping {
+  id        Int      @id @default(autoincrement())
+  video     Video    @relation(fields: [videoId], references: [id])
+  videoId   Int      @unique
+  contentId Int      @unique
+  timeline  DateTime
+}
+
+model BlogCategorization {
+  blog          Blog         @relation(fields: [blogId], references: [id])
+  blogId        Int          @unique
+  Category      Category?    @relation(fields: [categoryId], references: [id])
+  categoryId    Int?
+  SubCategory   SubCategory? @relation(fields: [subCategoryId], references: [id])
+  subCategoryId Int?
+  Concept       Concept?     @relation(fields: [conceptId], references: [id])
+  conceptId     Int?
+}
+
+model BlogMetaData {
+  id            Int      @id @default(autoincrement())
+  author        String
+  description   String
+  wordCount     Int
+  tags          String[]
+  commentsCount Int
+  blog          Blog     @relation(fields: [blogId], references: [id])
+  blogId        Int      @unique
+}
+
+model Category {
+  id           Int                  @id @default(autoincrement())
+  name         String
+  blog         BlogCategorization[]
+  subCategorys SubCategory[]
+}
+
+model SubCategory {
+  id         Int                  @id @default(autoincrement())
+  name       String
+  blog       BlogCategorization[]
+  Category   Category             @relation(fields: [categoryId], references: [id])
+  categoryId Int
+  concepts   Concept[]
+}
+
+model Concept {
+  id            Int                  @id @default(autoincrement())
+  name          String
+  blog          BlogCategorization[]
+  SubCategory   SubCategory          @relation(fields: [subCategoryId], references: [id])
+  subCategoryId Int
+}

@@ -1,0 +1,8 @@
+schema: "http://localhost:3000/api/graphql" # Replace with your GraphQL server URL or path to your schema file
+documents: "src/graphql/**/*.ts" # Path to your GraphQL queries and mutations ,so our types are based on resolvers,typedefs , queries , mutations
+generates:
+  src/generated/graphql.ts: # Output path for the generated types
+    plugins:
+      - "typescript"
+      - "typescript-operations"
+      - "typescript-react-apollo"
