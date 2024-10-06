@@ -1,6 +1,6 @@
 // utils/graphqlHelpers.ts
 
-import { GraphQLContext } from "@/graphql/common";
+import { GraphQLContext } from "@/graphql/types/shared";
 import { z } from "zod";
 
 // Define the structure of a generic response

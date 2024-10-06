@@ -1,6 +1,8 @@
 import executeAsyncAndRespond, { formatResponse } from "@/lib/graphqlHelpers";
 import { MutationCreateUserArgs, Resolvers, User } from "../generated/graphql";
-import { createUserSchema, GraphQLContext } from "./common";
+import { GraphQLContext } from "./types/shared";
+import { createUserSchema } from "./zodSchemas/user";
+
 const users: User[] = [];
 
 const resolvers: Resolvers = {
