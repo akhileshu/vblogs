@@ -4,8 +4,8 @@ import {
   CreateUserMutation,
   CreateUserMutationVariables,
 } from "@/generated/graphql";
-import { CREATE_USER } from "@/graphql/mutations/userMutations";
-import { GET_USERS } from "@/graphql/queries/userQueries";
+import { CREATE_USER } from "@/graphql/mutations/user";
+import { GET_USERS } from "@/graphql/queries/user";
 import { useState } from "react";
 import { useMutation, useQuery } from "@apollo/client";
 
@@ -17,7 +17,7 @@ export default function Home() {
   >(CREATE_USER, {
     refetchQueries: [{ query: GET_USERS }],
   });
-  const [name, setName] = useState("");
+  const [name, setName] = useState(1);
   const [email, setEmail] = useState("");
 
   const handleSubmit = async (e) => {

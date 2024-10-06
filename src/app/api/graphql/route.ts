@@ -16,9 +16,20 @@ const handler = startServerAndCreateNextHandler(apolloServer);
 
 // Export the request handler for Next.js API route
 export async function GET(request: NextApiRequest, response: NextApiResponse) {
+
+/*   await rateLimiter(
+    request,
+    response,
+    RATE_LIMIT_REQUESTS,
+    RATE_LIMIT_TIME_WINDOW
+  );
+  // If the response was blocked by rate limiter, stop further execution
+  if (response.writableEnded) return;
+   */
   return handler(request, response);
 }
 
 export async function POST(request: NextApiRequest, response: NextApiResponse) {
+  // rate limit here too
   return handler(request, response);
 }

@@ -1,0 +1,3 @@
+can use npm package : graphql-middleware
+
+if download npm pckg while running container - node-modules unsync | try installing when not running container

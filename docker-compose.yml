@@ -29,5 +29,14 @@ services:
     volumes:
       - pgdata_dev:/var/lib/postgresql/data # Separate volume for dev db
 
+
+  redis:
+      image: redis:alpine
+      ports:
+        - "6379:6379"
+      volumes:
+        - redisdata:/data # Separate volume for Redis data persistence
+
 volumes:
   pgdata_dev:
+  redisdata:
