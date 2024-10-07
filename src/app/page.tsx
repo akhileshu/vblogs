@@ -1,29 +1,36 @@
 "use client";
 import {
-  GetUsersQuery,
   CreateUserMutation,
   CreateUserMutationVariables,
+  GetUsersQuery,
 } from "@/generated/graphql";
-import { CREATE_USER } from "@/graphql/mutations/user";
-import { GET_USERS } from "@/graphql/queries/user";
-import { useState } from "react";
+import { CREATE_USER } from "@/graphql/operations/mutations/user";
+import { GET_USERS } from "@/graphql/operations/queries/user";
 import { useMutation, useQuery } from "@apollo/client";
+import { FormEvent, useState } from "react";
 
 export default function Home() {
   const { loading, error, data } = useQuery<GetUsersQuery>(GET_USERS);
+  const users = data?.getUsers?.data;
+  const getUsersErrorMessage = data?.getUsers.message || error?.message;
+  console.log({ getUsersResponse: data?.getUsers });
+
   const [createUser] = useMutation<
     CreateUserMutation,
     CreateUserMutationVariables
   >(CREATE_USER, {
     refetchQueries: [{ query: GET_USERS }],
   });
-  const [name, setName] = useState(1);
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      await createUser({ variables: { name, email } });
+      const { data } = await createUser({ variables: { name, email } });
+      const status = data?.createUser.success ? "success" : "failure";
+      console.log({ status, message: data?.createUser.message });
+
       setName("");
       setEmail("");
     } catch (error) {
@@ -35,14 +42,15 @@ export default function Home() {
       <div>
         <h1>List of Users</h1>
         {loading && <p>Loading...</p>}
-        {error && <p>Error: {error.message}</p>}
-        {data &&
-          data.getUsers.map((user) => (
-            <div key={user.id}>
-              <h2>{user.name}</h2>
-              <p>{user.email}</p>
-            </div>
-          ))}
+        {getUsersErrorMessage && <p>Error: {getUsersErrorMessage}</p>}
+
+        {users?.map((user, index) => (
+          <div key={index}>
+            <h2>{user.name}</h2>
+            <p>{user.email}</p>
+            <hr />
+          </div>
+        ))}
       </div>
       <form onSubmit={handleSubmit}>
         <input

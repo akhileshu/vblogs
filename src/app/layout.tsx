@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 
-import ApolloClientProvider from "@/lib/ApolloProvider";
+import ApolloClientProvider from "@/graphql/apollo/ApolloProvider";
 
 
 export const metadata: Metadata = {

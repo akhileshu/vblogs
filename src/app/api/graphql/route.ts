@@ -1,8 +1,8 @@
 // /app/api/graphql/route.ts
 import { ApolloServer } from "@apollo/server";
 import { startServerAndCreateNextHandler } from "@as-integrations/next";
-import resolvers from "@/graphql/resolvers";
-import typeDefs from "@/graphql/typeDefs";
+import resolvers from "@/graphql/schema/resolvers";
+import typeDefs from "@/graphql/schema/typeDefs";
 import { NextApiRequest, NextApiResponse } from "next";
 
 // Initialize the ApolloServer instance
@@ -16,8 +16,7 @@ const handler = startServerAndCreateNextHandler(apolloServer);
 
 // Export the request handler for Next.js API route
 export async function GET(request: NextApiRequest, response: NextApiResponse) {
-
-/*   await rateLimiter(
+  /*   await rateLimiter(
     request,
     response,
     RATE_LIMIT_REQUESTS,
