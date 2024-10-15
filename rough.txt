@@ -1,3 +1,19 @@
 can use npm package : graphql-middleware
 
 if download npm pckg while running container - node-modules unsync | try installing when not running container
+
+TypeGraphQL with Prisma ================================
+Example Flow
+Define your models in the Prisma schema.
+Run Prisma generate to create the TypeGraphQL types.
+Write resolvers to implement the logic for your GraphQL queries and mutations.
+
+===========================mypostgress docker container
+docker run -d \
+  --name myPostgres \
+  -e POSTGRES_USER=postgres \
+  -e POSTGRES_PASSWORD=example \
+  -e POSTGRES_DB=vblogs \
+  -p 5432:5432 \
+  -v pgdata_dev:/var/lib/postgresql/data \
+  postgres:14-alpine

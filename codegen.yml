@@ -1,4 +1,6 @@
-schema: "http://localhost:3000/api/graphql" # Replace with your GraphQL server URL or path to your schema file
+overwrite: true
+schema: "prisma/schema.prisma" # Replace with your GraphQL server URL or path to your schema file
+# schema: "http://localhost:3000/api/graphql" # Replace with your GraphQL server URL or path to your schema file
 documents: "src/graphql/**/*.ts" # Path to your GraphQL queries and mutations ,on basis of typeDefs ,we are generating types for our queries,mutations,resolvers
 generates:
   src/generated/graphql.ts: # Output path for the generated types
@@ -6,4 +8,12 @@ generates:
       - "typescript"
       - "typescript-operations"
       - "typescript-react-apollo"
+      - "typescript-resolvers"
+
+
+src/generated/schema.graphql:  # Output path for generated GraphQL schema
+    plugins:
+      - "schema-ast"
+src/generated/resolvers.ts:     # Output path for generated resolvers
+    plugins:
       - "typescript-resolvers"

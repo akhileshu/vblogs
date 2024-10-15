@@ -1,5 +1,5 @@
 # Development and Production Dockerfile
-FROM node:18-alpine AS base
+FROM node:20.18.0-alpine AS base
 
 # Set working directory
 WORKDIR /app

@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 
-import ApolloClientProvider from "@/graphql/apollo/ApolloProvider";
-
+import ApolloClientProvider from "@/shared/utils/apollo/ApolloProvider";
 
 export const metadata: Metadata = {
   title: "Create Next App",
