@@ -1,0 +1,15 @@
+export { AggregateGoalArgs } from "./AggregateGoalArgs";
+export { CreateManyAndReturnGoalArgs } from "./CreateManyAndReturnGoalArgs";
+export { CreateManyGoalArgs } from "./CreateManyGoalArgs";
+export { CreateOneGoalArgs } from "./CreateOneGoalArgs";
+export { DeleteManyGoalArgs } from "./DeleteManyGoalArgs";
+export { DeleteOneGoalArgs } from "./DeleteOneGoalArgs";
+export { FindFirstGoalArgs } from "./FindFirstGoalArgs";
+export { FindFirstGoalOrThrowArgs } from "./FindFirstGoalOrThrowArgs";
+export { FindManyGoalArgs } from "./FindManyGoalArgs";
+export { FindUniqueGoalArgs } from "./FindUniqueGoalArgs";
+export { FindUniqueGoalOrThrowArgs } from "./FindUniqueGoalOrThrowArgs";
+export { GroupByGoalArgs } from "./GroupByGoalArgs";
+export { UpdateManyGoalArgs } from "./UpdateManyGoalArgs";
+export { UpdateOneGoalArgs } from "./UpdateOneGoalArgs";
+export { UpsertOneGoalArgs } from "./UpsertOneGoalArgs";

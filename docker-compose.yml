@@ -1,0 +1,42 @@
+services:
+  vblogs-dev-app:
+    build:
+      context: .
+      target: ${NODE_ENV:-development} # Switch between development and production based on NODE_ENV
+    volumes:
+      - .:/app # Mounts local code to container for live-reload (development only)
+      - /app/node_modules # Prevents overwriting node_modules with local empty directory
+    ports:
+      - "3000:3000"
+      - "5555:5555"
+    env_file:
+      - .env
+    environment:
+      NODE_ENV: ${NODE_ENV:-development} # Set the environment (development by default)
+    depends_on:
+      - postgres
+    command: sh -c "npm run dev & npx prisma studio"
+
+
+  postgres:
+    image: postgres:14-alpine
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: example
+      POSTGRES_DB: vblogs
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata_dev:/var/lib/postgresql/data # Separate volume for dev db
+
+
+  redis:
+      image: redis:alpine
+      ports:
+        - "6379:6379"
+      volumes:
+        - redisdata:/data # Separate volume for Redis data persistence
+
+volumes:
+  pgdata_dev:
+  redisdata:

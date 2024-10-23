@@ -1,0 +1,41 @@
+import { gql } from '@apollo/client';
+
+export const CREATE_{{constantCase modelName}} = gql`
+  mutation Create{{pascalCase modelName}}($create{{pascalCase modelName}}Input: {{pascalCase modelName}}CreateInput!) {
+    create{{pascalCase modelName}}(create{{pascalCase modelName}}Input: $create{{pascalCase modelName}}Input) {
+      # Add other fields
+      success
+      message
+      status
+      data{
+        id
+      }
+    }
+  }
+`;
+
+export const UPDATE_{{constantCase modelName}} = gql`
+  mutation Update{{pascalCase modelName}}($where: {{pascalCase modelName}}WhereUniqueInput!, $update{{pascalCase modelName}}Input: {{pascalCase modelName}}UpdateInput!) {
+    update{{pascalCase modelName}}(where: $where, update{{pascalCase modelName}}Input: $update{{pascalCase modelName}}Input) {
+      # Add other fields
+      success
+      message
+      status
+      data{
+        id
+      }
+    }
+  }
+`;
+
+export const DELETE_{{constantCase modelName}} = gql`
+  mutation Delete{{pascalCase modelName}}($where: {{pascalCase modelName}}WhereUniqueInput!) {
+    delete{{pascalCase modelName}}(where: $where) {
+      # Add any relevant return fields
+      success
+      message
+      status
+      data  
+    }
+  }
+`;

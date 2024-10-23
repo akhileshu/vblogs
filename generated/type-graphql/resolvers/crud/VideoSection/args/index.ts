@@ -1,0 +1,15 @@
+export { AggregateVideoSectionArgs } from "./AggregateVideoSectionArgs";
+export { CreateManyAndReturnVideoSectionArgs } from "./CreateManyAndReturnVideoSectionArgs";
+export { CreateManyVideoSectionArgs } from "./CreateManyVideoSectionArgs";
+export { CreateOneVideoSectionArgs } from "./CreateOneVideoSectionArgs";
+export { DeleteManyVideoSectionArgs } from "./DeleteManyVideoSectionArgs";
+export { DeleteOneVideoSectionArgs } from "./DeleteOneVideoSectionArgs";
+export { FindFirstVideoSectionArgs } from "./FindFirstVideoSectionArgs";
+export { FindFirstVideoSectionOrThrowArgs } from "./FindFirstVideoSectionOrThrowArgs";
+export { FindManyVideoSectionArgs } from "./FindManyVideoSectionArgs";
+export { FindUniqueVideoSectionArgs } from "./FindUniqueVideoSectionArgs";
+export { FindUniqueVideoSectionOrThrowArgs } from "./FindUniqueVideoSectionOrThrowArgs";
+export { GroupByVideoSectionArgs } from "./GroupByVideoSectionArgs";
+export { UpdateManyVideoSectionArgs } from "./UpdateManyVideoSectionArgs";
+export { UpdateOneVideoSectionArgs } from "./UpdateOneVideoSectionArgs";
+export { UpsertOneVideoSectionArgs } from "./UpsertOneVideoSectionArgs";

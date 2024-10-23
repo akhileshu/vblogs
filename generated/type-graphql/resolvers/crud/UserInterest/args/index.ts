@@ -1,0 +1,15 @@
+export { AggregateUserInterestArgs } from "./AggregateUserInterestArgs";
+export { CreateManyAndReturnUserInterestArgs } from "./CreateManyAndReturnUserInterestArgs";
+export { CreateManyUserInterestArgs } from "./CreateManyUserInterestArgs";
+export { CreateOneUserInterestArgs } from "./CreateOneUserInterestArgs";
+export { DeleteManyUserInterestArgs } from "./DeleteManyUserInterestArgs";
+export { DeleteOneUserInterestArgs } from "./DeleteOneUserInterestArgs";
+export { FindFirstUserInterestArgs } from "./FindFirstUserInterestArgs";
+export { FindFirstUserInterestOrThrowArgs } from "./FindFirstUserInterestOrThrowArgs";
+export { FindManyUserInterestArgs } from "./FindManyUserInterestArgs";
+export { FindUniqueUserInterestArgs } from "./FindUniqueUserInterestArgs";
+export { FindUniqueUserInterestOrThrowArgs } from "./FindUniqueUserInterestOrThrowArgs";
+export { GroupByUserInterestArgs } from "./GroupByUserInterestArgs";
+export { UpdateManyUserInterestArgs } from "./UpdateManyUserInterestArgs";
+export { UpdateOneUserInterestArgs } from "./UpdateOneUserInterestArgs";
+export { UpsertOneUserInterestArgs } from "./UpsertOneUserInterestArgs";

@@ -1,0 +1,15 @@
+export { AggregateTopicArgs } from "./AggregateTopicArgs";
+export { CreateManyAndReturnTopicArgs } from "./CreateManyAndReturnTopicArgs";
+export { CreateManyTopicArgs } from "./CreateManyTopicArgs";
+export { CreateOneTopicArgs } from "./CreateOneTopicArgs";
+export { DeleteManyTopicArgs } from "./DeleteManyTopicArgs";
+export { DeleteOneTopicArgs } from "./DeleteOneTopicArgs";
+export { FindFirstTopicArgs } from "./FindFirstTopicArgs";
+export { FindFirstTopicOrThrowArgs } from "./FindFirstTopicOrThrowArgs";
+export { FindManyTopicArgs } from "./FindManyTopicArgs";
+export { FindUniqueTopicArgs } from "./FindUniqueTopicArgs";
+export { FindUniqueTopicOrThrowArgs } from "./FindUniqueTopicOrThrowArgs";
+export { GroupByTopicArgs } from "./GroupByTopicArgs";
+export { UpdateManyTopicArgs } from "./UpdateManyTopicArgs";
+export { UpdateOneTopicArgs } from "./UpdateOneTopicArgs";
+export { UpsertOneTopicArgs } from "./UpsertOneTopicArgs";

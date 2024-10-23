@@ -1,0 +1,182 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+generator typegraphql {
+  provider = "typegraphql-prisma"
+  output   = "../generated/type-graphql" // Set the output to a directory outside node_modules
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Goal {
+  id           Int          @id @default(autoincrement())
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
+  title        String
+  Technologies Technology[]
+}
+
+model Technology {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  title     String
+  Topics    Topic[]
+  Goal      Goal?    @relation(fields: [goalId], references: [id])
+  goalId    Int?
+
+  userInterests UserInterest[]
+}
+
+model Topic {
+  id            Int            @id @default(autoincrement())
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  title         String
+  Technology    Technology?    @relation(fields: [technologyId], references: [id])
+  technologyId  Int?
+  Blogs         Blog[]
+  tags          Tag[]
+  userInterests UserInterest[]
+}
+
+model Tag {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  title String
+
+  Topic   Topic?     @relation(fields: [topicId], references: [id])
+  topicId Int?
+  Blogs   TagsOnBlogs[]
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  username  String         @unique
+  Blogs     Blog[]
+  emailId   String         @unique
+  interests UserInterest[]
+}
+
+model UserInterest {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  userId Int
+  user   User @relation(fields: [userId], references: [id])
+
+  technologyId Int?
+  Technology   Technology? @relation(fields: [technologyId], references: [id])
+
+  topicId Int?
+  Topic   Topic? @relation(fields: [topicId], references: [id])
+
+  interestType InterestType //field to determine the type of interest (technology or topic)
+}
+
+enum InterestType {
+  TECHNOLOGY
+  TOPIC
+}
+
+model Blog {
+  id         Int        @id @default(autoincrement())
+  createdAt  DateTime   @default(now())
+  updatedAt  DateTime   @updatedAt
+  Topic      Topic?     @relation(fields: [topicId], references: [id])
+  topicId    Int?
+  skillLevel SkillLevel @default(INTERMEDIATE)
+
+  // 
+  Tags              TagsOnBlogs[]
+  Author            User?        @relation(fields: [authorId], references: [id])
+  authorId          Int?
+  content           BlogContent?
+  description       String
+  title             String
+  slug              String       @unique // for sharable url
+  views             Int          @default(0)
+  readTimeInMinutes Int
+  Video             Video?
+
+  @@unique([topicId, title]) // Ensure unique title for each topic
+}
+
+model Video {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  Blog      Blog     @relation(fields: [blogId], references: [id])
+  blogId    Int      @unique
+
+  videoLink     String
+  thumbnailLink String
+  Sections      VideoSection[]
+}
+
+model VideoSection {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  Video     Video    @relation(fields: [videoId], references: [id])
+  videoId   Int
+
+  blogSectionTitle   String 
+  timestampInSeconds Int // Timestamp in seconds where this heading corresponds in the video
+  blogPart          BlogPart
+
+  @@unique([blogSectionTitle, blogPart]) //each video section title can only be mapped to one timeline for a given part of the blog
+}
+
+enum BlogPart {
+  INTRO
+  IMPLEMENTATION
+  ADVANCED
+}
+
+model BlogContent {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  intro          Json
+  implementation Json
+  advanced       Json
+  Blog           Blog @relation(fields: [blogId], references: [id])
+  blogId         Int  @unique
+}
+
+model TagsOnBlogs {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  Tag    Tag  @relation(fields: [tagId], references: [id])
+  tagId  Int
+  Blog   Blog @relation(fields: [blogId], references: [id])
+  blogId Int
+
+  @@unique([blogId, tagId]) // a blog can't have the same tag twice
+}
+
+enum SkillLevel {
+  BASIC
+  INTERMEDIATE
+  ADVANCED
+}

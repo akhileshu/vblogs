@@ -1,0 +1,29 @@
+import { gql } from '@apollo/client';
+
+export const GET_{{constantCase modelName}}S = gql`
+  query Get{{pascalCase modelName}}s {
+    get{{pascalCase modelName}}s {
+      # Add other fields
+      success
+      message
+      status
+      data{
+        id
+      }
+    }
+  }
+`;
+
+export const GET_{{constantCase modelName}}_BY_ID = gql`
+  query Get{{pascalCase modelName}}ById($where: {{pascalCase modelName}}WhereUniqueInput!) {
+    get{{pascalCase modelName}}ById(where: $where) {
+      # Add other fields
+      success
+      message
+      status
+      data{
+        id
+      }      
+    }
+  }
+`;

@@ -1,0 +1,29 @@
+import * as TypeGraphQL from "type-graphql";
+import * as GraphQLScalars from "graphql-scalars";
+import { Prisma } from "@prisma/client";
+import { DecimalJSScalar } from "../../scalars";
+import { BlogCreateNestedOneWithoutTagsInput } from "../inputs/BlogCreateNestedOneWithoutTagsInput";
+import { TagCreateNestedOneWithoutBlogsInput } from "../inputs/TagCreateNestedOneWithoutBlogsInput";
+
+@TypeGraphQL.InputType("TagsOnBlogsCreateInput", {})
+export class TagsOnBlogsCreateInput {
+  @TypeGraphQL.Field(_type => Date, {
+    nullable: true
+  })
+  createdAt?: Date | undefined;
+
+  @TypeGraphQL.Field(_type => Date, {
+    nullable: true
+  })
+  updatedAt?: Date | undefined;
+
+  @TypeGraphQL.Field(_type => TagCreateNestedOneWithoutBlogsInput, {
+    nullable: false
+  })
+  Tag!: TagCreateNestedOneWithoutBlogsInput;
+
+  @TypeGraphQL.Field(_type => BlogCreateNestedOneWithoutTagsInput, {
+    nullable: false
+  })
+  Blog!: BlogCreateNestedOneWithoutTagsInput;
+}

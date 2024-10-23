@@ -1,0 +1,11 @@
+export { BlogCrudResolver } from "./Blog/BlogCrudResolver";
+export { BlogContentCrudResolver } from "./BlogContent/BlogContentCrudResolver";
+export { GoalCrudResolver } from "./Goal/GoalCrudResolver";
+export { TagCrudResolver } from "./Tag/TagCrudResolver";
+export { TagsOnBlogsCrudResolver } from "./TagsOnBlogs/TagsOnBlogsCrudResolver";
+export { TechnologyCrudResolver } from "./Technology/TechnologyCrudResolver";
+export { TopicCrudResolver } from "./Topic/TopicCrudResolver";
+export { UserCrudResolver } from "./User/UserCrudResolver";
+export { UserInterestCrudResolver } from "./UserInterest/UserInterestCrudResolver";
+export { VideoCrudResolver } from "./Video/VideoCrudResolver";
+export { VideoSectionCrudResolver } from "./VideoSection/VideoSectionCrudResolver";

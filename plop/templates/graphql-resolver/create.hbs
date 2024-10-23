@@ -1,0 +1,50 @@
+import { Ctx, Mutation, Resolver, Arg, ObjectType, Field  } from "type-graphql";
+import { {{pascalCase modelName}},{{pascalCase modelName}}CreateInput } from "../../../../generated/type-graphql";
+import { BaseResponse , executeWithValidation } from "@/shared/libs/typeGraphql/response";
+import type { Context, ResponseClass, BaseResponseOptions } from "@/shared/libs/typeGraphql/response";
+
+  @ObjectType()
+  class Create{{pascalCase modelName}}Response extends BaseResponse< {{pascalCase modelName}} | null> {
+    @Field(() => {{pascalCase modelName}}, { nullable: true })
+    data: {{pascalCase modelName}} | null;
+
+    constructor(options: BaseResponseOptions< {{pascalCase modelName}} | null>) {
+      super(options);
+      this.data = options.data ?? null;
+    }
+  }
+
+
+@Resolver()
+export class Create{{pascalCase modelName}}Resolver {
+  @Mutation(() => Create{{pascalCase modelName}}Response)
+  async create{{pascalCase modelName}}(
+    @Ctx() ctx: Context,
+    @Arg("create{{pascalCase modelName}}Input") create{{pascalCase modelName}}Input: {{pascalCase modelName}}CreateInput
+  ) {
+    const executeFn = async (): Promise<InstanceType<typeof Create{{pascalCase modelName}}Response>> => {
+      const created{{pascalCase modelName}} = await ctx.prisma.{{camelCase modelName}}.create({ data:create{{pascalCase modelName}}Input })
+
+      if (!created{{pascalCase modelName}}) {
+        return new Create{{pascalCase modelName}}Response({
+          success: false,
+          data: null,
+          message: "Failed to create {{pascalCase modelName}}",
+          status: "CREATION_ERROR",
+        });
+      }
+
+      return new Create{{pascalCase modelName}}Response({
+        success: true,
+        data: created{{pascalCase modelName}},
+      });
+    };
+
+    return await executeWithValidation({
+      executeFn,
+      ResponseClass: Create{{pascalCase modelName}}Response as ResponseClass< {{pascalCase modelName}} | null>,
+      ctx,
+      fallbackErrorMessage: "Failed to create {{camelCase modelName}}",
+    });
+  }
+}

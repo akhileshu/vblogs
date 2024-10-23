@@ -1,0 +1,17 @@
+export { Get{{pascalCase modelName}}ByIdResolver } from "./get{{pascalCase modelName}}ById";
+export { Get{{pascalCase modelName}}sResolver } from "./get{{pascalCase modelName}}s";
+export { Update{{pascalCase modelName}}Resolver } from "./update{{pascalCase modelName}}";
+export { Delete{{pascalCase modelName}}Resolver } from "./delete{{pascalCase modelName}}";
+export { Create{{pascalCase modelName}}Resolver } from "./create{{pascalCase modelName}}";
+
+//!PASTE BELOW CODE IN createGraphQLSchema.ts
+
+import { Get{{pascalCase modelName}}ByIdResolver, Get{{pascalCase modelName}}sResolver, Create{{pascalCase modelName}}Resolver, Update{{pascalCase modelName}}Resolver, Delete{{pascalCase modelName}}Resolver } from "@/graphql/resolvers/{{camelCase modelName}}";
+
+const {{pascalCase modelName}}Resolvers: NonEmptyArray<Function> = [
+  Get{{pascalCase modelName}}ByIdResolver,
+  Get{{pascalCase modelName}}sResolver,
+  Create{{pascalCase modelName}}Resolver,
+  Update{{pascalCase modelName}}Resolver,
+  Delete{{pascalCase modelName}}Resolver,
+];

@@ -1,0 +1,45 @@
+import { Ctx, Mutation, Resolver, Arg, ObjectType, Field  } from "type-graphql";
+import { {{pascalCase modelName}}WhereUniqueInput } from "../../../../generated/type-graphql";
+import { BaseResponse , executeWithValidation } from "@/shared/libs/typeGraphql/response";
+import type { Context, ResponseClass, BaseResponseOptions } from "@/shared/libs/typeGraphql/response";
+
+  @ObjectType()
+  class Delete{{pascalCase modelName}}Response extends BaseResponse<boolean | null> {
+    @Field(() => Boolean, { nullable: true })
+    data: boolean | null;
+
+    constructor(options: BaseResponseOptions<boolean | null>) {
+      super(options);
+      this.data = options.data ?? null;
+    }
+  }
+
+@Resolver()
+export class Delete{{pascalCase modelName}}Resolver {
+  @Mutation(() => Delete{{pascalCase modelName}}Response)
+  async delete{{pascalCase modelName}}(
+    @Ctx() ctx: Context,
+   @Arg("where") where: {{pascalCase modelName}}WhereUniqueInput,
+  ) {
+    const executeFn = async (): Promise<InstanceType<typeof Delete{{pascalCase modelName}}Response>> => {
+      const deleted{{pascalCase modelName}} = await ctx.prisma.{{camelCase modelName}}.delete({ where });
+
+      if (!deleted{{pascalCase modelName}}) {
+        return new Delete{{pascalCase modelName}}Response({
+          success: false,
+          data: null,
+          message: "Failed to delete {{pascalCase modelName}}",
+          status: "DELETION_ERROR",
+        });
+      }
+      return new Delete{{pascalCase modelName}}Response({ success: true, data: true });
+    };
+
+    return await executeWithValidation({
+      executeFn,
+      ResponseClass: Delete{{pascalCase modelName}}Response as ResponseClass<boolean | null>,
+      ctx,
+      fallbackErrorMessage: "Failed to delete {{camelCase modelName}}",
+    });
+  }
+}

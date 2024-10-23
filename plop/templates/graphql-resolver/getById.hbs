@@ -1,0 +1,49 @@
+import { Ctx, Query, Resolver, Arg, ObjectType, Field  } from "type-graphql";
+import { {{pascalCase modelName}} ,{{pascalCase modelName}}WhereUniqueInput} from "../../../../generated/type-graphql";
+import { BaseResponse , executeWithValidation } from "@/shared/libs/typeGraphql/response";
+import type { Context, ResponseClass, BaseResponseOptions } from "@/shared/libs/typeGraphql/response";
+
+  @ObjectType()
+  class Get{{pascalCase modelName}}ByIdResponse extends BaseResponse< {{pascalCase modelName}} | null> {
+    @Field(() => {{pascalCase modelName}}, { nullable: true })
+    data: {{pascalCase modelName}} | null;
+
+    constructor(options: BaseResponseOptions< {{pascalCase modelName}} | null>) {
+      super(options);
+      this.data = options.data ?? null;
+    }
+  }
+
+@Resolver()
+export class Get{{pascalCase modelName}}ByIdResolver {
+  @Query(() => Get{{pascalCase modelName}}ByIdResponse)
+  async get{{pascalCase modelName}}ById(
+    @Ctx() ctx: Context,
+    @Arg("where") where: {{pascalCase modelName}}WhereUniqueInput,
+  ) {
+    const executeFn = async (): Promise<InstanceType<typeof Get{{pascalCase modelName}}ByIdResponse>> => {
+      const found{{pascalCase modelName}} = await ctx.prisma.{{camelCase modelName}}.findUnique({ where})
+
+      if (!found{{pascalCase modelName}}) {
+              return new Get{{pascalCase modelName}}ByIdResponse({
+                success: false,
+                data: null,
+                message: "{{pascalCase modelName}} not found",
+                status: "NOT_FOUND_ERROR",
+              });
+            }
+
+      return new Get{{pascalCase modelName}}ByIdResponse({
+        success: true,
+        data: found{{pascalCase modelName}},
+      });
+    };
+
+    return await executeWithValidation({
+      executeFn,
+      ResponseClass: Get{{pascalCase modelName}}ByIdResponse as ResponseClass< {{pascalCase modelName}} | null>,
+      ctx,
+      fallbackErrorMessage: "Failed to get {{camelCase modelName}} by ID",
+    });
+  }
+}

@@ -1,0 +1,1 @@
+export { GoalTechnologiesArgs } from "./GoalTechnologiesArgs";

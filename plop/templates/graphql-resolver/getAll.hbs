@@ -1,0 +1,46 @@
+import { Ctx, Query, Resolver, ObjectType, Field  } from "type-graphql";
+import { {{pascalCase modelName}} } from "../../../../generated/type-graphql";
+import { BaseResponse , executeWithValidation } from "@/shared/libs/typeGraphql/response";
+import type { Context, ResponseClass, BaseResponseOptions } from "@/shared/libs/typeGraphql/response";
+
+  @ObjectType()
+  class Get{{pascalCase modelName}}sResponse extends BaseResponse< {{pascalCase modelName}}[] | null> {
+    @Field(() => [{{pascalCase modelName}}], { nullable: true })
+    data: {{pascalCase modelName}}[] | null;
+
+    constructor(options: BaseResponseOptions< {{pascalCase modelName}}[] | null>) {
+      super(options);
+      this.data = options.data ?? null;
+    }
+  }
+
+@Resolver()
+export class Get{{pascalCase modelName}}sResolver {
+  @Query(() => Get{{pascalCase modelName}}sResponse)
+  async get{{pascalCase modelName}}s(@Ctx() ctx: Context) {
+    const executeFn = async (): Promise<InstanceType<typeof Get{{pascalCase modelName}}sResponse>> => {
+      const all{{pascalCase modelName}}s = await ctx.prisma.{{camelCase modelName}}.findMany()
+
+      if (!all{{pascalCase modelName}}s || all{{pascalCase modelName}}s.length === 0) {
+        return new Get{{pascalCase modelName}}sResponse({
+          success: false,
+          data: [],
+          message: "No {{pascalCase modelName}} found",
+          status: "NOT_FOUND_ERROR",
+        });
+      }
+
+      return new Get{{pascalCase modelName}}sResponse({
+        success: true,
+        data: all{{pascalCase modelName}}s,
+      });
+    };
+
+    return await executeWithValidation({
+      executeFn,
+      ResponseClass: Get{{pascalCase modelName}}sResponse as ResponseClass< {{pascalCase modelName}}[] | null>,
+      ctx,
+      fallbackErrorMessage: "Failed to get {{camelCase modelName}}s",
+    });
+  }
+}

@@ -1,0 +1,148 @@
+can use npm package : graphql-middleware
+
+if download npm pckg while running container - node-modules unsync | try installing when not running container
+
+TypeGraphQL with Prisma ================================
+Example Flow
+Define your models in the Prisma schema.
+Run Prisma generate to create the TypeGraphQL types.
+Write resolvers to implement the logic for your GraphQL queries and mutations.
+
+===========================mypostgress docker container
+docker run -d \
+  --name myPostgres \
+  -e POSTGRES_USER=postgres \
+  -e POSTGRES_PASSWORD=example \
+  -e POSTGRES_DB=vblogs \
+  -p 5432:5432 \
+  -v pgdata_dev:/var/lib/postgresql/data \
+  postgres:14-alpine
+
+=================================================================================
+  Circular referencing issues in TypeGraphQL often arise when there are relationships between entities that reference each other. In your case, the Prisma schema you provided includes multiple models with interdependencies, which can lead to such errors when generating TypeGraphQL types. Here's how to resolve circular references in your schema.
+
+Common Solutions for Circular References
+
+if using prisma to generate TypeGraphQL schema
+to avoid circular references
+- Use More Descriptive Naming/ improve naming ,relationships etc
+
+
+Use @TypeGraphQL decorators: You can use the @TypeGraphQL decorators to explicitly define how the relationships should be resolved, which can help mitigate circular references.
+
+Use @Field(() => Type): For properties that reference other types, you can use a function to avoid circular references at the time of type resolution.
+
+Split types into separate files: If the schema is large and complex, consider splitting related types into separate files and importing them where necessary.
+
+Define nullable fields: Make sure that fields referencing other models are marked as nullable if they can be absent. This can help prevent circular references as well.
+
+======================================================================================================
+Steps to Force Migrate in Prisma - will loose data
+
+npx prisma migrate reset
+npx prisma migrate dev --name init
+
+======================================================================================================
+
+
+2. Generated Input Types ,from typeGraphql-prisma , below will be used for args for curd ops
+For each model in your Prisma schema, the generated types will include the following:
+
+Create Input: ModelCreateInput
+Update Input: ModelUpdateInput
+Where Unique Input: ModelWhereUniqueInput
+Where Input: ModelWhereInput
+List Input: ModelList (for querying multiple records)
+
+==========================================================================================
+
+model User {
+  id    Int     @id @default(autoincrement())
+  name  String
+  email String  @unique
+}
+
+export class User {
+  @Field(() => Int)
+  id: number;
+
+  @Field()
+  name: string;
+
+  @Field()
+  email: string;
+}
+
+@Resolver(User)
+export class UserResolver {
+  @Query(() => User, { nullable: true })
+  async getUser(
+    @Arg("where") where: UserWhereUniqueInput // Using Where Unique Input
+  ): Promise<User | null> {
+    return prisma.user.findUnique({
+      where,
+    });
+  }
+
+
+     query {
+       getUser(where: { email: "example@example.com" }) {
+         id
+         name
+         email
+       }
+     }
+     ```
+
+Using the generated types for Where Unique Input and Where Input from TypeGraphQL (which are derived from your Prisma schema) is generally better than defining your own where condition types manually. 
+-Consistency:
+-Type Safety:
+
+-can consider using self defined where condition types - when necessary
+
+===========================================================================================================
+
+GraphQL schema (SDL): The first part defines the API types and structure.
+ex:type Query {
+  getBlogById(where: BlogWhereUniqueInput!): GetBlogByIdResponse!
+  getBlogs: GetBlogsResponse!
+}
+
+GraphQL query: The second part defines a client-side request to fetch data.
+ex:query: gql
+  query GetLocations {
+    locations {
+      id
+      name
+      description
+      photo
+    }
+  }
+
+similarly GraphQL mutation
+ex:mutation :gql{}
+
+========================================================================================
+using chrome extension: GraphQL Query Generator , for schema to query generation
+
+========================================================================================
+find types from codegen to use along with apollo client for request's
+
+arg types - use in frontend
+UpdateUserInterestMutationVariables
+query/mutation Name + query/mutation + Variables
+
+query/mutation type
+UpdateUserInterestMutation
+query/mutation Name + query/mutation
+
+
+
+
+
+
+
+
+
+
+

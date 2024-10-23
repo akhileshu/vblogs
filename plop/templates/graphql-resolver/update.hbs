@@ -1,0 +1,54 @@
+import { Ctx, Mutation, Resolver, Arg, ObjectType, Field  } from "type-graphql";
+import { {{pascalCase modelName}}, {{pascalCase modelName}}WhereUniqueInput ,{{pascalCase modelName}}UpdateInput } from "../../../../generated/type-graphql";
+import { BaseResponse , executeWithValidation } from "@/shared/libs/typeGraphql/response";
+import type { Context, ResponseClass, BaseResponseOptions } from "@/shared/libs/typeGraphql/response";
+
+  @ObjectType()
+  class Update{{pascalCase modelName}}Response extends BaseResponse< {{pascalCase modelName}} | null> {
+    @Field(() => {{pascalCase modelName}}, { nullable: true })
+    data: {{pascalCase modelName}} | null;
+
+    constructor(options: BaseResponseOptions< {{pascalCase modelName}} | null>) {
+      super(options);
+      this.data = options.data ?? null;
+    }
+  }
+
+@Resolver()
+export class Update{{pascalCase modelName}}Resolver {
+  @Mutation(() => Update{{pascalCase modelName}}Response)
+  async update{{pascalCase modelName}}(
+    @Ctx() ctx: Context,
+     @Arg("where") where: {{pascalCase modelName}}WhereUniqueInput,
+    @Arg("update{{pascalCase modelName}}Input") update{{pascalCase modelName}}Input: {{pascalCase modelName}}UpdateInput
+  ) {
+    const executeFn = async (): Promise<InstanceType<typeof Update{{pascalCase modelName}}Response>> => {
+
+    const updated{{pascalCase modelName}} = await ctx.prisma.{{camelCase modelName}}.update({
+            where,
+            data:update{{pascalCase modelName}}Input,
+          });
+
+          if (!updated{{pascalCase modelName}}) {
+            return new Update{{pascalCase modelName}}Response({
+              success: false,
+              data: null,
+              message: "Failed to update {{pascalCase modelName}}",
+              status: "UPDATE_ERROR",
+            });
+          }
+
+      return new Update{{pascalCase modelName}}Response({
+        success: true,
+        data: updated{{pascalCase modelName}},
+      });
+    };
+
+    return await executeWithValidation({
+      executeFn,
+      ResponseClass: Update{{pascalCase modelName}}Response as ResponseClass< {{pascalCase modelName}} | null>,
+      ctx,
+      fallbackErrorMessage: "Failed to update {{camelCase modelName}}",
+    });
+  }
+}

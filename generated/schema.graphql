@@ -1,0 +1,2156 @@
+type Query {
+  getUserInterestById(where: UserInterestWhereUniqueInput!): GetUserInterestByIdResponse!
+  getUserInterests: GetUserInterestsResponse!
+}
+
+type GetUserInterestByIdResponse {
+  success: Boolean!
+  message: String
+  status: String
+  data: UserInterest
+}
+
+type UserInterest {
+  id: Int!
+  createdAt: DateTimeISO!
+  updatedAt: DateTimeISO!
+  userId: Int!
+  technologyId: Int
+  topicId: Int
+  interestType: InterestType!
+}
+
+"""
+A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the `date-time` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar.This scalar is serialized to a string in ISO 8601 format and parsed from a string in ISO 8601 format.
+"""
+scalar DateTimeISO
+
+enum InterestType {
+  TECHNOLOGY
+  TOPIC
+}
+
+input UserInterestWhereUniqueInput {
+  id: Int
+  AND: [UserInterestWhereInput!]
+  OR: [UserInterestWhereInput!]
+  NOT: [UserInterestWhereInput!]
+  createdAt: DateTimeFilter
+  updatedAt: DateTimeFilter
+  userId: IntFilter
+  technologyId: IntNullableFilter
+  topicId: IntNullableFilter
+  interestType: EnumInterestTypeFilter
+  user: UserRelationFilter
+  Technology: TechnologyNullableRelationFilter
+  Topic: TopicNullableRelationFilter
+}
+
+input UserInterestWhereInput {
+  AND: [UserInterestWhereInput!]
+  OR: [UserInterestWhereInput!]
+  NOT: [UserInterestWhereInput!]
+  id: IntFilter
+  createdAt: DateTimeFilter
+  updatedAt: DateTimeFilter
+  userId: IntFilter
+  technologyId: IntNullableFilter
+  topicId: IntNullableFilter
+  interestType: EnumInterestTypeFilter
+  user: UserRelationFilter
+  Technology: TechnologyNullableRelationFilter
+  Topic: TopicNullableRelationFilter
+}
+
+input IntFilter {
+  equals: Int
+  in: [Int!]
+  notIn: [Int!]
+  lt: Int
+  lte: Int
+  gt: Int
+  gte: Int
+  not: NestedIntFilter
+}
+
+input NestedIntFilter {
+  equals: Int
+  in: [Int!]
+  notIn: [Int!]
+  lt: Int
+  lte: Int
+  gt: Int
+  gte: Int
+  not: NestedIntFilter
+}
+
+input DateTimeFilter {
+  equals: DateTimeISO
+  in: [DateTimeISO!]
+  notIn: [DateTimeISO!]
+  lt: DateTimeISO
+  lte: DateTimeISO
+  gt: DateTimeISO
+  gte: DateTimeISO
+  not: NestedDateTimeFilter
+}
+
+input NestedDateTimeFilter {
+  equals: DateTimeISO
+  in: [DateTimeISO!]
+  notIn: [DateTimeISO!]
+  lt: DateTimeISO
+  lte: DateTimeISO
+  gt: DateTimeISO
+  gte: DateTimeISO
+  not: NestedDateTimeFilter
+}
+
+input IntNullableFilter {
+  equals: Int
+  in: [Int!]
+  notIn: [Int!]
+  lt: Int
+  lte: Int
+  gt: Int
+  gte: Int
+  not: NestedIntNullableFilter
+}
+
+input NestedIntNullableFilter {
+  equals: Int
+  in: [Int!]
+  notIn: [Int!]
+  lt: Int
+  lte: Int
+  gt: Int
+  gte: Int
+  not: NestedIntNullableFilter
+}
+
+input EnumInterestTypeFilter {
+  equals: InterestType
+  in: [InterestType!]
+  notIn: [InterestType!]
+  not: NestedEnumInterestTypeFilter
+}
+
+input NestedEnumInterestTypeFilter {
+  equals: InterestType
+  in: [InterestType!]
+  notIn: [InterestType!]
+  not: NestedEnumInterestTypeFilter
+}
+
+input UserRelationFilter {
+  is: UserWhereInput
+  isNot: UserWhereInput
+}
+
+input UserWhereInput {
+  AND: [UserWhereInput!]
+  OR: [UserWhereInput!]
+  NOT: [UserWhereInput!]
+  id: IntFilter
+  createdAt: DateTimeFilter
+  updatedAt: DateTimeFilter
+  username: StringFilter
+  emailId: StringFilter
+  Blogs: BlogListRelationFilter
+  interests: UserInterestListRelationFilter
+}
+
+input StringFilter {
+  equals: String
+  in: [String!]
+  notIn: [String!]
+  lt: String
+  lte: String
+  gt: String
+  gte: String
+  contains: String
+  startsWith: String
+  endsWith: String
+  mode: QueryMode
+  not: NestedStringFilter
+}
+
+enum QueryMode {
+  default
+  insensitive
+}
+
+input NestedStringFilter {
+  equals: String
+  in: [String!]
+  notIn: [String!]
+  lt: String
+  lte: String
+  gt: String
+  gte: String
+  contains: String
+  startsWith: String
+  endsWith: String
+  not: NestedStringFilter
+}
+
+input BlogListRelationFilter {
+  every: BlogWhereInput
+  some: BlogWhereInput
+  none: BlogWhereInput
+}
+
+input BlogWhereInput {
+  AND: [BlogWhereInput!]
+  OR: [BlogWhereInput!]
+  NOT: [BlogWhereInput!]
+  id: IntFilter
+  createdAt: DateTimeFilter
+  updatedAt: DateTimeFilter
+  topicId: IntNullableFilter
+  skillLevel: EnumSkillLevelFilter
+  authorId: IntNullableFilter
+  description: StringFilter
+  title: StringFilter
+  slug: StringFilter
+  views: IntFilter
+  readTimeInMinutes: IntFilter
+  Topic: TopicNullableRelationFilter
+  Tags: TagsOnBlogsListRelationFilter
+  Author: UserNullableRelationFilter
+  content: BlogContentNullableRelationFilter
+  Video: VideoNullableRelationFilter
+}
+
+input EnumSkillLevelFilter {
+  equals: SkillLevel
+  in: [SkillLevel!]
+  notIn: [SkillLevel!]
+  not: NestedEnumSkillLevelFilter
+}
+
+enum SkillLevel {
+  BASIC
+  INTERMEDIATE
+  ADVANCED
+}
+
+input NestedEnumSkillLevelFilter {
+  equals: SkillLevel
+  in: [SkillLevel!]
+  notIn: [SkillLevel!]
+  not: NestedEnumSkillLevelFilter
+}
+
+input TopicNullableRelationFilter {
+  is: TopicWhereInput
+  isNot: TopicWhereInput
+}
+
+input TopicWhereInput {
+  AND: [TopicWhereInput!]
+  OR: [TopicWhereInput!]
+  NOT: [TopicWhereInput!]
+  id: IntFilter
+  createdAt: DateTimeFilter
+  updatedAt: DateTimeFilter
+  title: StringFilter
+  technologyId: IntNullableFilter
+  Technology: TechnologyNullableRelationFilter
+  Blogs: BlogListRelationFilter
+  tags: TagListRelationFilter
+  userInterests: UserInterestListRelationFilter
+}
+
+input TechnologyNullableRelationFilter {
+  is: TechnologyWhereInput
+  isNot: TechnologyWhereInput
+}
+
+input TechnologyWhereInput {
+  AND: [TechnologyWhereInput!]
+  OR: [TechnologyWhereInput!]
+  NOT: [TechnologyWhereInput!]
+  id: IntFilter
+  createdAt: DateTimeFilter
+  updatedAt: DateTimeFilter
+  title: StringFilter
+  goalId: IntNullableFilter
+  Topics: TopicListRelationFilter
+  Goal: GoalNullableRelationFilter
+  userInterests: UserInterestListRelationFilter
+}
+
+input TopicListRelationFilter {
+  every: TopicWhereInput
+  some: TopicWhereInput
+  none: TopicWhereInput
+}
+
+input GoalNullableRelationFilter {
+  is: GoalWhereInput
+  isNot: GoalWhereInput
+}
+
+input GoalWhereInput {
+  AND: [GoalWhereInput!]
+  OR: [GoalWhereInput!]
+  NOT: [GoalWhereInput!]
+  id: IntFilter
+  createdAt: DateTimeFilter
+  updatedAt: DateTimeFilter
+  title: StringFilter
+  Technologies: TechnologyListRelationFilter
+}
+
+input TechnologyListRelationFilter {
+  every: TechnologyWhereInput
+  some: TechnologyWhereInput
+  none: TechnologyWhereInput
+}
+
+input UserInterestListRelationFilter {
+  every: UserInterestWhereInput
+  some: UserInterestWhereInput
+  none: UserInterestWhereInput
+}
+
+input TagListRelationFilter {
+  every: TagWhereInput
+  some: TagWhereInput
+  none: TagWhereInput
+}
+
+input TagWhereInput {
+  AND: [TagWhereInput!]
+  OR: [TagWhereInput!]
+  NOT: [TagWhereInput!]
+  id: IntFilter
+  createdAt: DateTimeFilter
+  updatedAt: DateTimeFilter
+  title: StringFilter
+  topicId: IntNullableFilter
+  Topic: TopicNullableRelationFilter
+  Blogs: TagsOnBlogsListRelationFilter
+}
+
+input TagsOnBlogsListRelationFilter {
+  every: TagsOnBlogsWhereInput
+  some: TagsOnBlogsWhereInput
+  none: TagsOnBlogsWhereInput
+}
+
+input TagsOnBlogsWhereInput {
+  AND: [TagsOnBlogsWhereInput!]
+  OR: [TagsOnBlogsWhereInput!]
+  NOT: [TagsOnBlogsWhereInput!]
+  id: IntFilter
+  createdAt: DateTimeFilter
+  updatedAt: DateTimeFilter
+  tagId: IntFilter
+  blogId: IntFilter
+  Tag: TagRelationFilter
+  Blog: BlogRelationFilter
+}
+
+input TagRelationFilter {
+  is: TagWhereInput
+  isNot: TagWhereInput
+}
+
+input BlogRelationFilter {
+  is: BlogWhereInput
+  isNot: BlogWhereInput
+}
+
+input UserNullableRelationFilter {
+  is: UserWhereInput
+  isNot: UserWhereInput
+}
+
+input BlogContentNullableRelationFilter {
+  is: BlogContentWhereInput
+  isNot: BlogContentWhereInput
+}
+
+input BlogContentWhereInput {
+  AND: [BlogContentWhereInput!]
+  OR: [BlogContentWhereInput!]
+  NOT: [BlogContentWhereInput!]
+  id: IntFilter
+  createdAt: DateTimeFilter
+  updatedAt: DateTimeFilter
+  intro: JsonFilter
+  implementation: JsonFilter
+  advanced: JsonFilter
+  blogId: IntFilter
+  Blog: BlogRelationFilter
+}
+
+input JsonFilter {
+  equals: JSON
+  path: [String!]
+  string_contains: String
+  string_starts_with: String
+  string_ends_with: String
+  array_contains: JSON
+  array_starts_with: JSON
+  array_ends_with: JSON
+  lt: JSON
+  lte: JSON
+  gt: JSON
+  gte: JSON
+  not: JSON
+}
+
+"""
+The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
+"""
+scalar JSON @specifiedBy(url: "http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf")
+
+input VideoNullableRelationFilter {
+  is: VideoWhereInput
+  isNot: VideoWhereInput
+}
+
+input VideoWhereInput {
+  AND: [VideoWhereInput!]
+  OR: [VideoWhereInput!]
+  NOT: [VideoWhereInput!]
+  id: IntFilter
+  createdAt: DateTimeFilter
+  updatedAt: DateTimeFilter
+  blogId: IntFilter
+  videoLink: StringFilter
+  thumbnailLink: StringFilter
+  Blog: BlogRelationFilter
+  Sections: VideoSectionListRelationFilter
+}
+
+input VideoSectionListRelationFilter {
+  every: VideoSectionWhereInput
+  some: VideoSectionWhereInput
+  none: VideoSectionWhereInput
+}
+
+input VideoSectionWhereInput {
+  AND: [VideoSectionWhereInput!]
+  OR: [VideoSectionWhereInput!]
+  NOT: [VideoSectionWhereInput!]
+  id: IntFilter
+  createdAt: DateTimeFilter
+  updatedAt: DateTimeFilter
+  videoId: IntFilter
+  blogSectionTitle: StringFilter
+  timestampInSeconds: IntFilter
+  blogPart: EnumBlogPartFilter
+  Video: VideoRelationFilter
+}
+
+input EnumBlogPartFilter {
+  equals: BlogPart
+  in: [BlogPart!]
+  notIn: [BlogPart!]
+  not: NestedEnumBlogPartFilter
+}
+
+enum BlogPart {
+  INTRO
+  IMPLEMENTATION
+  ADVANCED
+}
+
+input NestedEnumBlogPartFilter {
+  equals: BlogPart
+  in: [BlogPart!]
+  notIn: [BlogPart!]
+  not: NestedEnumBlogPartFilter
+}
+
+input VideoRelationFilter {
+  is: VideoWhereInput
+  isNot: VideoWhereInput
+}
+
+type GetUserInterestsResponse {
+  success: Boolean!
+  message: String
+  status: String
+  data: [UserInterest!]
+}
+
+type Mutation {
+  updateUserInterest(updateUserInterestInput: UserInterestUpdateInput!, where: UserInterestWhereUniqueInput!): UpdateUserInterestResponse!
+  deleteUserInterest(where: UserInterestWhereUniqueInput!): DeleteUserInterestResponse!
+  createUserInterest(createUserInterestInput: UserInterestCreateInput!): CreateUserInterestResponse!
+}
+
+type UpdateUserInterestResponse {
+  success: Boolean!
+  message: String
+  status: String
+  data: UserInterest
+}
+
+input UserInterestUpdateInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  interestType: EnumInterestTypeFieldUpdateOperationsInput
+  user: UserUpdateOneRequiredWithoutInterestsNestedInput
+  Technology: TechnologyUpdateOneWithoutUserInterestsNestedInput
+  Topic: TopicUpdateOneWithoutUserInterestsNestedInput
+}
+
+input DateTimeFieldUpdateOperationsInput {
+  set: DateTimeISO
+}
+
+input EnumInterestTypeFieldUpdateOperationsInput {
+  set: InterestType
+}
+
+input UserUpdateOneRequiredWithoutInterestsNestedInput {
+  create: UserCreateWithoutInterestsInput
+  connectOrCreate: UserCreateOrConnectWithoutInterestsInput
+  upsert: UserUpsertWithoutInterestsInput
+  connect: UserWhereUniqueInput
+  update: UserUpdateToOneWithWhereWithoutInterestsInput
+}
+
+input UserCreateWithoutInterestsInput {
+  createdAt: DateTimeISO
+  updatedAt: DateTimeISO
+  username: String!
+  emailId: String!
+  Blogs: BlogCreateNestedManyWithoutAuthorInput
+}
+
+input BlogCreateNestedManyWithoutAuthorInput {
+  create: [BlogCreateWithoutAuthorInput!]
+  connectOrCreate: [BlogCreateOrConnectWithoutAuthorInput!]
+  createMany: BlogCreateManyAuthorInputEnvelope
+  connect: [BlogWhereUniqueInput!]
+}
+
+input BlogCreateWithoutAuthorInput {
+  createdAt: DateTimeISO
+  updatedAt: DateTimeISO
+  skillLevel: SkillLevel
+  description: String!
+  title: String!
+  slug: String!
+  views: Int
+  readTimeInMinutes: Int!
+  Topic: TopicCreateNestedOneWithoutBlogsInput
+  Tags: TagsOnBlogsCreateNestedManyWithoutBlogInput
+  content: BlogContentCreateNestedOneWithoutBlogInput
+  Video: VideoCreateNestedOneWithoutBlogInput
+}
+
+input TopicCreateNestedOneWithoutBlogsInput {
+  create: TopicCreateWithoutBlogsInput
+  connectOrCreate: TopicCreateOrConnectWithoutBlogsInput
+  connect: TopicWhereUniqueInput
+}
+
+input TopicCreateWithoutBlogsInput {
+  createdAt: DateTimeISO
+  updatedAt: DateTimeISO
+  title: String!
+  Technology: TechnologyCreateNestedOneWithoutTopicsInput
+  tags: TagCreateNestedManyWithoutTopicInput
+  userInterests: UserInterestCreateNestedManyWithoutTopicInput
+}
+
+input TechnologyCreateNestedOneWithoutTopicsInput {
+  create: TechnologyCreateWithoutTopicsInput
+  connectOrCreate: TechnologyCreateOrConnectWithoutTopicsInput
+  connect: TechnologyWhereUniqueInput
+}
+
+input TechnologyCreateWithoutTopicsInput {
+  createdAt: DateTimeISO
+  updatedAt: DateTimeISO
+  title: String!
+  Goal: GoalCreateNestedOneWithoutTechnologiesInput
+  userInterests: UserInterestCreateNestedManyWithoutTechnologyInput
+}
+
+input GoalCreateNestedOneWithoutTechnologiesInput {
+  create: GoalCreateWithoutTechnologiesInput
+  connectOrCreate: GoalCreateOrConnectWithoutTechnologiesInput
+  connect: GoalWhereUniqueInput
+}
+
+input GoalCreateWithoutTechnologiesInput {
+  createdAt: DateTimeISO
+  updatedAt: DateTimeISO
+  title: String!
+}
+
+input GoalCreateOrConnectWithoutTechnologiesInput {
+  where: GoalWhereUniqueInput!
+  create: GoalCreateWithoutTechnologiesInput!
+}
+
+input GoalWhereUniqueInput {
+  id: Int
+  AND: [GoalWhereInput!]
+  OR: [GoalWhereInput!]
+  NOT: [GoalWhereInput!]
+  createdAt: DateTimeFilter
+  updatedAt: DateTimeFilter
+  title: StringFilter
+  Technologies: TechnologyListRelationFilter
+}
+
+input UserInterestCreateNestedManyWithoutTechnologyInput {
+  create: [UserInterestCreateWithoutTechnologyInput!]
+  connectOrCreate: [UserInterestCreateOrConnectWithoutTechnologyInput!]
+  createMany: UserInterestCreateManyTechnologyInputEnvelope
+  connect: [UserInterestWhereUniqueInput!]
+}
+
+input UserInterestCreateWithoutTechnologyInput {
+  createdAt: DateTimeISO
+  updatedAt: DateTimeISO
+  interestType: InterestType!
+  user: UserCreateNestedOneWithoutInterestsInput!
+  Topic: TopicCreateNestedOneWithoutUserInterestsInput
+}
+
+input UserCreateNestedOneWithoutInterestsInput {
+  create: UserCreateWithoutInterestsInput
+  connectOrCreate: UserCreateOrConnectWithoutInterestsInput
+  connect: UserWhereUniqueInput
+}
+
+input UserCreateOrConnectWithoutInterestsInput {
+  where: UserWhereUniqueInput!
+  create: UserCreateWithoutInterestsInput!
+}
+
+input UserWhereUniqueInput {
+  id: Int
+  username: String
+  emailId: String
+  AND: [UserWhereInput!]
+  OR: [UserWhereInput!]
+  NOT: [UserWhereInput!]
+  createdAt: DateTimeFilter
+  updatedAt: DateTimeFilter
+  Blogs: BlogListRelationFilter
+  interests: UserInterestListRelationFilter
+}
+
+input TopicCreateNestedOneWithoutUserInterestsInput {
+  create: TopicCreateWithoutUserInterestsInput
+  connectOrCreate: TopicCreateOrConnectWithoutUserInterestsInput
+  connect: TopicWhereUniqueInput
+}
+
+input TopicCreateWithoutUserInterestsInput {
+  createdAt: DateTimeISO
+  updatedAt: DateTimeISO
+  title: String!
+  Technology: TechnologyCreateNestedOneWithoutTopicsInput
+  Blogs: BlogCreateNestedManyWithoutTopicInput
+  tags: TagCreateNestedManyWithoutTopicInput
+}
+
+input BlogCreateNestedManyWithoutTopicInput {
+  create: [BlogCreateWithoutTopicInput!]
+  connectOrCreate: [BlogCreateOrConnectWithoutTopicInput!]
+  createMany: BlogCreateManyTopicInputEnvelope
+  connect: [BlogWhereUniqueInput!]
+}
+
+input BlogCreateWithoutTopicInput {
+  createdAt: DateTimeISO
+  updatedAt: DateTimeISO
+  skillLevel: SkillLevel
+  description: String!
+  title: String!
+  slug: String!
+  views: Int
+  readTimeInMinutes: Int!
+  Tags: TagsOnBlogsCreateNestedManyWithoutBlogInput
+  Author: UserCreateNestedOneWithoutBlogsInput
+  content: BlogContentCreateNestedOneWithoutBlogInput
+  Video: VideoCreateNestedOneWithoutBlogInput
+}
+
+input TagsOnBlogsCreateNestedManyWithoutBlogInput {
+  create: [TagsOnBlogsCreateWithoutBlogInput!]
+  connectOrCreate: [TagsOnBlogsCreateOrConnectWithoutBlogInput!]
+  createMany: TagsOnBlogsCreateManyBlogInputEnvelope
+  connect: [TagsOnBlogsWhereUniqueInput!]
+}
+
+input TagsOnBlogsCreateWithoutBlogInput {
+  createdAt: DateTimeISO
+  updatedAt: DateTimeISO
+  Tag: TagCreateNestedOneWithoutBlogsInput!
+}
+
+input TagCreateNestedOneWithoutBlogsInput {
+  create: TagCreateWithoutBlogsInput
+  connectOrCreate: TagCreateOrConnectWithoutBlogsInput
+  connect: TagWhereUniqueInput
+}
+
+input TagCreateWithoutBlogsInput {
+  createdAt: DateTimeISO
+  updatedAt: DateTimeISO
+  title: String!
+  Topic: TopicCreateNestedOneWithoutTagsInput
+}
+
+input TopicCreateNestedOneWithoutTagsInput {
+  create: TopicCreateWithoutTagsInput
+  connectOrCreate: TopicCreateOrConnectWithoutTagsInput
+  connect: TopicWhereUniqueInput
+}
+
+input TopicCreateWithoutTagsInput {
+  createdAt: DateTimeISO
+  updatedAt: DateTimeISO
+  title: String!
+  Technology: TechnologyCreateNestedOneWithoutTopicsInput
+  Blogs: BlogCreateNestedManyWithoutTopicInput
+  userInterests: UserInterestCreateNestedManyWithoutTopicInput
+}
+
+input UserInterestCreateNestedManyWithoutTopicInput {
+  create: [UserInterestCreateWithoutTopicInput!]
+  connectOrCreate: [UserInterestCreateOrConnectWithoutTopicInput!]
+  createMany: UserInterestCreateManyTopicInputEnvelope
+  connect: [UserInterestWhereUniqueInput!]
+}
+
+input UserInterestCreateWithoutTopicInput {
+  createdAt: DateTimeISO
+  updatedAt: DateTimeISO
+  interestType: InterestType!
+  user: UserCreateNestedOneWithoutInterestsInput!
+  Technology: TechnologyCreateNestedOneWithoutUserInterestsInput
+}
+
+input TechnologyCreateNestedOneWithoutUserInterestsInput {
+  create: TechnologyCreateWithoutUserInterestsInput
+  connectOrCreate: TechnologyCreateOrConnectWithoutUserInterestsInput
+  connect: TechnologyWhereUniqueInput
+}
+
+input TechnologyCreateWithoutUserInterestsInput {
+  createdAt: DateTimeISO
+  updatedAt: DateTimeISO
+  title: String!
+  Topics: TopicCreateNestedManyWithoutTechnologyInput
+  Goal: GoalCreateNestedOneWithoutTechnologiesInput
+}
+
+input TopicCreateNestedManyWithoutTechnologyInput {
+  create: [TopicCreateWithoutTechnologyInput!]
+  connectOrCreate: [TopicCreateOrConnectWithoutTechnologyInput!]
+  createMany: TopicCreateManyTechnologyInputEnvelope
+  connect: [TopicWhereUniqueInput!]
+}
+
+input TopicCreateWithoutTechnologyInput {
+  createdAt: DateTimeISO
+  updatedAt: DateTimeISO
+  title: String!
+  Blogs: BlogCreateNestedManyWithoutTopicInput
+  tags: TagCreateNestedManyWithoutTopicInput
+  userInterests: UserInterestCreateNestedManyWithoutTopicInput
+}
+
+input TagCreateNestedManyWithoutTopicInput {
+  create: [TagCreateWithoutTopicInput!]
+  connectOrCreate: [TagCreateOrConnectWithoutTopicInput!]
+  createMany: TagCreateManyTopicInputEnvelope
+  connect: [TagWhereUniqueInput!]
+}
+
+input TagCreateWithoutTopicInput {
+  createdAt: DateTimeISO
+  updatedAt: DateTimeISO
+  title: String!
+  Blogs: TagsOnBlogsCreateNestedManyWithoutTagInput
+}
+
+input TagsOnBlogsCreateNestedManyWithoutTagInput {
+  create: [TagsOnBlogsCreateWithoutTagInput!]
+  connectOrCreate: [TagsOnBlogsCreateOrConnectWithoutTagInput!]
+  createMany: TagsOnBlogsCreateManyTagInputEnvelope
+  connect: [TagsOnBlogsWhereUniqueInput!]
+}
+
+input TagsOnBlogsCreateWithoutTagInput {
+  createdAt: DateTimeISO
+  updatedAt: DateTimeISO
+  Blog: BlogCreateNestedOneWithoutTagsInput!
+}
+
+input BlogCreateNestedOneWithoutTagsInput {
+  create: BlogCreateWithoutTagsInput
+  connectOrCreate: BlogCreateOrConnectWithoutTagsInput
+  connect: BlogWhereUniqueInput
+}
+
+input BlogCreateWithoutTagsInput {
+  createdAt: DateTimeISO
+  updatedAt: DateTimeISO
+  skillLevel: SkillLevel
+  description: String!
+  title: String!
+  slug: String!
+  views: Int
+  readTimeInMinutes: Int!
+  Topic: TopicCreateNestedOneWithoutBlogsInput
+  Author: UserCreateNestedOneWithoutBlogsInput
+  content: BlogContentCreateNestedOneWithoutBlogInput
+  Video: VideoCreateNestedOneWithoutBlogInput
+}
+
+input UserCreateNestedOneWithoutBlogsInput {
+  create: UserCreateWithoutBlogsInput
+  connectOrCreate: UserCreateOrConnectWithoutBlogsInput
+  connect: UserWhereUniqueInput
+}
+
+input UserCreateWithoutBlogsInput {
+  createdAt: DateTimeISO
+  updatedAt: DateTimeISO
+  username: String!
+  emailId: String!
+  interests: UserInterestCreateNestedManyWithoutUserInput
+}
+
+input UserInterestCreateNestedManyWithoutUserInput {
+  create: [UserInterestCreateWithoutUserInput!]
+  connectOrCreate: [UserInterestCreateOrConnectWithoutUserInput!]
+  createMany: UserInterestCreateManyUserInputEnvelope
+  connect: [UserInterestWhereUniqueInput!]
+}
+
+input UserInterestCreateWithoutUserInput {
+  createdAt: DateTimeISO
+  updatedAt: DateTimeISO
+  interestType: InterestType!
+  Technology: TechnologyCreateNestedOneWithoutUserInterestsInput
+  Topic: TopicCreateNestedOneWithoutUserInterestsInput
+}
+
+input UserInterestCreateOrConnectWithoutUserInput {
+  where: UserInterestWhereUniqueInput!
+  create: UserInterestCreateWithoutUserInput!
+}
+
+input UserInterestCreateManyUserInputEnvelope {
+  data: [UserInterestCreateManyUserInput!]!
+  skipDuplicates: Boolean
+}
+
+input UserInterestCreateManyUserInput {
+  id: Int
+  createdAt: DateTimeISO
+  updatedAt: DateTimeISO
+  technologyId: Int
+  topicId: Int
+  interestType: InterestType!
+}
+
+input UserCreateOrConnectWithoutBlogsInput {
+  where: UserWhereUniqueInput!
+  create: UserCreateWithoutBlogsInput!
+}
+
+input BlogContentCreateNestedOneWithoutBlogInput {
+  create: BlogContentCreateWithoutBlogInput
+  connectOrCreate: BlogContentCreateOrConnectWithoutBlogInput
+  connect: BlogContentWhereUniqueInput
+}
+
+input BlogContentCreateWithoutBlogInput {
+  createdAt: DateTimeISO
+  updatedAt: DateTimeISO
+  intro: JSON!
+  implementation: JSON!
+  advanced: JSON!
+}
+
+input BlogContentCreateOrConnectWithoutBlogInput {
+  where: BlogContentWhereUniqueInput!
+  create: BlogContentCreateWithoutBlogInput!
+}
+
+input BlogContentWhereUniqueInput {
+  id: Int
+  blogId: Int
+  AND: [BlogContentWhereInput!]
+  OR: [BlogContentWhereInput!]
+  NOT: [BlogContentWhereInput!]
+  createdAt: DateTimeFilter
+  updatedAt: DateTimeFilter
+  intro: JsonFilter
+  implementation: JsonFilter
+  advanced: JsonFilter
+  Blog: BlogRelationFilter
+}
+
+input VideoCreateNestedOneWithoutBlogInput {
+  create: VideoCreateWithoutBlogInput
+  connectOrCreate: VideoCreateOrConnectWithoutBlogInput
+  connect: VideoWhereUniqueInput
+}
+
+input VideoCreateWithoutBlogInput {
+  createdAt: DateTimeISO
+  updatedAt: DateTimeISO
+  videoLink: String!
+  thumbnailLink: String!
+  Sections: VideoSectionCreateNestedManyWithoutVideoInput
+}
+
+input VideoSectionCreateNestedManyWithoutVideoInput {
+  create: [VideoSectionCreateWithoutVideoInput!]
+  connectOrCreate: [VideoSectionCreateOrConnectWithoutVideoInput!]
+  createMany: VideoSectionCreateManyVideoInputEnvelope
+  connect: [VideoSectionWhereUniqueInput!]
+}
+
+input VideoSectionCreateWithoutVideoInput {
+  createdAt: DateTimeISO
+  updatedAt: DateTimeISO
+  blogSectionTitle: String!
+  timestampInSeconds: Int!
+  blogPart: BlogPart!
+}
+
+input VideoSectionCreateOrConnectWithoutVideoInput {
+  where: VideoSectionWhereUniqueInput!
+  create: VideoSectionCreateWithoutVideoInput!
+}
+
+input VideoSectionWhereUniqueInput {
+  id: Int
+  blogSectionTitle_blogPart: VideoSectionBlogSectionTitleBlogPartCompoundUniqueInput
+  AND: [VideoSectionWhereInput!]
+  OR: [VideoSectionWhereInput!]
+  NOT: [VideoSectionWhereInput!]
+  createdAt: DateTimeFilter
+  updatedAt: DateTimeFilter
+  videoId: IntFilter
+  blogSectionTitle: StringFilter
+  timestampInSeconds: IntFilter
+  blogPart: EnumBlogPartFilter
+  Video: VideoRelationFilter
+}
+
+input VideoSectionBlogSectionTitleBlogPartCompoundUniqueInput {
+  blogSectionTitle: String!
+  blogPart: BlogPart!
+}
+
+input VideoSectionCreateManyVideoInputEnvelope {
+  data: [VideoSectionCreateManyVideoInput!]!
+  skipDuplicates: Boolean
+}
+
+input VideoSectionCreateManyVideoInput {
+  id: Int
+  createdAt: DateTimeISO
+  updatedAt: DateTimeISO
+  blogSectionTitle: String!
+  timestampInSeconds: Int!
+  blogPart: BlogPart!
+}
+
+input VideoCreateOrConnectWithoutBlogInput {
+  where: VideoWhereUniqueInput!
+  create: VideoCreateWithoutBlogInput!
+}
+
+input VideoWhereUniqueInput {
+  id: Int
+  blogId: Int
+  AND: [VideoWhereInput!]
+  OR: [VideoWhereInput!]
+  NOT: [VideoWhereInput!]
+  createdAt: DateTimeFilter
+  updatedAt: DateTimeFilter
+  videoLink: StringFilter
+  thumbnailLink: StringFilter
+  Blog: BlogRelationFilter
+  Sections: VideoSectionListRelationFilter
+}
+
+input BlogCreateOrConnectWithoutTagsInput {
+  where: BlogWhereUniqueInput!
+  create: BlogCreateWithoutTagsInput!
+}
+
+input BlogWhereUniqueInput {
+  id: Int
+  slug: String
+  topicId_title: BlogTopicIdTitleCompoundUniqueInput
+  AND: [BlogWhereInput!]
+  OR: [BlogWhereInput!]
+  NOT: [BlogWhereInput!]
+  createdAt: DateTimeFilter
+  updatedAt: DateTimeFilter
+  topicId: IntNullableFilter
+  skillLevel: EnumSkillLevelFilter
+  authorId: IntNullableFilter
+  description: StringFilter
+  title: StringFilter
+  views: IntFilter
+  readTimeInMinutes: IntFilter
+  Topic: TopicNullableRelationFilter
+  Tags: TagsOnBlogsListRelationFilter
+  Author: UserNullableRelationFilter
+  content: BlogContentNullableRelationFilter
+  Video: VideoNullableRelationFilter
+}
+
+input BlogTopicIdTitleCompoundUniqueInput {
+  topicId: Int!
+  title: String!
+}
+
+input TagsOnBlogsCreateOrConnectWithoutTagInput {
+  where: TagsOnBlogsWhereUniqueInput!
+  create: TagsOnBlogsCreateWithoutTagInput!
+}
+
+input TagsOnBlogsWhereUniqueInput {
+  id: Int
+  blogId_tagId: TagsOnBlogsBlogIdTagIdCompoundUniqueInput
+  AND: [TagsOnBlogsWhereInput!]
+  OR: [TagsOnBlogsWhereInput!]
+  NOT: [TagsOnBlogsWhereInput!]
+  createdAt: DateTimeFilter
+  updatedAt: DateTimeFilter
+  tagId: IntFilter
+  blogId: IntFilter
+  Tag: TagRelationFilter
+  Blog: BlogRelationFilter
+}
+
+input TagsOnBlogsBlogIdTagIdCompoundUniqueInput {
+  blogId: Int!
+  tagId: Int!
+}
+
+input TagsOnBlogsCreateManyTagInputEnvelope {
+  data: [TagsOnBlogsCreateManyTagInput!]!
+  skipDuplicates: Boolean
+}
+
+input TagsOnBlogsCreateManyTagInput {
+  id: Int
+  createdAt: DateTimeISO
+  updatedAt: DateTimeISO
+  blogId: Int!
+}
+
+input TagCreateOrConnectWithoutTopicInput {
+  where: TagWhereUniqueInput!
+  create: TagCreateWithoutTopicInput!
+}
+
+input TagWhereUniqueInput {
+  id: Int
+  AND: [TagWhereInput!]
+  OR: [TagWhereInput!]
+  NOT: [TagWhereInput!]
+  createdAt: DateTimeFilter
+  updatedAt: DateTimeFilter
+  title: StringFilter
+  topicId: IntNullableFilter
+  Topic: TopicNullableRelationFilter
+  Blogs: TagsOnBlogsListRelationFilter
+}
+
+input TagCreateManyTopicInputEnvelope {
+  data: [TagCreateManyTopicInput!]!
+  skipDuplicates: Boolean
+}
+
+input TagCreateManyTopicInput {
+  id: Int
+  createdAt: DateTimeISO
+  updatedAt: DateTimeISO
+  title: String!
+}
+
+input TopicCreateOrConnectWithoutTechnologyInput {
+  where: TopicWhereUniqueInput!
+  create: TopicCreateWithoutTechnologyInput!
+}
+
+input TopicWhereUniqueInput {
+  id: Int
+  AND: [TopicWhereInput!]
+  OR: [TopicWhereInput!]
+  NOT: [TopicWhereInput!]
+  createdAt: DateTimeFilter
+  updatedAt: DateTimeFilter
+  title: StringFilter
+  technologyId: IntNullableFilter
+  Technology: TechnologyNullableRelationFilter
+  Blogs: BlogListRelationFilter
+  tags: TagListRelationFilter
+  userInterests: UserInterestListRelationFilter
+}
+
+input TopicCreateManyTechnologyInputEnvelope {
+  data: [TopicCreateManyTechnologyInput!]!
+  skipDuplicates: Boolean
+}
+
+input TopicCreateManyTechnologyInput {
+  id: Int
+  createdAt: DateTimeISO
+  updatedAt: DateTimeISO
+  title: String!
+}
+
+input TechnologyCreateOrConnectWithoutUserInterestsInput {
+  where: TechnologyWhereUniqueInput!
+  create: TechnologyCreateWithoutUserInterestsInput!
+}
+
+input TechnologyWhereUniqueInput {
+  id: Int
+  AND: [TechnologyWhereInput!]
+  OR: [TechnologyWhereInput!]
+  NOT: [TechnologyWhereInput!]
+  createdAt: DateTimeFilter
+  updatedAt: DateTimeFilter
+  title: StringFilter
+  goalId: IntNullableFilter
+  Topics: TopicListRelationFilter
+  Goal: GoalNullableRelationFilter
+  userInterests: UserInterestListRelationFilter
+}
+
+input UserInterestCreateOrConnectWithoutTopicInput {
+  where: UserInterestWhereUniqueInput!
+  create: UserInterestCreateWithoutTopicInput!
+}
+
+input UserInterestCreateManyTopicInputEnvelope {
+  data: [UserInterestCreateManyTopicInput!]!
+  skipDuplicates: Boolean
+}
+
+input UserInterestCreateManyTopicInput {
+  id: Int
+  createdAt: DateTimeISO
+  updatedAt: DateTimeISO
+  userId: Int!
+  technologyId: Int
+  interestType: InterestType!
+}
+
+input TopicCreateOrConnectWithoutTagsInput {
+  where: TopicWhereUniqueInput!
+  create: TopicCreateWithoutTagsInput!
+}
+
+input TagCreateOrConnectWithoutBlogsInput {
+  where: TagWhereUniqueInput!
+  create: TagCreateWithoutBlogsInput!
+}
+
+input TagsOnBlogsCreateOrConnectWithoutBlogInput {
+  where: TagsOnBlogsWhereUniqueInput!
+  create: TagsOnBlogsCreateWithoutBlogInput!
+}
+
+input TagsOnBlogsCreateManyBlogInputEnvelope {
+  data: [TagsOnBlogsCreateManyBlogInput!]!
+  skipDuplicates: Boolean
+}
+
+input TagsOnBlogsCreateManyBlogInput {
+  id: Int
+  createdAt: DateTimeISO
+  updatedAt: DateTimeISO
+  tagId: Int!
+}
+
+input BlogCreateOrConnectWithoutTopicInput {
+  where: BlogWhereUniqueInput!
+  create: BlogCreateWithoutTopicInput!
+}
+
+input BlogCreateManyTopicInputEnvelope {
+  data: [BlogCreateManyTopicInput!]!
+  skipDuplicates: Boolean
+}
+
+input BlogCreateManyTopicInput {
+  id: Int
+  createdAt: DateTimeISO
+  updatedAt: DateTimeISO
+  skillLevel: SkillLevel
+  authorId: Int
+  description: String!
+  title: String!
+  slug: String!
+  views: Int
+  readTimeInMinutes: Int!
+}
+
+input TopicCreateOrConnectWithoutUserInterestsInput {
+  where: TopicWhereUniqueInput!
+  create: TopicCreateWithoutUserInterestsInput!
+}
+
+input UserInterestCreateOrConnectWithoutTechnologyInput {
+  where: UserInterestWhereUniqueInput!
+  create: UserInterestCreateWithoutTechnologyInput!
+}
+
+input UserInterestCreateManyTechnologyInputEnvelope {
+  data: [UserInterestCreateManyTechnologyInput!]!
+  skipDuplicates: Boolean
+}
+
+input UserInterestCreateManyTechnologyInput {
+  id: Int
+  createdAt: DateTimeISO
+  updatedAt: DateTimeISO
+  userId: Int!
+  topicId: Int
+  interestType: InterestType!
+}
+
+input TechnologyCreateOrConnectWithoutTopicsInput {
+  where: TechnologyWhereUniqueInput!
+  create: TechnologyCreateWithoutTopicsInput!
+}
+
+input TopicCreateOrConnectWithoutBlogsInput {
+  where: TopicWhereUniqueInput!
+  create: TopicCreateWithoutBlogsInput!
+}
+
+input BlogCreateOrConnectWithoutAuthorInput {
+  where: BlogWhereUniqueInput!
+  create: BlogCreateWithoutAuthorInput!
+}
+
+input BlogCreateManyAuthorInputEnvelope {
+  data: [BlogCreateManyAuthorInput!]!
+  skipDuplicates: Boolean
+}
+
+input BlogCreateManyAuthorInput {
+  id: Int
+  createdAt: DateTimeISO
+  updatedAt: DateTimeISO
+  topicId: Int
+  skillLevel: SkillLevel
+  description: String!
+  title: String!
+  slug: String!
+  views: Int
+  readTimeInMinutes: Int!
+}
+
+input UserUpsertWithoutInterestsInput {
+  update: UserUpdateWithoutInterestsInput!
+  create: UserCreateWithoutInterestsInput!
+  where: UserWhereInput
+}
+
+input UserUpdateWithoutInterestsInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  username: StringFieldUpdateOperationsInput
+  emailId: StringFieldUpdateOperationsInput
+  Blogs: BlogUpdateManyWithoutAuthorNestedInput
+}
+
+input StringFieldUpdateOperationsInput {
+  set: String
+}
+
+input BlogUpdateManyWithoutAuthorNestedInput {
+  create: [BlogCreateWithoutAuthorInput!]
+  connectOrCreate: [BlogCreateOrConnectWithoutAuthorInput!]
+  upsert: [BlogUpsertWithWhereUniqueWithoutAuthorInput!]
+  createMany: BlogCreateManyAuthorInputEnvelope
+  set: [BlogWhereUniqueInput!]
+  disconnect: [BlogWhereUniqueInput!]
+  delete: [BlogWhereUniqueInput!]
+  connect: [BlogWhereUniqueInput!]
+  update: [BlogUpdateWithWhereUniqueWithoutAuthorInput!]
+  updateMany: [BlogUpdateManyWithWhereWithoutAuthorInput!]
+  deleteMany: [BlogScalarWhereInput!]
+}
+
+input BlogUpsertWithWhereUniqueWithoutAuthorInput {
+  where: BlogWhereUniqueInput!
+  update: BlogUpdateWithoutAuthorInput!
+  create: BlogCreateWithoutAuthorInput!
+}
+
+input BlogUpdateWithoutAuthorInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  skillLevel: EnumSkillLevelFieldUpdateOperationsInput
+  description: StringFieldUpdateOperationsInput
+  title: StringFieldUpdateOperationsInput
+  slug: StringFieldUpdateOperationsInput
+  views: IntFieldUpdateOperationsInput
+  readTimeInMinutes: IntFieldUpdateOperationsInput
+  Topic: TopicUpdateOneWithoutBlogsNestedInput
+  Tags: TagsOnBlogsUpdateManyWithoutBlogNestedInput
+  content: BlogContentUpdateOneWithoutBlogNestedInput
+  Video: VideoUpdateOneWithoutBlogNestedInput
+}
+
+input EnumSkillLevelFieldUpdateOperationsInput {
+  set: SkillLevel
+}
+
+input IntFieldUpdateOperationsInput {
+  set: Int
+  increment: Int
+  decrement: Int
+  multiply: Int
+  divide: Int
+}
+
+input TopicUpdateOneWithoutBlogsNestedInput {
+  create: TopicCreateWithoutBlogsInput
+  connectOrCreate: TopicCreateOrConnectWithoutBlogsInput
+  upsert: TopicUpsertWithoutBlogsInput
+  disconnect: TopicWhereInput
+  delete: TopicWhereInput
+  connect: TopicWhereUniqueInput
+  update: TopicUpdateToOneWithWhereWithoutBlogsInput
+}
+
+input TopicUpsertWithoutBlogsInput {
+  update: TopicUpdateWithoutBlogsInput!
+  create: TopicCreateWithoutBlogsInput!
+  where: TopicWhereInput
+}
+
+input TopicUpdateWithoutBlogsInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  title: StringFieldUpdateOperationsInput
+  Technology: TechnologyUpdateOneWithoutTopicsNestedInput
+  tags: TagUpdateManyWithoutTopicNestedInput
+  userInterests: UserInterestUpdateManyWithoutTopicNestedInput
+}
+
+input TechnologyUpdateOneWithoutTopicsNestedInput {
+  create: TechnologyCreateWithoutTopicsInput
+  connectOrCreate: TechnologyCreateOrConnectWithoutTopicsInput
+  upsert: TechnologyUpsertWithoutTopicsInput
+  disconnect: TechnologyWhereInput
+  delete: TechnologyWhereInput
+  connect: TechnologyWhereUniqueInput
+  update: TechnologyUpdateToOneWithWhereWithoutTopicsInput
+}
+
+input TechnologyUpsertWithoutTopicsInput {
+  update: TechnologyUpdateWithoutTopicsInput!
+  create: TechnologyCreateWithoutTopicsInput!
+  where: TechnologyWhereInput
+}
+
+input TechnologyUpdateWithoutTopicsInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  title: StringFieldUpdateOperationsInput
+  Goal: GoalUpdateOneWithoutTechnologiesNestedInput
+  userInterests: UserInterestUpdateManyWithoutTechnologyNestedInput
+}
+
+input GoalUpdateOneWithoutTechnologiesNestedInput {
+  create: GoalCreateWithoutTechnologiesInput
+  connectOrCreate: GoalCreateOrConnectWithoutTechnologiesInput
+  upsert: GoalUpsertWithoutTechnologiesInput
+  disconnect: GoalWhereInput
+  delete: GoalWhereInput
+  connect: GoalWhereUniqueInput
+  update: GoalUpdateToOneWithWhereWithoutTechnologiesInput
+}
+
+input GoalUpsertWithoutTechnologiesInput {
+  update: GoalUpdateWithoutTechnologiesInput!
+  create: GoalCreateWithoutTechnologiesInput!
+  where: GoalWhereInput
+}
+
+input GoalUpdateWithoutTechnologiesInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  title: StringFieldUpdateOperationsInput
+}
+
+input GoalUpdateToOneWithWhereWithoutTechnologiesInput {
+  where: GoalWhereInput
+  data: GoalUpdateWithoutTechnologiesInput!
+}
+
+input UserInterestUpdateManyWithoutTechnologyNestedInput {
+  create: [UserInterestCreateWithoutTechnologyInput!]
+  connectOrCreate: [UserInterestCreateOrConnectWithoutTechnologyInput!]
+  upsert: [UserInterestUpsertWithWhereUniqueWithoutTechnologyInput!]
+  createMany: UserInterestCreateManyTechnologyInputEnvelope
+  set: [UserInterestWhereUniqueInput!]
+  disconnect: [UserInterestWhereUniqueInput!]
+  delete: [UserInterestWhereUniqueInput!]
+  connect: [UserInterestWhereUniqueInput!]
+  update: [UserInterestUpdateWithWhereUniqueWithoutTechnologyInput!]
+  updateMany: [UserInterestUpdateManyWithWhereWithoutTechnologyInput!]
+  deleteMany: [UserInterestScalarWhereInput!]
+}
+
+input UserInterestUpsertWithWhereUniqueWithoutTechnologyInput {
+  where: UserInterestWhereUniqueInput!
+  update: UserInterestUpdateWithoutTechnologyInput!
+  create: UserInterestCreateWithoutTechnologyInput!
+}
+
+input UserInterestUpdateWithoutTechnologyInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  interestType: EnumInterestTypeFieldUpdateOperationsInput
+  user: UserUpdateOneRequiredWithoutInterestsNestedInput
+  Topic: TopicUpdateOneWithoutUserInterestsNestedInput
+}
+
+input TopicUpdateOneWithoutUserInterestsNestedInput {
+  create: TopicCreateWithoutUserInterestsInput
+  connectOrCreate: TopicCreateOrConnectWithoutUserInterestsInput
+  upsert: TopicUpsertWithoutUserInterestsInput
+  disconnect: TopicWhereInput
+  delete: TopicWhereInput
+  connect: TopicWhereUniqueInput
+  update: TopicUpdateToOneWithWhereWithoutUserInterestsInput
+}
+
+input TopicUpsertWithoutUserInterestsInput {
+  update: TopicUpdateWithoutUserInterestsInput!
+  create: TopicCreateWithoutUserInterestsInput!
+  where: TopicWhereInput
+}
+
+input TopicUpdateWithoutUserInterestsInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  title: StringFieldUpdateOperationsInput
+  Technology: TechnologyUpdateOneWithoutTopicsNestedInput
+  Blogs: BlogUpdateManyWithoutTopicNestedInput
+  tags: TagUpdateManyWithoutTopicNestedInput
+}
+
+input BlogUpdateManyWithoutTopicNestedInput {
+  create: [BlogCreateWithoutTopicInput!]
+  connectOrCreate: [BlogCreateOrConnectWithoutTopicInput!]
+  upsert: [BlogUpsertWithWhereUniqueWithoutTopicInput!]
+  createMany: BlogCreateManyTopicInputEnvelope
+  set: [BlogWhereUniqueInput!]
+  disconnect: [BlogWhereUniqueInput!]
+  delete: [BlogWhereUniqueInput!]
+  connect: [BlogWhereUniqueInput!]
+  update: [BlogUpdateWithWhereUniqueWithoutTopicInput!]
+  updateMany: [BlogUpdateManyWithWhereWithoutTopicInput!]
+  deleteMany: [BlogScalarWhereInput!]
+}
+
+input BlogUpsertWithWhereUniqueWithoutTopicInput {
+  where: BlogWhereUniqueInput!
+  update: BlogUpdateWithoutTopicInput!
+  create: BlogCreateWithoutTopicInput!
+}
+
+input BlogUpdateWithoutTopicInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  skillLevel: EnumSkillLevelFieldUpdateOperationsInput
+  description: StringFieldUpdateOperationsInput
+  title: StringFieldUpdateOperationsInput
+  slug: StringFieldUpdateOperationsInput
+  views: IntFieldUpdateOperationsInput
+  readTimeInMinutes: IntFieldUpdateOperationsInput
+  Tags: TagsOnBlogsUpdateManyWithoutBlogNestedInput
+  Author: UserUpdateOneWithoutBlogsNestedInput
+  content: BlogContentUpdateOneWithoutBlogNestedInput
+  Video: VideoUpdateOneWithoutBlogNestedInput
+}
+
+input TagsOnBlogsUpdateManyWithoutBlogNestedInput {
+  create: [TagsOnBlogsCreateWithoutBlogInput!]
+  connectOrCreate: [TagsOnBlogsCreateOrConnectWithoutBlogInput!]
+  upsert: [TagsOnBlogsUpsertWithWhereUniqueWithoutBlogInput!]
+  createMany: TagsOnBlogsCreateManyBlogInputEnvelope
+  set: [TagsOnBlogsWhereUniqueInput!]
+  disconnect: [TagsOnBlogsWhereUniqueInput!]
+  delete: [TagsOnBlogsWhereUniqueInput!]
+  connect: [TagsOnBlogsWhereUniqueInput!]
+  update: [TagsOnBlogsUpdateWithWhereUniqueWithoutBlogInput!]
+  updateMany: [TagsOnBlogsUpdateManyWithWhereWithoutBlogInput!]
+  deleteMany: [TagsOnBlogsScalarWhereInput!]
+}
+
+input TagsOnBlogsUpsertWithWhereUniqueWithoutBlogInput {
+  where: TagsOnBlogsWhereUniqueInput!
+  update: TagsOnBlogsUpdateWithoutBlogInput!
+  create: TagsOnBlogsCreateWithoutBlogInput!
+}
+
+input TagsOnBlogsUpdateWithoutBlogInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  Tag: TagUpdateOneRequiredWithoutBlogsNestedInput
+}
+
+input TagUpdateOneRequiredWithoutBlogsNestedInput {
+  create: TagCreateWithoutBlogsInput
+  connectOrCreate: TagCreateOrConnectWithoutBlogsInput
+  upsert: TagUpsertWithoutBlogsInput
+  connect: TagWhereUniqueInput
+  update: TagUpdateToOneWithWhereWithoutBlogsInput
+}
+
+input TagUpsertWithoutBlogsInput {
+  update: TagUpdateWithoutBlogsInput!
+  create: TagCreateWithoutBlogsInput!
+  where: TagWhereInput
+}
+
+input TagUpdateWithoutBlogsInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  title: StringFieldUpdateOperationsInput
+  Topic: TopicUpdateOneWithoutTagsNestedInput
+}
+
+input TopicUpdateOneWithoutTagsNestedInput {
+  create: TopicCreateWithoutTagsInput
+  connectOrCreate: TopicCreateOrConnectWithoutTagsInput
+  upsert: TopicUpsertWithoutTagsInput
+  disconnect: TopicWhereInput
+  delete: TopicWhereInput
+  connect: TopicWhereUniqueInput
+  update: TopicUpdateToOneWithWhereWithoutTagsInput
+}
+
+input TopicUpsertWithoutTagsInput {
+  update: TopicUpdateWithoutTagsInput!
+  create: TopicCreateWithoutTagsInput!
+  where: TopicWhereInput
+}
+
+input TopicUpdateWithoutTagsInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  title: StringFieldUpdateOperationsInput
+  Technology: TechnologyUpdateOneWithoutTopicsNestedInput
+  Blogs: BlogUpdateManyWithoutTopicNestedInput
+  userInterests: UserInterestUpdateManyWithoutTopicNestedInput
+}
+
+input UserInterestUpdateManyWithoutTopicNestedInput {
+  create: [UserInterestCreateWithoutTopicInput!]
+  connectOrCreate: [UserInterestCreateOrConnectWithoutTopicInput!]
+  upsert: [UserInterestUpsertWithWhereUniqueWithoutTopicInput!]
+  createMany: UserInterestCreateManyTopicInputEnvelope
+  set: [UserInterestWhereUniqueInput!]
+  disconnect: [UserInterestWhereUniqueInput!]
+  delete: [UserInterestWhereUniqueInput!]
+  connect: [UserInterestWhereUniqueInput!]
+  update: [UserInterestUpdateWithWhereUniqueWithoutTopicInput!]
+  updateMany: [UserInterestUpdateManyWithWhereWithoutTopicInput!]
+  deleteMany: [UserInterestScalarWhereInput!]
+}
+
+input UserInterestUpsertWithWhereUniqueWithoutTopicInput {
+  where: UserInterestWhereUniqueInput!
+  update: UserInterestUpdateWithoutTopicInput!
+  create: UserInterestCreateWithoutTopicInput!
+}
+
+input UserInterestUpdateWithoutTopicInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  interestType: EnumInterestTypeFieldUpdateOperationsInput
+  user: UserUpdateOneRequiredWithoutInterestsNestedInput
+  Technology: TechnologyUpdateOneWithoutUserInterestsNestedInput
+}
+
+input TechnologyUpdateOneWithoutUserInterestsNestedInput {
+  create: TechnologyCreateWithoutUserInterestsInput
+  connectOrCreate: TechnologyCreateOrConnectWithoutUserInterestsInput
+  upsert: TechnologyUpsertWithoutUserInterestsInput
+  disconnect: TechnologyWhereInput
+  delete: TechnologyWhereInput
+  connect: TechnologyWhereUniqueInput
+  update: TechnologyUpdateToOneWithWhereWithoutUserInterestsInput
+}
+
+input TechnologyUpsertWithoutUserInterestsInput {
+  update: TechnologyUpdateWithoutUserInterestsInput!
+  create: TechnologyCreateWithoutUserInterestsInput!
+  where: TechnologyWhereInput
+}
+
+input TechnologyUpdateWithoutUserInterestsInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  title: StringFieldUpdateOperationsInput
+  Topics: TopicUpdateManyWithoutTechnologyNestedInput
+  Goal: GoalUpdateOneWithoutTechnologiesNestedInput
+}
+
+input TopicUpdateManyWithoutTechnologyNestedInput {
+  create: [TopicCreateWithoutTechnologyInput!]
+  connectOrCreate: [TopicCreateOrConnectWithoutTechnologyInput!]
+  upsert: [TopicUpsertWithWhereUniqueWithoutTechnologyInput!]
+  createMany: TopicCreateManyTechnologyInputEnvelope
+  set: [TopicWhereUniqueInput!]
+  disconnect: [TopicWhereUniqueInput!]
+  delete: [TopicWhereUniqueInput!]
+  connect: [TopicWhereUniqueInput!]
+  update: [TopicUpdateWithWhereUniqueWithoutTechnologyInput!]
+  updateMany: [TopicUpdateManyWithWhereWithoutTechnologyInput!]
+  deleteMany: [TopicScalarWhereInput!]
+}
+
+input TopicUpsertWithWhereUniqueWithoutTechnologyInput {
+  where: TopicWhereUniqueInput!
+  update: TopicUpdateWithoutTechnologyInput!
+  create: TopicCreateWithoutTechnologyInput!
+}
+
+input TopicUpdateWithoutTechnologyInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  title: StringFieldUpdateOperationsInput
+  Blogs: BlogUpdateManyWithoutTopicNestedInput
+  tags: TagUpdateManyWithoutTopicNestedInput
+  userInterests: UserInterestUpdateManyWithoutTopicNestedInput
+}
+
+input TagUpdateManyWithoutTopicNestedInput {
+  create: [TagCreateWithoutTopicInput!]
+  connectOrCreate: [TagCreateOrConnectWithoutTopicInput!]
+  upsert: [TagUpsertWithWhereUniqueWithoutTopicInput!]
+  createMany: TagCreateManyTopicInputEnvelope
+  set: [TagWhereUniqueInput!]
+  disconnect: [TagWhereUniqueInput!]
+  delete: [TagWhereUniqueInput!]
+  connect: [TagWhereUniqueInput!]
+  update: [TagUpdateWithWhereUniqueWithoutTopicInput!]
+  updateMany: [TagUpdateManyWithWhereWithoutTopicInput!]
+  deleteMany: [TagScalarWhereInput!]
+}
+
+input TagUpsertWithWhereUniqueWithoutTopicInput {
+  where: TagWhereUniqueInput!
+  update: TagUpdateWithoutTopicInput!
+  create: TagCreateWithoutTopicInput!
+}
+
+input TagUpdateWithoutTopicInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  title: StringFieldUpdateOperationsInput
+  Blogs: TagsOnBlogsUpdateManyWithoutTagNestedInput
+}
+
+input TagsOnBlogsUpdateManyWithoutTagNestedInput {
+  create: [TagsOnBlogsCreateWithoutTagInput!]
+  connectOrCreate: [TagsOnBlogsCreateOrConnectWithoutTagInput!]
+  upsert: [TagsOnBlogsUpsertWithWhereUniqueWithoutTagInput!]
+  createMany: TagsOnBlogsCreateManyTagInputEnvelope
+  set: [TagsOnBlogsWhereUniqueInput!]
+  disconnect: [TagsOnBlogsWhereUniqueInput!]
+  delete: [TagsOnBlogsWhereUniqueInput!]
+  connect: [TagsOnBlogsWhereUniqueInput!]
+  update: [TagsOnBlogsUpdateWithWhereUniqueWithoutTagInput!]
+  updateMany: [TagsOnBlogsUpdateManyWithWhereWithoutTagInput!]
+  deleteMany: [TagsOnBlogsScalarWhereInput!]
+}
+
+input TagsOnBlogsUpsertWithWhereUniqueWithoutTagInput {
+  where: TagsOnBlogsWhereUniqueInput!
+  update: TagsOnBlogsUpdateWithoutTagInput!
+  create: TagsOnBlogsCreateWithoutTagInput!
+}
+
+input TagsOnBlogsUpdateWithoutTagInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  Blog: BlogUpdateOneRequiredWithoutTagsNestedInput
+}
+
+input BlogUpdateOneRequiredWithoutTagsNestedInput {
+  create: BlogCreateWithoutTagsInput
+  connectOrCreate: BlogCreateOrConnectWithoutTagsInput
+  upsert: BlogUpsertWithoutTagsInput
+  connect: BlogWhereUniqueInput
+  update: BlogUpdateToOneWithWhereWithoutTagsInput
+}
+
+input BlogUpsertWithoutTagsInput {
+  update: BlogUpdateWithoutTagsInput!
+  create: BlogCreateWithoutTagsInput!
+  where: BlogWhereInput
+}
+
+input BlogUpdateWithoutTagsInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  skillLevel: EnumSkillLevelFieldUpdateOperationsInput
+  description: StringFieldUpdateOperationsInput
+  title: StringFieldUpdateOperationsInput
+  slug: StringFieldUpdateOperationsInput
+  views: IntFieldUpdateOperationsInput
+  readTimeInMinutes: IntFieldUpdateOperationsInput
+  Topic: TopicUpdateOneWithoutBlogsNestedInput
+  Author: UserUpdateOneWithoutBlogsNestedInput
+  content: BlogContentUpdateOneWithoutBlogNestedInput
+  Video: VideoUpdateOneWithoutBlogNestedInput
+}
+
+input UserUpdateOneWithoutBlogsNestedInput {
+  create: UserCreateWithoutBlogsInput
+  connectOrCreate: UserCreateOrConnectWithoutBlogsInput
+  upsert: UserUpsertWithoutBlogsInput
+  disconnect: UserWhereInput
+  delete: UserWhereInput
+  connect: UserWhereUniqueInput
+  update: UserUpdateToOneWithWhereWithoutBlogsInput
+}
+
+input UserUpsertWithoutBlogsInput {
+  update: UserUpdateWithoutBlogsInput!
+  create: UserCreateWithoutBlogsInput!
+  where: UserWhereInput
+}
+
+input UserUpdateWithoutBlogsInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  username: StringFieldUpdateOperationsInput
+  emailId: StringFieldUpdateOperationsInput
+  interests: UserInterestUpdateManyWithoutUserNestedInput
+}
+
+input UserInterestUpdateManyWithoutUserNestedInput {
+  create: [UserInterestCreateWithoutUserInput!]
+  connectOrCreate: [UserInterestCreateOrConnectWithoutUserInput!]
+  upsert: [UserInterestUpsertWithWhereUniqueWithoutUserInput!]
+  createMany: UserInterestCreateManyUserInputEnvelope
+  set: [UserInterestWhereUniqueInput!]
+  disconnect: [UserInterestWhereUniqueInput!]
+  delete: [UserInterestWhereUniqueInput!]
+  connect: [UserInterestWhereUniqueInput!]
+  update: [UserInterestUpdateWithWhereUniqueWithoutUserInput!]
+  updateMany: [UserInterestUpdateManyWithWhereWithoutUserInput!]
+  deleteMany: [UserInterestScalarWhereInput!]
+}
+
+input UserInterestUpsertWithWhereUniqueWithoutUserInput {
+  where: UserInterestWhereUniqueInput!
+  update: UserInterestUpdateWithoutUserInput!
+  create: UserInterestCreateWithoutUserInput!
+}
+
+input UserInterestUpdateWithoutUserInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  interestType: EnumInterestTypeFieldUpdateOperationsInput
+  Technology: TechnologyUpdateOneWithoutUserInterestsNestedInput
+  Topic: TopicUpdateOneWithoutUserInterestsNestedInput
+}
+
+input UserInterestUpdateWithWhereUniqueWithoutUserInput {
+  where: UserInterestWhereUniqueInput!
+  data: UserInterestUpdateWithoutUserInput!
+}
+
+input UserInterestUpdateManyWithWhereWithoutUserInput {
+  where: UserInterestScalarWhereInput!
+  data: UserInterestUpdateManyMutationInput!
+}
+
+input UserInterestScalarWhereInput {
+  AND: [UserInterestScalarWhereInput!]
+  OR: [UserInterestScalarWhereInput!]
+  NOT: [UserInterestScalarWhereInput!]
+  id: IntFilter
+  createdAt: DateTimeFilter
+  updatedAt: DateTimeFilter
+  userId: IntFilter
+  technologyId: IntNullableFilter
+  topicId: IntNullableFilter
+  interestType: EnumInterestTypeFilter
+}
+
+input UserInterestUpdateManyMutationInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  interestType: EnumInterestTypeFieldUpdateOperationsInput
+}
+
+input UserUpdateToOneWithWhereWithoutBlogsInput {
+  where: UserWhereInput
+  data: UserUpdateWithoutBlogsInput!
+}
+
+input BlogContentUpdateOneWithoutBlogNestedInput {
+  create: BlogContentCreateWithoutBlogInput
+  connectOrCreate: BlogContentCreateOrConnectWithoutBlogInput
+  upsert: BlogContentUpsertWithoutBlogInput
+  disconnect: BlogContentWhereInput
+  delete: BlogContentWhereInput
+  connect: BlogContentWhereUniqueInput
+  update: BlogContentUpdateToOneWithWhereWithoutBlogInput
+}
+
+input BlogContentUpsertWithoutBlogInput {
+  update: BlogContentUpdateWithoutBlogInput!
+  create: BlogContentCreateWithoutBlogInput!
+  where: BlogContentWhereInput
+}
+
+input BlogContentUpdateWithoutBlogInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  intro: JSON
+  implementation: JSON
+  advanced: JSON
+}
+
+input BlogContentUpdateToOneWithWhereWithoutBlogInput {
+  where: BlogContentWhereInput
+  data: BlogContentUpdateWithoutBlogInput!
+}
+
+input VideoUpdateOneWithoutBlogNestedInput {
+  create: VideoCreateWithoutBlogInput
+  connectOrCreate: VideoCreateOrConnectWithoutBlogInput
+  upsert: VideoUpsertWithoutBlogInput
+  disconnect: VideoWhereInput
+  delete: VideoWhereInput
+  connect: VideoWhereUniqueInput
+  update: VideoUpdateToOneWithWhereWithoutBlogInput
+}
+
+input VideoUpsertWithoutBlogInput {
+  update: VideoUpdateWithoutBlogInput!
+  create: VideoCreateWithoutBlogInput!
+  where: VideoWhereInput
+}
+
+input VideoUpdateWithoutBlogInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  videoLink: StringFieldUpdateOperationsInput
+  thumbnailLink: StringFieldUpdateOperationsInput
+  Sections: VideoSectionUpdateManyWithoutVideoNestedInput
+}
+
+input VideoSectionUpdateManyWithoutVideoNestedInput {
+  create: [VideoSectionCreateWithoutVideoInput!]
+  connectOrCreate: [VideoSectionCreateOrConnectWithoutVideoInput!]
+  upsert: [VideoSectionUpsertWithWhereUniqueWithoutVideoInput!]
+  createMany: VideoSectionCreateManyVideoInputEnvelope
+  set: [VideoSectionWhereUniqueInput!]
+  disconnect: [VideoSectionWhereUniqueInput!]
+  delete: [VideoSectionWhereUniqueInput!]
+  connect: [VideoSectionWhereUniqueInput!]
+  update: [VideoSectionUpdateWithWhereUniqueWithoutVideoInput!]
+  updateMany: [VideoSectionUpdateManyWithWhereWithoutVideoInput!]
+  deleteMany: [VideoSectionScalarWhereInput!]
+}
+
+input VideoSectionUpsertWithWhereUniqueWithoutVideoInput {
+  where: VideoSectionWhereUniqueInput!
+  update: VideoSectionUpdateWithoutVideoInput!
+  create: VideoSectionCreateWithoutVideoInput!
+}
+
+input VideoSectionUpdateWithoutVideoInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  blogSectionTitle: StringFieldUpdateOperationsInput
+  timestampInSeconds: IntFieldUpdateOperationsInput
+  blogPart: EnumBlogPartFieldUpdateOperationsInput
+}
+
+input EnumBlogPartFieldUpdateOperationsInput {
+  set: BlogPart
+}
+
+input VideoSectionUpdateWithWhereUniqueWithoutVideoInput {
+  where: VideoSectionWhereUniqueInput!
+  data: VideoSectionUpdateWithoutVideoInput!
+}
+
+input VideoSectionUpdateManyWithWhereWithoutVideoInput {
+  where: VideoSectionScalarWhereInput!
+  data: VideoSectionUpdateManyMutationInput!
+}
+
+input VideoSectionScalarWhereInput {
+  AND: [VideoSectionScalarWhereInput!]
+  OR: [VideoSectionScalarWhereInput!]
+  NOT: [VideoSectionScalarWhereInput!]
+  id: IntFilter
+  createdAt: DateTimeFilter
+  updatedAt: DateTimeFilter
+  videoId: IntFilter
+  blogSectionTitle: StringFilter
+  timestampInSeconds: IntFilter
+  blogPart: EnumBlogPartFilter
+}
+
+input VideoSectionUpdateManyMutationInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  blogSectionTitle: StringFieldUpdateOperationsInput
+  timestampInSeconds: IntFieldUpdateOperationsInput
+  blogPart: EnumBlogPartFieldUpdateOperationsInput
+}
+
+input VideoUpdateToOneWithWhereWithoutBlogInput {
+  where: VideoWhereInput
+  data: VideoUpdateWithoutBlogInput!
+}
+
+input BlogUpdateToOneWithWhereWithoutTagsInput {
+  where: BlogWhereInput
+  data: BlogUpdateWithoutTagsInput!
+}
+
+input TagsOnBlogsUpdateWithWhereUniqueWithoutTagInput {
+  where: TagsOnBlogsWhereUniqueInput!
+  data: TagsOnBlogsUpdateWithoutTagInput!
+}
+
+input TagsOnBlogsUpdateManyWithWhereWithoutTagInput {
+  where: TagsOnBlogsScalarWhereInput!
+  data: TagsOnBlogsUpdateManyMutationInput!
+}
+
+input TagsOnBlogsScalarWhereInput {
+  AND: [TagsOnBlogsScalarWhereInput!]
+  OR: [TagsOnBlogsScalarWhereInput!]
+  NOT: [TagsOnBlogsScalarWhereInput!]
+  id: IntFilter
+  createdAt: DateTimeFilter
+  updatedAt: DateTimeFilter
+  tagId: IntFilter
+  blogId: IntFilter
+}
+
+input TagsOnBlogsUpdateManyMutationInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+}
+
+input TagUpdateWithWhereUniqueWithoutTopicInput {
+  where: TagWhereUniqueInput!
+  data: TagUpdateWithoutTopicInput!
+}
+
+input TagUpdateManyWithWhereWithoutTopicInput {
+  where: TagScalarWhereInput!
+  data: TagUpdateManyMutationInput!
+}
+
+input TagScalarWhereInput {
+  AND: [TagScalarWhereInput!]
+  OR: [TagScalarWhereInput!]
+  NOT: [TagScalarWhereInput!]
+  id: IntFilter
+  createdAt: DateTimeFilter
+  updatedAt: DateTimeFilter
+  title: StringFilter
+  topicId: IntNullableFilter
+}
+
+input TagUpdateManyMutationInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  title: StringFieldUpdateOperationsInput
+}
+
+input TopicUpdateWithWhereUniqueWithoutTechnologyInput {
+  where: TopicWhereUniqueInput!
+  data: TopicUpdateWithoutTechnologyInput!
+}
+
+input TopicUpdateManyWithWhereWithoutTechnologyInput {
+  where: TopicScalarWhereInput!
+  data: TopicUpdateManyMutationInput!
+}
+
+input TopicScalarWhereInput {
+  AND: [TopicScalarWhereInput!]
+  OR: [TopicScalarWhereInput!]
+  NOT: [TopicScalarWhereInput!]
+  id: IntFilter
+  createdAt: DateTimeFilter
+  updatedAt: DateTimeFilter
+  title: StringFilter
+  technologyId: IntNullableFilter
+}
+
+input TopicUpdateManyMutationInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  title: StringFieldUpdateOperationsInput
+}
+
+input TechnologyUpdateToOneWithWhereWithoutUserInterestsInput {
+  where: TechnologyWhereInput
+  data: TechnologyUpdateWithoutUserInterestsInput!
+}
+
+input UserInterestUpdateWithWhereUniqueWithoutTopicInput {
+  where: UserInterestWhereUniqueInput!
+  data: UserInterestUpdateWithoutTopicInput!
+}
+
+input UserInterestUpdateManyWithWhereWithoutTopicInput {
+  where: UserInterestScalarWhereInput!
+  data: UserInterestUpdateManyMutationInput!
+}
+
+input TopicUpdateToOneWithWhereWithoutTagsInput {
+  where: TopicWhereInput
+  data: TopicUpdateWithoutTagsInput!
+}
+
+input TagUpdateToOneWithWhereWithoutBlogsInput {
+  where: TagWhereInput
+  data: TagUpdateWithoutBlogsInput!
+}
+
+input TagsOnBlogsUpdateWithWhereUniqueWithoutBlogInput {
+  where: TagsOnBlogsWhereUniqueInput!
+  data: TagsOnBlogsUpdateWithoutBlogInput!
+}
+
+input TagsOnBlogsUpdateManyWithWhereWithoutBlogInput {
+  where: TagsOnBlogsScalarWhereInput!
+  data: TagsOnBlogsUpdateManyMutationInput!
+}
+
+input BlogUpdateWithWhereUniqueWithoutTopicInput {
+  where: BlogWhereUniqueInput!
+  data: BlogUpdateWithoutTopicInput!
+}
+
+input BlogUpdateManyWithWhereWithoutTopicInput {
+  where: BlogScalarWhereInput!
+  data: BlogUpdateManyMutationInput!
+}
+
+input BlogScalarWhereInput {
+  AND: [BlogScalarWhereInput!]
+  OR: [BlogScalarWhereInput!]
+  NOT: [BlogScalarWhereInput!]
+  id: IntFilter
+  createdAt: DateTimeFilter
+  updatedAt: DateTimeFilter
+  topicId: IntNullableFilter
+  skillLevel: EnumSkillLevelFilter
+  authorId: IntNullableFilter
+  description: StringFilter
+  title: StringFilter
+  slug: StringFilter
+  views: IntFilter
+  readTimeInMinutes: IntFilter
+}
+
+input BlogUpdateManyMutationInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  skillLevel: EnumSkillLevelFieldUpdateOperationsInput
+  description: StringFieldUpdateOperationsInput
+  title: StringFieldUpdateOperationsInput
+  slug: StringFieldUpdateOperationsInput
+  views: IntFieldUpdateOperationsInput
+  readTimeInMinutes: IntFieldUpdateOperationsInput
+}
+
+input TopicUpdateToOneWithWhereWithoutUserInterestsInput {
+  where: TopicWhereInput
+  data: TopicUpdateWithoutUserInterestsInput!
+}
+
+input UserInterestUpdateWithWhereUniqueWithoutTechnologyInput {
+  where: UserInterestWhereUniqueInput!
+  data: UserInterestUpdateWithoutTechnologyInput!
+}
+
+input UserInterestUpdateManyWithWhereWithoutTechnologyInput {
+  where: UserInterestScalarWhereInput!
+  data: UserInterestUpdateManyMutationInput!
+}
+
+input TechnologyUpdateToOneWithWhereWithoutTopicsInput {
+  where: TechnologyWhereInput
+  data: TechnologyUpdateWithoutTopicsInput!
+}
+
+input TopicUpdateToOneWithWhereWithoutBlogsInput {
+  where: TopicWhereInput
+  data: TopicUpdateWithoutBlogsInput!
+}
+
+input BlogUpdateWithWhereUniqueWithoutAuthorInput {
+  where: BlogWhereUniqueInput!
+  data: BlogUpdateWithoutAuthorInput!
+}
+
+input BlogUpdateManyWithWhereWithoutAuthorInput {
+  where: BlogScalarWhereInput!
+  data: BlogUpdateManyMutationInput!
+}
+
+input UserUpdateToOneWithWhereWithoutInterestsInput {
+  where: UserWhereInput
+  data: UserUpdateWithoutInterestsInput!
+}
+
+type DeleteUserInterestResponse {
+  success: Boolean!
+  message: String
+  status: String
+  data: Boolean
+}
+
+type CreateUserInterestResponse {
+  success: Boolean!
+  message: String
+  status: String
+  data: UserInterest
+}
+
+input UserInterestCreateInput {
+  createdAt: DateTimeISO
+  updatedAt: DateTimeISO
+  interestType: InterestType!
+  user: UserCreateNestedOneWithoutInterestsInput!
+  Technology: TechnologyCreateNestedOneWithoutUserInterestsInput
+  Topic: TopicCreateNestedOneWithoutUserInterestsInput
+}
