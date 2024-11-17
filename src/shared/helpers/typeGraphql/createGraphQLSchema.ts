@@ -193,7 +193,7 @@ export const schema = await buildSchema({
   resolvers: [...UserInterestResolvers],
 });
 
-// Convert the schema to GraphQL Schema Definition Language (SDL) format and write it to a fil
+// Convert the schema to GraphQL Schema Definition Language (SDL) format and write it to a file
 const schemaFilePath = "generated/schema.graphql";
 if (!existsSync(schemaFilePath)) {
   writeFileSync(schemaFilePath, printSchema(schema));
