@@ -6,6 +6,11 @@ import { TopicCreateNestedOneWithoutTagsInput } from "../inputs/TopicCreateNeste
 
 @TypeGraphQL.InputType("TagCreateWithoutBlogsInput", {})
 export class TagCreateWithoutBlogsInput {
+  @TypeGraphQL.Field(_type => String, {
+    nullable: true
+  })
+  id?: string | undefined;
+
   @TypeGraphQL.Field(_type => Date, {
     nullable: true
   })

@@ -9,10 +9,10 @@ import { TechnologyListRelationFilter } from "../inputs/TechnologyListRelationFi
 
 @TypeGraphQL.InputType("GoalWhereUniqueInput", {})
 export class GoalWhereUniqueInput {
-  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+  @TypeGraphQL.Field(_type => String, {
     nullable: true
   })
-  id?: number | undefined;
+  id?: string | undefined;
 
   @TypeGraphQL.Field(_type => [GoalWhereInput], {
     nullable: true

@@ -8,6 +8,11 @@ import { TechnologyCreateNestedOneWithoutTopicsInput } from "../inputs/Technolog
 
 @TypeGraphQL.InputType("TopicCreateWithoutUserInterestsInput", {})
 export class TopicCreateWithoutUserInterestsInput {
+  @TypeGraphQL.Field(_type => String, {
+    nullable: true
+  })
+  id?: string | undefined;
+
   @TypeGraphQL.Field(_type => Date, {
     nullable: true
   })

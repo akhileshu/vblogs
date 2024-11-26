@@ -12,10 +12,10 @@ import { VideoSectionWhereInput } from "../inputs/VideoSectionWhereInput";
 
 @TypeGraphQL.InputType("VideoSectionWhereUniqueInput", {})
 export class VideoSectionWhereUniqueInput {
-  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+  @TypeGraphQL.Field(_type => String, {
     nullable: true
   })
-  id?: number | undefined;
+  id?: string | undefined;
 
   @TypeGraphQL.Field(_type => VideoSectionBlogSectionTitleBlogPartCompoundUniqueInput, {
     nullable: true
@@ -47,10 +47,10 @@ export class VideoSectionWhereUniqueInput {
   })
   updatedAt?: DateTimeFilter | undefined;
 
-  @TypeGraphQL.Field(_type => IntFilter, {
+  @TypeGraphQL.Field(_type => StringFilter, {
     nullable: true
   })
-  videoId?: IntFilter | undefined;
+  videoId?: StringFilter | undefined;
 
   @TypeGraphQL.Field(_type => StringFilter, {
     nullable: true

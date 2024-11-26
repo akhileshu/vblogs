@@ -7,10 +7,10 @@ import { BlogPart } from "../enums/BlogPart";
 
 @TypeGraphQL.ObjectType("VideoSection", {})
 export class VideoSection {
-  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+  @TypeGraphQL.Field(_type => String, {
     nullable: false
   })
-  id!: number;
+  id!: string;
 
   @TypeGraphQL.Field(_type => Date, {
     nullable: false
@@ -24,10 +24,10 @@ export class VideoSection {
 
   Video?: Video;
 
-  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+  @TypeGraphQL.Field(_type => String, {
     nullable: false
   })
-  videoId!: number;
+  videoId!: string;
 
   @TypeGraphQL.Field(_type => String, {
     nullable: false

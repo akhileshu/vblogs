@@ -8,6 +8,11 @@ import { InterestType } from "../../enums/InterestType";
 
 @TypeGraphQL.InputType("UserInterestCreateWithoutTechnologyInput", {})
 export class UserInterestCreateWithoutTechnologyInput {
+  @TypeGraphQL.Field(_type => String, {
+    nullable: true
+  })
+  id?: string | undefined;
+
   @TypeGraphQL.Field(_type => Date, {
     nullable: true
   })

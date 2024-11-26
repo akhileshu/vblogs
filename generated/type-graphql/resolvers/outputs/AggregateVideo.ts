@@ -2,11 +2,9 @@ import * as TypeGraphQL from "type-graphql";
 import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
-import { VideoAvgAggregate } from "../outputs/VideoAvgAggregate";
 import { VideoCountAggregate } from "../outputs/VideoCountAggregate";
 import { VideoMaxAggregate } from "../outputs/VideoMaxAggregate";
 import { VideoMinAggregate } from "../outputs/VideoMinAggregate";
-import { VideoSumAggregate } from "../outputs/VideoSumAggregate";
 
 @TypeGraphQL.ObjectType("AggregateVideo", {})
 export class AggregateVideo {
@@ -14,16 +12,6 @@ export class AggregateVideo {
     nullable: true
   })
   _count!: VideoCountAggregate | null;
-
-  @TypeGraphQL.Field(_type => VideoAvgAggregate, {
-    nullable: true
-  })
-  _avg!: VideoAvgAggregate | null;
-
-  @TypeGraphQL.Field(_type => VideoSumAggregate, {
-    nullable: true
-  })
-  _sum!: VideoSumAggregate | null;
 
   @TypeGraphQL.Field(_type => VideoMinAggregate, {
     nullable: true

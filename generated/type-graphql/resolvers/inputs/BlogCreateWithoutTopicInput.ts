@@ -10,6 +10,11 @@ import { SkillLevel } from "../../enums/SkillLevel";
 
 @TypeGraphQL.InputType("BlogCreateWithoutTopicInput", {})
 export class BlogCreateWithoutTopicInput {
+  @TypeGraphQL.Field(_type => String, {
+    nullable: true
+  })
+  id?: string | undefined;
+
   @TypeGraphQL.Field(_type => Date, {
     nullable: true
   })

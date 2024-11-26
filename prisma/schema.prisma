@@ -19,7 +19,7 @@ datasource db {
 }
 
 model Goal {
-  id           Int          @id @default(autoincrement())
+  id           String       @id @default(uuid())
   createdAt    DateTime     @default(now())
   updatedAt    DateTime     @updatedAt
   title        String
@@ -27,65 +27,66 @@ model Goal {
 }
 
 model Technology {
-  id        Int      @id @default(autoincrement())
+  id        String   @id @default(uuid())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   title     String
   Topics    Topic[]
   Goal      Goal?    @relation(fields: [goalId], references: [id])
-  goalId    Int?
+  goalId    String?
 
   userInterests UserInterest[]
 }
 
 model Topic {
-  id            Int            @id @default(autoincrement())
+  id            String         @id @default(uuid())
   createdAt     DateTime       @default(now())
   updatedAt     DateTime       @updatedAt
   title         String
   Technology    Technology?    @relation(fields: [technologyId], references: [id])
-  technologyId  Int?
+  technologyId  String?
   Blogs         Blog[]
   tags          Tag[]
   userInterests UserInterest[]
 }
 
 model Tag {
-  id        Int      @id @default(autoincrement())
+  id        String   @id @default(uuid())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   title String
 
-  Topic   Topic?     @relation(fields: [topicId], references: [id])
-  topicId Int?
+  Topic   Topic?        @relation(fields: [topicId], references: [id])
+  topicId String?
   Blogs   TagsOnBlogs[]
 }
 
 model User {
-  id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  username  String         @unique
+  id        String         @id @default(uuid())
+  createdAt DateTime       @default(now())
+  updatedAt DateTime       @updatedAt
+  role      UserRole       @default(LEARNER)
+  name      String
   Blogs     Blog[]
-  emailId   String         @unique
+  email     String         @unique
+  image     String
   interests UserInterest[]
 }
 
 model UserInterest {
-  id        Int      @id @default(autoincrement())
+  id        String   @id @default(uuid())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  userId Int
-  user   User @relation(fields: [userId], references: [id])
+  userId String
+  user   User   @relation(fields: [userId], references: [id])
 
-  technologyId Int?
+  technologyId String?
   Technology   Technology? @relation(fields: [technologyId], references: [id])
 
-  topicId Int?
-  Topic   Topic? @relation(fields: [topicId], references: [id])
+  topicId String?
+  Topic   Topic?  @relation(fields: [topicId], references: [id])
 
   interestType InterestType //field to determine the type of interest (technology or topic)
 }
@@ -96,22 +97,22 @@ enum InterestType {
 }
 
 model Blog {
-  id         Int        @id @default(autoincrement())
+  id         String     @id @default(uuid())
   createdAt  DateTime   @default(now())
   updatedAt  DateTime   @updatedAt
   Topic      Topic?     @relation(fields: [topicId], references: [id])
-  topicId    Int?
+  topicId    String?
   skillLevel SkillLevel @default(INTERMEDIATE)
 
   // 
   Tags              TagsOnBlogs[]
-  Author            User?        @relation(fields: [authorId], references: [id])
-  authorId          Int?
+  Author            User?         @relation(fields: [authorId], references: [id])
+  authorId          String?
   content           BlogContent?
   description       String
   title             String
-  slug              String       @unique // for sharable url
-  views             Int          @default(0)
+  slug              String        @unique // for sharable url
+  views             Int           @default(0)
   readTimeInMinutes Int
   Video             Video?
 
@@ -119,11 +120,11 @@ model Blog {
 }
 
 model Video {
-  id        Int      @id @default(autoincrement())
+  id        String   @id @default(uuid())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   Blog      Blog     @relation(fields: [blogId], references: [id])
-  blogId    Int      @unique
+  blogId    String   @unique
 
   videoLink     String
   thumbnailLink String
@@ -131,15 +132,15 @@ model Video {
 }
 
 model VideoSection {
-  id        Int      @id @default(autoincrement())
+  id        String   @id @default(uuid())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   Video     Video    @relation(fields: [videoId], references: [id])
-  videoId   Int
+  videoId   String
 
-  blogSectionTitle   String 
+  blogSectionTitle   String
   timestampInSeconds Int // Timestamp in seconds where this heading corresponds in the video
-  blogPart          BlogPart
+  blogPart           BlogPart
 
   @@unique([blogSectionTitle, blogPart]) //each video section title can only be mapped to one timeline for a given part of the blog
 }
@@ -151,26 +152,26 @@ enum BlogPart {
 }
 
 model BlogContent {
-  id        Int      @id @default(autoincrement())
+  id        String   @id @default(uuid())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   intro          Json
   implementation Json
   advanced       Json
-  Blog           Blog @relation(fields: [blogId], references: [id])
-  blogId         Int  @unique
+  Blog           Blog   @relation(fields: [blogId], references: [id])
+  blogId         String @unique
 }
 
 model TagsOnBlogs {
-  id        Int      @id @default(autoincrement())
+  id        String   @id @default(uuid())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  Tag    Tag  @relation(fields: [tagId], references: [id])
-  tagId  Int
-  Blog   Blog @relation(fields: [blogId], references: [id])
-  blogId Int
+  Tag    Tag    @relation(fields: [tagId], references: [id])
+  tagId  String
+  Blog   Blog   @relation(fields: [blogId], references: [id])
+  blogId String
 
   @@unique([blogId, tagId]) // a blog can't have the same tag twice
 }
@@ -182,8 +183,7 @@ enum SkillLevel {
 }
 
 enum UserRole {
-LEARNER
-AUTHOR
-ADMIN
-
+  LEARNER
+  AUTHOR
+  ADMIN
 }

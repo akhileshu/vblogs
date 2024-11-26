@@ -2,13 +2,14 @@ import * as TypeGraphQL from "type-graphql";
 import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
+import { UserRole } from "../../enums/UserRole";
 
 @TypeGraphQL.ObjectType("CreateManyAndReturnUser", {})
 export class CreateManyAndReturnUser {
-  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+  @TypeGraphQL.Field(_type => String, {
     nullable: false
   })
-  id!: number;
+  id!: string;
 
   @TypeGraphQL.Field(_type => Date, {
     nullable: false
@@ -20,13 +21,23 @@ export class CreateManyAndReturnUser {
   })
   updatedAt!: Date;
 
-  @TypeGraphQL.Field(_type => String, {
+  @TypeGraphQL.Field(_type => UserRole, {
     nullable: false
   })
-  username!: string;
+  role!: "LEARNER" | "AUTHOR" | "ADMIN";
 
   @TypeGraphQL.Field(_type => String, {
     nullable: false
   })
-  emailId!: string;
+  name!: string;
+
+  @TypeGraphQL.Field(_type => String, {
+    nullable: false
+  })
+  email!: string;
+
+  @TypeGraphQL.Field(_type => String, {
+    nullable: false
+  })
+  image!: string;
 }

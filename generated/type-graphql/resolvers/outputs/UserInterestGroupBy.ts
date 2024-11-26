@@ -2,19 +2,17 @@ import * as TypeGraphQL from "type-graphql";
 import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
-import { UserInterestAvgAggregate } from "../outputs/UserInterestAvgAggregate";
 import { UserInterestCountAggregate } from "../outputs/UserInterestCountAggregate";
 import { UserInterestMaxAggregate } from "../outputs/UserInterestMaxAggregate";
 import { UserInterestMinAggregate } from "../outputs/UserInterestMinAggregate";
-import { UserInterestSumAggregate } from "../outputs/UserInterestSumAggregate";
 import { InterestType } from "../../enums/InterestType";
 
 @TypeGraphQL.ObjectType("UserInterestGroupBy", {})
 export class UserInterestGroupBy {
-  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+  @TypeGraphQL.Field(_type => String, {
     nullable: false
   })
-  id!: number;
+  id!: string;
 
   @TypeGraphQL.Field(_type => Date, {
     nullable: false
@@ -26,20 +24,20 @@ export class UserInterestGroupBy {
   })
   updatedAt!: Date;
 
-  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+  @TypeGraphQL.Field(_type => String, {
     nullable: false
   })
-  userId!: number;
+  userId!: string;
 
-  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+  @TypeGraphQL.Field(_type => String, {
     nullable: true
   })
-  technologyId!: number | null;
+  technologyId!: string | null;
 
-  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+  @TypeGraphQL.Field(_type => String, {
     nullable: true
   })
-  topicId!: number | null;
+  topicId!: string | null;
 
   @TypeGraphQL.Field(_type => InterestType, {
     nullable: false
@@ -50,16 +48,6 @@ export class UserInterestGroupBy {
     nullable: true
   })
   _count!: UserInterestCountAggregate | null;
-
-  @TypeGraphQL.Field(_type => UserInterestAvgAggregate, {
-    nullable: true
-  })
-  _avg!: UserInterestAvgAggregate | null;
-
-  @TypeGraphQL.Field(_type => UserInterestSumAggregate, {
-    nullable: true
-  })
-  _sum!: UserInterestSumAggregate | null;
 
   @TypeGraphQL.Field(_type => UserInterestMinAggregate, {
     nullable: true

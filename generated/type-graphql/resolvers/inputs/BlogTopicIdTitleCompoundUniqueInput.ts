@@ -5,10 +5,10 @@ import { DecimalJSScalar } from "../../scalars";
 
 @TypeGraphQL.InputType("BlogTopicIdTitleCompoundUniqueInput", {})
 export class BlogTopicIdTitleCompoundUniqueInput {
-  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+  @TypeGraphQL.Field(_type => String, {
     nullable: false
   })
-  topicId!: number;
+  topicId!: string;
 
   @TypeGraphQL.Field(_type => String, {
     nullable: false

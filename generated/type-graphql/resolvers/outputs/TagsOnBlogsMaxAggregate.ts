@@ -5,10 +5,10 @@ import { DecimalJSScalar } from "../../scalars";
 
 @TypeGraphQL.ObjectType("TagsOnBlogsMaxAggregate", {})
 export class TagsOnBlogsMaxAggregate {
-  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+  @TypeGraphQL.Field(_type => String, {
     nullable: true
   })
-  id!: number | null;
+  id!: string | null;
 
   @TypeGraphQL.Field(_type => Date, {
     nullable: true
@@ -20,13 +20,13 @@ export class TagsOnBlogsMaxAggregate {
   })
   updatedAt!: Date | null;
 
-  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+  @TypeGraphQL.Field(_type => String, {
     nullable: true
   })
-  tagId!: number | null;
+  tagId!: string | null;
 
-  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+  @TypeGraphQL.Field(_type => String, {
     nullable: true
   })
-  blogId!: number | null;
+  blogId!: string | null;
 }

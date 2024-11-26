@@ -6,10 +6,10 @@ import { Blog } from "../models/Blog";
 
 @TypeGraphQL.ObjectType("BlogContent", {})
 export class BlogContent {
-  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+  @TypeGraphQL.Field(_type => String, {
     nullable: false
   })
-  id!: number;
+  id!: string;
 
   @TypeGraphQL.Field(_type => Date, {
     nullable: false
@@ -38,8 +38,8 @@ export class BlogContent {
 
   Blog?: Blog;
 
-  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+  @TypeGraphQL.Field(_type => String, {
     nullable: false
   })
-  blogId!: number;
+  blogId!: string;
 }

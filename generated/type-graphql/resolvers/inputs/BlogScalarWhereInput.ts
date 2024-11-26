@@ -5,8 +5,8 @@ import { DecimalJSScalar } from "../../scalars";
 import { DateTimeFilter } from "../inputs/DateTimeFilter";
 import { EnumSkillLevelFilter } from "../inputs/EnumSkillLevelFilter";
 import { IntFilter } from "../inputs/IntFilter";
-import { IntNullableFilter } from "../inputs/IntNullableFilter";
 import { StringFilter } from "../inputs/StringFilter";
+import { StringNullableFilter } from "../inputs/StringNullableFilter";
 
 @TypeGraphQL.InputType("BlogScalarWhereInput", {})
 export class BlogScalarWhereInput {
@@ -25,10 +25,10 @@ export class BlogScalarWhereInput {
   })
   NOT?: BlogScalarWhereInput[] | undefined;
 
-  @TypeGraphQL.Field(_type => IntFilter, {
+  @TypeGraphQL.Field(_type => StringFilter, {
     nullable: true
   })
-  id?: IntFilter | undefined;
+  id?: StringFilter | undefined;
 
   @TypeGraphQL.Field(_type => DateTimeFilter, {
     nullable: true
@@ -40,20 +40,20 @@ export class BlogScalarWhereInput {
   })
   updatedAt?: DateTimeFilter | undefined;
 
-  @TypeGraphQL.Field(_type => IntNullableFilter, {
+  @TypeGraphQL.Field(_type => StringNullableFilter, {
     nullable: true
   })
-  topicId?: IntNullableFilter | undefined;
+  topicId?: StringNullableFilter | undefined;
 
   @TypeGraphQL.Field(_type => EnumSkillLevelFilter, {
     nullable: true
   })
   skillLevel?: EnumSkillLevelFilter | undefined;
 
-  @TypeGraphQL.Field(_type => IntNullableFilter, {
+  @TypeGraphQL.Field(_type => StringNullableFilter, {
     nullable: true
   })
-  authorId?: IntNullableFilter | undefined;
+  authorId?: StringNullableFilter | undefined;
 
   @TypeGraphQL.Field(_type => StringFilter, {
     nullable: true

@@ -5,10 +5,10 @@ import { DecimalJSScalar } from "../../scalars";
 
 @TypeGraphQL.ObjectType("VideoMinAggregate", {})
 export class VideoMinAggregate {
-  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+  @TypeGraphQL.Field(_type => String, {
     nullable: true
   })
-  id!: number | null;
+  id!: string | null;
 
   @TypeGraphQL.Field(_type => Date, {
     nullable: true
@@ -20,10 +20,10 @@ export class VideoMinAggregate {
   })
   updatedAt!: Date | null;
 
-  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+  @TypeGraphQL.Field(_type => String, {
     nullable: true
   })
-  blogId!: number | null;
+  blogId!: string | null;
 
   @TypeGraphQL.Field(_type => String, {
     nullable: true

@@ -7,10 +7,10 @@ import { Technology } from "../../models/Technology";
 
 @TypeGraphQL.ObjectType("CreateManyAndReturnTopic", {})
 export class CreateManyAndReturnTopic {
-  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+  @TypeGraphQL.Field(_type => String, {
     nullable: false
   })
-  id!: number;
+  id!: string;
 
   @TypeGraphQL.Field(_type => Date, {
     nullable: false
@@ -27,10 +27,10 @@ export class CreateManyAndReturnTopic {
   })
   title!: string;
 
-  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+  @TypeGraphQL.Field(_type => String, {
     nullable: true
   })
-  technologyId!: number | null;
+  technologyId!: string | null;
 
   Technology!: Technology | null;
 

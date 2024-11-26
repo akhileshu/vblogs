@@ -6,10 +6,10 @@ import { InterestType } from "../../enums/InterestType";
 
 @TypeGraphQL.ObjectType("UserInterestMaxAggregate", {})
 export class UserInterestMaxAggregate {
-  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+  @TypeGraphQL.Field(_type => String, {
     nullable: true
   })
-  id!: number | null;
+  id!: string | null;
 
   @TypeGraphQL.Field(_type => Date, {
     nullable: true
@@ -21,20 +21,20 @@ export class UserInterestMaxAggregate {
   })
   updatedAt!: Date | null;
 
-  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+  @TypeGraphQL.Field(_type => String, {
     nullable: true
   })
-  userId!: number | null;
+  userId!: string | null;
 
-  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+  @TypeGraphQL.Field(_type => String, {
     nullable: true
   })
-  technologyId!: number | null;
+  technologyId!: string | null;
 
-  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+  @TypeGraphQL.Field(_type => String, {
     nullable: true
   })
-  topicId!: number | null;
+  topicId!: string | null;
 
   @TypeGraphQL.Field(_type => InterestType, {
     nullable: true

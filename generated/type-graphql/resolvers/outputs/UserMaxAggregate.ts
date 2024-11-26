@@ -2,13 +2,14 @@ import * as TypeGraphQL from "type-graphql";
 import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
+import { UserRole } from "../../enums/UserRole";
 
 @TypeGraphQL.ObjectType("UserMaxAggregate", {})
 export class UserMaxAggregate {
-  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+  @TypeGraphQL.Field(_type => String, {
     nullable: true
   })
-  id!: number | null;
+  id!: string | null;
 
   @TypeGraphQL.Field(_type => Date, {
     nullable: true
@@ -20,13 +21,23 @@ export class UserMaxAggregate {
   })
   updatedAt!: Date | null;
 
-  @TypeGraphQL.Field(_type => String, {
+  @TypeGraphQL.Field(_type => UserRole, {
     nullable: true
   })
-  username!: string | null;
+  role!: "LEARNER" | "AUTHOR" | "ADMIN" | null;
 
   @TypeGraphQL.Field(_type => String, {
     nullable: true
   })
-  emailId!: string | null;
+  name!: string | null;
+
+  @TypeGraphQL.Field(_type => String, {
+    nullable: true
+  })
+  email!: string | null;
+
+  @TypeGraphQL.Field(_type => String, {
+    nullable: true
+  })
+  image!: string | null;
 }

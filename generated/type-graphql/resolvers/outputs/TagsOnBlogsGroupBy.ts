@@ -2,18 +2,16 @@ import * as TypeGraphQL from "type-graphql";
 import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
-import { TagsOnBlogsAvgAggregate } from "../outputs/TagsOnBlogsAvgAggregate";
 import { TagsOnBlogsCountAggregate } from "../outputs/TagsOnBlogsCountAggregate";
 import { TagsOnBlogsMaxAggregate } from "../outputs/TagsOnBlogsMaxAggregate";
 import { TagsOnBlogsMinAggregate } from "../outputs/TagsOnBlogsMinAggregate";
-import { TagsOnBlogsSumAggregate } from "../outputs/TagsOnBlogsSumAggregate";
 
 @TypeGraphQL.ObjectType("TagsOnBlogsGroupBy", {})
 export class TagsOnBlogsGroupBy {
-  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+  @TypeGraphQL.Field(_type => String, {
     nullable: false
   })
-  id!: number;
+  id!: string;
 
   @TypeGraphQL.Field(_type => Date, {
     nullable: false
@@ -25,30 +23,20 @@ export class TagsOnBlogsGroupBy {
   })
   updatedAt!: Date;
 
-  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+  @TypeGraphQL.Field(_type => String, {
     nullable: false
   })
-  tagId!: number;
+  tagId!: string;
 
-  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+  @TypeGraphQL.Field(_type => String, {
     nullable: false
   })
-  blogId!: number;
+  blogId!: string;
 
   @TypeGraphQL.Field(_type => TagsOnBlogsCountAggregate, {
     nullable: true
   })
   _count!: TagsOnBlogsCountAggregate | null;
-
-  @TypeGraphQL.Field(_type => TagsOnBlogsAvgAggregate, {
-    nullable: true
-  })
-  _avg!: TagsOnBlogsAvgAggregate | null;
-
-  @TypeGraphQL.Field(_type => TagsOnBlogsSumAggregate, {
-    nullable: true
-  })
-  _sum!: TagsOnBlogsSumAggregate | null;
 
   @TypeGraphQL.Field(_type => TagsOnBlogsMinAggregate, {
     nullable: true

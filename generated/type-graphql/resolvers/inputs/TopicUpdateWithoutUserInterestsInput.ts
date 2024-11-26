@@ -10,6 +10,11 @@ import { TechnologyUpdateOneWithoutTopicsNestedInput } from "../inputs/Technolog
 
 @TypeGraphQL.InputType("TopicUpdateWithoutUserInterestsInput", {})
 export class TopicUpdateWithoutUserInterestsInput {
+  @TypeGraphQL.Field(_type => StringFieldUpdateOperationsInput, {
+    nullable: true
+  })
+  id?: StringFieldUpdateOperationsInput | undefined;
+
   @TypeGraphQL.Field(_type => DateTimeFieldUpdateOperationsInput, {
     nullable: true
   })

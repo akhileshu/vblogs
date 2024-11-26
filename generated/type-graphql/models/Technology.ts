@@ -9,10 +9,10 @@ import { TechnologyCount } from "../resolvers/outputs/TechnologyCount";
 
 @TypeGraphQL.ObjectType("Technology", {})
 export class Technology {
-  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+  @TypeGraphQL.Field(_type => String, {
     nullable: false
   })
-  id!: number;
+  id!: string;
 
   @TypeGraphQL.Field(_type => Date, {
     nullable: false
@@ -33,10 +33,10 @@ export class Technology {
 
   Goal?: Goal | null;
 
-  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+  @TypeGraphQL.Field(_type => String, {
     nullable: true
   })
-  goalId?: number | null;
+  goalId?: string | null;
 
   userInterests?: UserInterest[];
 

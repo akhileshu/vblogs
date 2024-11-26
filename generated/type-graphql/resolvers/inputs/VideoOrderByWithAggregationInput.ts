@@ -2,11 +2,9 @@ import * as TypeGraphQL from "type-graphql";
 import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
-import { VideoAvgOrderByAggregateInput } from "../inputs/VideoAvgOrderByAggregateInput";
 import { VideoCountOrderByAggregateInput } from "../inputs/VideoCountOrderByAggregateInput";
 import { VideoMaxOrderByAggregateInput } from "../inputs/VideoMaxOrderByAggregateInput";
 import { VideoMinOrderByAggregateInput } from "../inputs/VideoMinOrderByAggregateInput";
-import { VideoSumOrderByAggregateInput } from "../inputs/VideoSumOrderByAggregateInput";
 import { SortOrder } from "../../enums/SortOrder";
 
 @TypeGraphQL.InputType("VideoOrderByWithAggregationInput", {})
@@ -46,11 +44,6 @@ export class VideoOrderByWithAggregationInput {
   })
   _count?: VideoCountOrderByAggregateInput | undefined;
 
-  @TypeGraphQL.Field(_type => VideoAvgOrderByAggregateInput, {
-    nullable: true
-  })
-  _avg?: VideoAvgOrderByAggregateInput | undefined;
-
   @TypeGraphQL.Field(_type => VideoMaxOrderByAggregateInput, {
     nullable: true
   })
@@ -60,9 +53,4 @@ export class VideoOrderByWithAggregationInput {
     nullable: true
   })
   _min?: VideoMinOrderByAggregateInput | undefined;
-
-  @TypeGraphQL.Field(_type => VideoSumOrderByAggregateInput, {
-    nullable: true
-  })
-  _sum?: VideoSumOrderByAggregateInput | undefined;
 }

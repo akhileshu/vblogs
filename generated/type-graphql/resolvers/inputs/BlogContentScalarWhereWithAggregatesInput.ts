@@ -3,8 +3,8 @@ import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
 import { DateTimeWithAggregatesFilter } from "../inputs/DateTimeWithAggregatesFilter";
-import { IntWithAggregatesFilter } from "../inputs/IntWithAggregatesFilter";
 import { JsonWithAggregatesFilter } from "../inputs/JsonWithAggregatesFilter";
+import { StringWithAggregatesFilter } from "../inputs/StringWithAggregatesFilter";
 
 @TypeGraphQL.InputType("BlogContentScalarWhereWithAggregatesInput", {})
 export class BlogContentScalarWhereWithAggregatesInput {
@@ -23,10 +23,10 @@ export class BlogContentScalarWhereWithAggregatesInput {
   })
   NOT?: BlogContentScalarWhereWithAggregatesInput[] | undefined;
 
-  @TypeGraphQL.Field(_type => IntWithAggregatesFilter, {
+  @TypeGraphQL.Field(_type => StringWithAggregatesFilter, {
     nullable: true
   })
-  id?: IntWithAggregatesFilter | undefined;
+  id?: StringWithAggregatesFilter | undefined;
 
   @TypeGraphQL.Field(_type => DateTimeWithAggregatesFilter, {
     nullable: true
@@ -53,8 +53,8 @@ export class BlogContentScalarWhereWithAggregatesInput {
   })
   advanced?: JsonWithAggregatesFilter | undefined;
 
-  @TypeGraphQL.Field(_type => IntWithAggregatesFilter, {
+  @TypeGraphQL.Field(_type => StringWithAggregatesFilter, {
     nullable: true
   })
-  blogId?: IntWithAggregatesFilter | undefined;
+  blogId?: StringWithAggregatesFilter | undefined;
 }

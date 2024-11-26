@@ -7,10 +7,10 @@ import { Goal } from "../../models/Goal";
 
 @TypeGraphQL.ObjectType("CreateManyAndReturnTechnology", {})
 export class CreateManyAndReturnTechnology {
-  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+  @TypeGraphQL.Field(_type => String, {
     nullable: false
   })
-  id!: number;
+  id!: string;
 
   @TypeGraphQL.Field(_type => Date, {
     nullable: false
@@ -27,10 +27,10 @@ export class CreateManyAndReturnTechnology {
   })
   title!: string;
 
-  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+  @TypeGraphQL.Field(_type => String, {
     nullable: true
   })
-  goalId!: number | null;
+  goalId!: string | null;
 
   Goal!: Goal | null;
 

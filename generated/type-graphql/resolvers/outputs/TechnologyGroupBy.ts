@@ -2,18 +2,16 @@ import * as TypeGraphQL from "type-graphql";
 import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
-import { TechnologyAvgAggregate } from "../outputs/TechnologyAvgAggregate";
 import { TechnologyCountAggregate } from "../outputs/TechnologyCountAggregate";
 import { TechnologyMaxAggregate } from "../outputs/TechnologyMaxAggregate";
 import { TechnologyMinAggregate } from "../outputs/TechnologyMinAggregate";
-import { TechnologySumAggregate } from "../outputs/TechnologySumAggregate";
 
 @TypeGraphQL.ObjectType("TechnologyGroupBy", {})
 export class TechnologyGroupBy {
-  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+  @TypeGraphQL.Field(_type => String, {
     nullable: false
   })
-  id!: number;
+  id!: string;
 
   @TypeGraphQL.Field(_type => Date, {
     nullable: false
@@ -30,25 +28,15 @@ export class TechnologyGroupBy {
   })
   title!: string;
 
-  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+  @TypeGraphQL.Field(_type => String, {
     nullable: true
   })
-  goalId!: number | null;
+  goalId!: string | null;
 
   @TypeGraphQL.Field(_type => TechnologyCountAggregate, {
     nullable: true
   })
   _count!: TechnologyCountAggregate | null;
-
-  @TypeGraphQL.Field(_type => TechnologyAvgAggregate, {
-    nullable: true
-  })
-  _avg!: TechnologyAvgAggregate | null;
-
-  @TypeGraphQL.Field(_type => TechnologySumAggregate, {
-    nullable: true
-  })
-  _sum!: TechnologySumAggregate | null;
 
   @TypeGraphQL.Field(_type => TechnologyMinAggregate, {
     nullable: true

@@ -10,6 +10,11 @@ import { UserInterestUpdateManyWithoutTopicNestedInput } from "../inputs/UserInt
 
 @TypeGraphQL.InputType("TopicUpdateWithoutTagsInput", {})
 export class TopicUpdateWithoutTagsInput {
+  @TypeGraphQL.Field(_type => StringFieldUpdateOperationsInput, {
+    nullable: true
+  })
+  id?: StringFieldUpdateOperationsInput | undefined;
+
   @TypeGraphQL.Field(_type => DateTimeFieldUpdateOperationsInput, {
     nullable: true
   })

@@ -3,9 +3,15 @@ import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
 import { BlogCreateNestedManyWithoutAuthorInput } from "../inputs/BlogCreateNestedManyWithoutAuthorInput";
+import { UserRole } from "../../enums/UserRole";
 
 @TypeGraphQL.InputType("UserCreateWithoutInterestsInput", {})
 export class UserCreateWithoutInterestsInput {
+  @TypeGraphQL.Field(_type => String, {
+    nullable: true
+  })
+  id?: string | undefined;
+
   @TypeGraphQL.Field(_type => Date, {
     nullable: true
   })
@@ -16,15 +22,25 @@ export class UserCreateWithoutInterestsInput {
   })
   updatedAt?: Date | undefined;
 
-  @TypeGraphQL.Field(_type => String, {
-    nullable: false
+  @TypeGraphQL.Field(_type => UserRole, {
+    nullable: true
   })
-  username!: string;
+  role?: "LEARNER" | "AUTHOR" | "ADMIN" | undefined;
 
   @TypeGraphQL.Field(_type => String, {
     nullable: false
   })
-  emailId!: string;
+  name!: string;
+
+  @TypeGraphQL.Field(_type => String, {
+    nullable: false
+  })
+  email!: string;
+
+  @TypeGraphQL.Field(_type => String, {
+    nullable: false
+  })
+  image!: string;
 
   @TypeGraphQL.Field(_type => BlogCreateNestedManyWithoutAuthorInput, {
     nullable: true

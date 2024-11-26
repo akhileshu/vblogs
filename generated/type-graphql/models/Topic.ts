@@ -10,10 +10,10 @@ import { TopicCount } from "../resolvers/outputs/TopicCount";
 
 @TypeGraphQL.ObjectType("Topic", {})
 export class Topic {
-  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+  @TypeGraphQL.Field(_type => String, {
     nullable: false
   })
-  id!: number;
+  id!: string;
 
   @TypeGraphQL.Field(_type => Date, {
     nullable: false
@@ -32,10 +32,10 @@ export class Topic {
 
   Technology?: Technology | null;
 
-  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+  @TypeGraphQL.Field(_type => String, {
     nullable: true
   })
-  technologyId?: number | null;
+  technologyId?: string | null;
 
   Blogs?: Blog[];
 

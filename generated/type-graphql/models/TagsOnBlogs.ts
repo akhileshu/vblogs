@@ -7,10 +7,10 @@ import { Tag } from "../models/Tag";
 
 @TypeGraphQL.ObjectType("TagsOnBlogs", {})
 export class TagsOnBlogs {
-  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+  @TypeGraphQL.Field(_type => String, {
     nullable: false
   })
-  id!: number;
+  id!: string;
 
   @TypeGraphQL.Field(_type => Date, {
     nullable: false
@@ -24,15 +24,15 @@ export class TagsOnBlogs {
 
   Tag?: Tag;
 
-  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+  @TypeGraphQL.Field(_type => String, {
     nullable: false
   })
-  tagId!: number;
+  tagId!: string;
 
   Blog?: Blog;
 
-  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+  @TypeGraphQL.Field(_type => String, {
     nullable: false
   })
-  blogId!: number;
+  blogId!: string;
 }

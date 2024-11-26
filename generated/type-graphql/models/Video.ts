@@ -8,10 +8,10 @@ import { VideoCount } from "../resolvers/outputs/VideoCount";
 
 @TypeGraphQL.ObjectType("Video", {})
 export class Video {
-  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+  @TypeGraphQL.Field(_type => String, {
     nullable: false
   })
-  id!: number;
+  id!: string;
 
   @TypeGraphQL.Field(_type => Date, {
     nullable: false
@@ -25,10 +25,10 @@ export class Video {
 
   Blog?: Blog;
 
-  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+  @TypeGraphQL.Field(_type => String, {
     nullable: false
   })
-  blogId!: number;
+  blogId!: string;
 
   @TypeGraphQL.Field(_type => String, {
     nullable: false

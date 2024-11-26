@@ -9,15 +9,15 @@ import { JsonFilter } from "../inputs/JsonFilter";
 
 @TypeGraphQL.InputType("BlogContentWhereUniqueInput", {})
 export class BlogContentWhereUniqueInput {
-  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+  @TypeGraphQL.Field(_type => String, {
     nullable: true
   })
-  id?: number | undefined;
+  id?: string | undefined;
 
-  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+  @TypeGraphQL.Field(_type => String, {
     nullable: true
   })
-  blogId?: number | undefined;
+  blogId?: string | undefined;
 
   @TypeGraphQL.Field(_type => [BlogContentWhereInput], {
     nullable: true

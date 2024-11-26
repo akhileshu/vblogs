@@ -4,8 +4,8 @@ import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
 import { BlogListRelationFilter } from "../inputs/BlogListRelationFilter";
 import { DateTimeFilter } from "../inputs/DateTimeFilter";
-import { IntNullableFilter } from "../inputs/IntNullableFilter";
 import { StringFilter } from "../inputs/StringFilter";
+import { StringNullableFilter } from "../inputs/StringNullableFilter";
 import { TagListRelationFilter } from "../inputs/TagListRelationFilter";
 import { TechnologyNullableRelationFilter } from "../inputs/TechnologyNullableRelationFilter";
 import { TopicWhereInput } from "../inputs/TopicWhereInput";
@@ -13,10 +13,10 @@ import { UserInterestListRelationFilter } from "../inputs/UserInterestListRelati
 
 @TypeGraphQL.InputType("TopicWhereUniqueInput", {})
 export class TopicWhereUniqueInput {
-  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+  @TypeGraphQL.Field(_type => String, {
     nullable: true
   })
-  id?: number | undefined;
+  id?: string | undefined;
 
   @TypeGraphQL.Field(_type => [TopicWhereInput], {
     nullable: true
@@ -48,10 +48,10 @@ export class TopicWhereUniqueInput {
   })
   title?: StringFilter | undefined;
 
-  @TypeGraphQL.Field(_type => IntNullableFilter, {
+  @TypeGraphQL.Field(_type => StringNullableFilter, {
     nullable: true
   })
-  technologyId?: IntNullableFilter | undefined;
+  technologyId?: StringNullableFilter | undefined;
 
   @TypeGraphQL.Field(_type => TechnologyNullableRelationFilter, {
     nullable: true

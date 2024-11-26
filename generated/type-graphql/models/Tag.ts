@@ -8,10 +8,10 @@ import { TagCount } from "../resolvers/outputs/TagCount";
 
 @TypeGraphQL.ObjectType("Tag", {})
 export class Tag {
-  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+  @TypeGraphQL.Field(_type => String, {
     nullable: false
   })
-  id!: number;
+  id!: string;
 
   @TypeGraphQL.Field(_type => Date, {
     nullable: false
@@ -30,10 +30,10 @@ export class Tag {
 
   Topic?: Topic | null;
 
-  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+  @TypeGraphQL.Field(_type => String, {
     nullable: true
   })
-  topicId?: number | null;
+  topicId?: string | null;
 
   Blogs?: TagsOnBlogs[];
 

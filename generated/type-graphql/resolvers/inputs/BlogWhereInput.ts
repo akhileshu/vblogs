@@ -6,8 +6,8 @@ import { BlogContentNullableRelationFilter } from "../inputs/BlogContentNullable
 import { DateTimeFilter } from "../inputs/DateTimeFilter";
 import { EnumSkillLevelFilter } from "../inputs/EnumSkillLevelFilter";
 import { IntFilter } from "../inputs/IntFilter";
-import { IntNullableFilter } from "../inputs/IntNullableFilter";
 import { StringFilter } from "../inputs/StringFilter";
+import { StringNullableFilter } from "../inputs/StringNullableFilter";
 import { TagsOnBlogsListRelationFilter } from "../inputs/TagsOnBlogsListRelationFilter";
 import { TopicNullableRelationFilter } from "../inputs/TopicNullableRelationFilter";
 import { UserNullableRelationFilter } from "../inputs/UserNullableRelationFilter";
@@ -30,10 +30,10 @@ export class BlogWhereInput {
   })
   NOT?: BlogWhereInput[] | undefined;
 
-  @TypeGraphQL.Field(_type => IntFilter, {
+  @TypeGraphQL.Field(_type => StringFilter, {
     nullable: true
   })
-  id?: IntFilter | undefined;
+  id?: StringFilter | undefined;
 
   @TypeGraphQL.Field(_type => DateTimeFilter, {
     nullable: true
@@ -45,20 +45,20 @@ export class BlogWhereInput {
   })
   updatedAt?: DateTimeFilter | undefined;
 
-  @TypeGraphQL.Field(_type => IntNullableFilter, {
+  @TypeGraphQL.Field(_type => StringNullableFilter, {
     nullable: true
   })
-  topicId?: IntNullableFilter | undefined;
+  topicId?: StringNullableFilter | undefined;
 
   @TypeGraphQL.Field(_type => EnumSkillLevelFilter, {
     nullable: true
   })
   skillLevel?: EnumSkillLevelFilter | undefined;
 
-  @TypeGraphQL.Field(_type => IntNullableFilter, {
+  @TypeGraphQL.Field(_type => StringNullableFilter, {
     nullable: true
   })
-  authorId?: IntNullableFilter | undefined;
+  authorId?: StringNullableFilter | undefined;
 
   @TypeGraphQL.Field(_type => StringFilter, {
     nullable: true

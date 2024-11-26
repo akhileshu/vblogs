@@ -7,10 +7,10 @@ import { GoalCount } from "../resolvers/outputs/GoalCount";
 
 @TypeGraphQL.ObjectType("Goal", {})
 export class Goal {
-  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+  @TypeGraphQL.Field(_type => String, {
     nullable: false
   })
-  id!: number;
+  id!: string;
 
   @TypeGraphQL.Field(_type => Date, {
     nullable: false

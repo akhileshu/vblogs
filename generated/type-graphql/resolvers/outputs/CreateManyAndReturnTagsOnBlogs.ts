@@ -7,10 +7,10 @@ import { Tag } from "../../models/Tag";
 
 @TypeGraphQL.ObjectType("CreateManyAndReturnTagsOnBlogs", {})
 export class CreateManyAndReturnTagsOnBlogs {
-  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+  @TypeGraphQL.Field(_type => String, {
     nullable: false
   })
-  id!: number;
+  id!: string;
 
   @TypeGraphQL.Field(_type => Date, {
     nullable: false
@@ -22,15 +22,15 @@ export class CreateManyAndReturnTagsOnBlogs {
   })
   updatedAt!: Date;
 
-  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+  @TypeGraphQL.Field(_type => String, {
     nullable: false
   })
-  tagId!: number;
+  tagId!: string;
 
-  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+  @TypeGraphQL.Field(_type => String, {
     nullable: false
   })
-  blogId!: number;
+  blogId!: string;
 
   @TypeGraphQL.Field(_type => Tag, {
     nullable: false

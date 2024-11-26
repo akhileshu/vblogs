@@ -10,15 +10,15 @@ import { VideoWhereInput } from "../inputs/VideoWhereInput";
 
 @TypeGraphQL.InputType("VideoWhereUniqueInput", {})
 export class VideoWhereUniqueInput {
-  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+  @TypeGraphQL.Field(_type => String, {
     nullable: true
   })
-  id?: number | undefined;
+  id?: string | undefined;
 
-  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+  @TypeGraphQL.Field(_type => String, {
     nullable: true
   })
-  blogId?: number | undefined;
+  blogId?: string | undefined;
 
   @TypeGraphQL.Field(_type => [VideoWhereInput], {
     nullable: true

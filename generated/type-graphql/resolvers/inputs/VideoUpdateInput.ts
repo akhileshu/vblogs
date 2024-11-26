@@ -9,6 +9,11 @@ import { VideoSectionUpdateManyWithoutVideoNestedInput } from "../inputs/VideoSe
 
 @TypeGraphQL.InputType("VideoUpdateInput", {})
 export class VideoUpdateInput {
+  @TypeGraphQL.Field(_type => StringFieldUpdateOperationsInput, {
+    nullable: true
+  })
+  id?: StringFieldUpdateOperationsInput | undefined;
+
   @TypeGraphQL.Field(_type => DateTimeFieldUpdateOperationsInput, {
     nullable: true
   })

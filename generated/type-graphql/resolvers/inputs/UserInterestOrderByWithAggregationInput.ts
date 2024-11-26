@@ -3,11 +3,9 @@ import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
 import { SortOrderInput } from "../inputs/SortOrderInput";
-import { UserInterestAvgOrderByAggregateInput } from "../inputs/UserInterestAvgOrderByAggregateInput";
 import { UserInterestCountOrderByAggregateInput } from "../inputs/UserInterestCountOrderByAggregateInput";
 import { UserInterestMaxOrderByAggregateInput } from "../inputs/UserInterestMaxOrderByAggregateInput";
 import { UserInterestMinOrderByAggregateInput } from "../inputs/UserInterestMinOrderByAggregateInput";
-import { UserInterestSumOrderByAggregateInput } from "../inputs/UserInterestSumOrderByAggregateInput";
 import { SortOrder } from "../../enums/SortOrder";
 
 @TypeGraphQL.InputType("UserInterestOrderByWithAggregationInput", {})
@@ -52,11 +50,6 @@ export class UserInterestOrderByWithAggregationInput {
   })
   _count?: UserInterestCountOrderByAggregateInput | undefined;
 
-  @TypeGraphQL.Field(_type => UserInterestAvgOrderByAggregateInput, {
-    nullable: true
-  })
-  _avg?: UserInterestAvgOrderByAggregateInput | undefined;
-
   @TypeGraphQL.Field(_type => UserInterestMaxOrderByAggregateInput, {
     nullable: true
   })
@@ -66,9 +59,4 @@ export class UserInterestOrderByWithAggregationInput {
     nullable: true
   })
   _min?: UserInterestMinOrderByAggregateInput | undefined;
-
-  @TypeGraphQL.Field(_type => UserInterestSumOrderByAggregateInput, {
-    nullable: true
-  })
-  _sum?: UserInterestSumOrderByAggregateInput | undefined;
 }

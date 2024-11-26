@@ -14,6 +14,11 @@ import { VideoUpdateOneWithoutBlogNestedInput } from "../inputs/VideoUpdateOneWi
 
 @TypeGraphQL.InputType("BlogUpdateInput", {})
 export class BlogUpdateInput {
+  @TypeGraphQL.Field(_type => StringFieldUpdateOperationsInput, {
+    nullable: true
+  })
+  id?: StringFieldUpdateOperationsInput | undefined;
+
   @TypeGraphQL.Field(_type => DateTimeFieldUpdateOperationsInput, {
     nullable: true
   })

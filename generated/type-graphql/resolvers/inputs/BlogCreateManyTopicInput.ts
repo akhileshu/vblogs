@@ -6,10 +6,10 @@ import { SkillLevel } from "../../enums/SkillLevel";
 
 @TypeGraphQL.InputType("BlogCreateManyTopicInput", {})
 export class BlogCreateManyTopicInput {
-  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+  @TypeGraphQL.Field(_type => String, {
     nullable: true
   })
-  id?: number | undefined;
+  id?: string | undefined;
 
   @TypeGraphQL.Field(_type => Date, {
     nullable: true
@@ -26,10 +26,10 @@ export class BlogCreateManyTopicInput {
   })
   skillLevel?: "BASIC" | "INTERMEDIATE" | "ADVANCED" | undefined;
 
-  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+  @TypeGraphQL.Field(_type => String, {
     nullable: true
   })
-  authorId?: number | undefined;
+  authorId?: string | undefined;
 
   @TypeGraphQL.Field(_type => String, {
     nullable: false

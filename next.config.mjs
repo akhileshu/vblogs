@@ -7,7 +7,7 @@ const nextConfig = {
   //   };
   //   return config;
   // },
-  // productionBrowserSourceMaps: false,
+  productionBrowserSourceMaps: true,
   reactStrictMode: true,
   images: {
     remotePatterns: [

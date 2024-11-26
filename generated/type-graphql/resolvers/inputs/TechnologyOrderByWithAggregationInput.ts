@@ -3,11 +3,9 @@ import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
 import { SortOrderInput } from "../inputs/SortOrderInput";
-import { TechnologyAvgOrderByAggregateInput } from "../inputs/TechnologyAvgOrderByAggregateInput";
 import { TechnologyCountOrderByAggregateInput } from "../inputs/TechnologyCountOrderByAggregateInput";
 import { TechnologyMaxOrderByAggregateInput } from "../inputs/TechnologyMaxOrderByAggregateInput";
 import { TechnologyMinOrderByAggregateInput } from "../inputs/TechnologyMinOrderByAggregateInput";
-import { TechnologySumOrderByAggregateInput } from "../inputs/TechnologySumOrderByAggregateInput";
 import { SortOrder } from "../../enums/SortOrder";
 
 @TypeGraphQL.InputType("TechnologyOrderByWithAggregationInput", {})
@@ -42,11 +40,6 @@ export class TechnologyOrderByWithAggregationInput {
   })
   _count?: TechnologyCountOrderByAggregateInput | undefined;
 
-  @TypeGraphQL.Field(_type => TechnologyAvgOrderByAggregateInput, {
-    nullable: true
-  })
-  _avg?: TechnologyAvgOrderByAggregateInput | undefined;
-
   @TypeGraphQL.Field(_type => TechnologyMaxOrderByAggregateInput, {
     nullable: true
   })
@@ -56,9 +49,4 @@ export class TechnologyOrderByWithAggregationInput {
     nullable: true
   })
   _min?: TechnologyMinOrderByAggregateInput | undefined;
-
-  @TypeGraphQL.Field(_type => TechnologySumOrderByAggregateInput, {
-    nullable: true
-  })
-  _sum?: TechnologySumOrderByAggregateInput | undefined;
 }

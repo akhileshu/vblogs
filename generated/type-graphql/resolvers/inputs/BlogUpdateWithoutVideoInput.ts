@@ -13,6 +13,11 @@ import { UserUpdateOneWithoutBlogsNestedInput } from "../inputs/UserUpdateOneWit
 
 @TypeGraphQL.InputType("BlogUpdateWithoutVideoInput", {})
 export class BlogUpdateWithoutVideoInput {
+  @TypeGraphQL.Field(_type => StringFieldUpdateOperationsInput, {
+    nullable: true
+  })
+  id?: StringFieldUpdateOperationsInput | undefined;
+
   @TypeGraphQL.Field(_type => DateTimeFieldUpdateOperationsInput, {
     nullable: true
   })

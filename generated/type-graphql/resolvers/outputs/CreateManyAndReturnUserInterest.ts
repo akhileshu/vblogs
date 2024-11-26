@@ -11,10 +11,10 @@ import { InterestType } from "../../enums/InterestType";
 
 @TypeGraphQL.ObjectType("CreateManyAndReturnUserInterest", {})
 export class CreateManyAndReturnUserInterest {
-  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+  @TypeGraphQL.Field(_type => String, {
     nullable: false
   })
-  id!: number;
+  id!: string;
 
   @TypeGraphQL.Field(_type => Date, {
     nullable: false
@@ -26,20 +26,20 @@ export class CreateManyAndReturnUserInterest {
   })
   updatedAt!: Date;
 
-  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+  @TypeGraphQL.Field(_type => String, {
     nullable: false
   })
-  userId!: number;
+  userId!: string;
 
-  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+  @TypeGraphQL.Field(_type => String, {
     nullable: true
   })
-  technologyId!: number | null;
+  technologyId!: string | null;
 
-  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+  @TypeGraphQL.Field(_type => String, {
     nullable: true
   })
-  topicId!: number | null;
+  topicId!: string | null;
 
   @TypeGraphQL.Field(_type => InterestType, {
     nullable: false

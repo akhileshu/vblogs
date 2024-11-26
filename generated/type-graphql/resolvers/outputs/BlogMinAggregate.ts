@@ -6,10 +6,10 @@ import { SkillLevel } from "../../enums/SkillLevel";
 
 @TypeGraphQL.ObjectType("BlogMinAggregate", {})
 export class BlogMinAggregate {
-  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+  @TypeGraphQL.Field(_type => String, {
     nullable: true
   })
-  id!: number | null;
+  id!: string | null;
 
   @TypeGraphQL.Field(_type => Date, {
     nullable: true
@@ -21,20 +21,20 @@ export class BlogMinAggregate {
   })
   updatedAt!: Date | null;
 
-  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+  @TypeGraphQL.Field(_type => String, {
     nullable: true
   })
-  topicId!: number | null;
+  topicId!: string | null;
 
   @TypeGraphQL.Field(_type => SkillLevel, {
     nullable: true
   })
   skillLevel!: "BASIC" | "INTERMEDIATE" | "ADVANCED" | null;
 
-  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+  @TypeGraphQL.Field(_type => String, {
     nullable: true
   })
-  authorId!: number | null;
+  authorId!: string | null;
 
   @TypeGraphQL.Field(_type => String, {
     nullable: true

@@ -6,10 +6,10 @@ import { BlogPart } from "../../enums/BlogPart";
 
 @TypeGraphQL.InputType("VideoSectionCreateManyVideoInput", {})
 export class VideoSectionCreateManyVideoInput {
-  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+  @TypeGraphQL.Field(_type => String, {
     nullable: true
   })
-  id?: number | undefined;
+  id?: string | undefined;
 
   @TypeGraphQL.Field(_type => Date, {
     nullable: true

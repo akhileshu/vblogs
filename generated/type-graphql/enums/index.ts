@@ -15,6 +15,7 @@ export { TechnologyScalarFieldEnum } from "./TechnologyScalarFieldEnum";
 export { TopicScalarFieldEnum } from "./TopicScalarFieldEnum";
 export { TransactionIsolationLevel } from "./TransactionIsolationLevel";
 export { UserInterestScalarFieldEnum } from "./UserInterestScalarFieldEnum";
+export { UserRole } from "./UserRole";
 export { UserScalarFieldEnum } from "./UserScalarFieldEnum";
 export { VideoScalarFieldEnum } from "./VideoScalarFieldEnum";
 export { VideoSectionScalarFieldEnum } from "./VideoSectionScalarFieldEnum";

@@ -12,10 +12,10 @@ import { BlogCount } from "../resolvers/outputs/BlogCount";
 
 @TypeGraphQL.ObjectType("Blog", {})
 export class Blog {
-  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+  @TypeGraphQL.Field(_type => String, {
     nullable: false
   })
-  id!: number;
+  id!: string;
 
   @TypeGraphQL.Field(_type => Date, {
     nullable: false
@@ -29,10 +29,10 @@ export class Blog {
 
   Topic?: Topic | null;
 
-  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+  @TypeGraphQL.Field(_type => String, {
     nullable: true
   })
-  topicId?: number | null;
+  topicId?: string | null;
 
   @TypeGraphQL.Field(_type => SkillLevel, {
     nullable: false
@@ -43,10 +43,10 @@ export class Blog {
 
   Author?: User | null;
 
-  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+  @TypeGraphQL.Field(_type => String, {
     nullable: true
   })
-  authorId?: number | null;
+  authorId?: string | null;
 
   content?: BlogContent | null;
 

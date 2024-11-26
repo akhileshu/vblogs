@@ -4,25 +4,22 @@ import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
 import { BlogListRelationFilter } from "../inputs/BlogListRelationFilter";
 import { DateTimeFilter } from "../inputs/DateTimeFilter";
+import { EnumUserRoleFilter } from "../inputs/EnumUserRoleFilter";
+import { StringFilter } from "../inputs/StringFilter";
 import { UserInterestListRelationFilter } from "../inputs/UserInterestListRelationFilter";
 import { UserWhereInput } from "../inputs/UserWhereInput";
 
 @TypeGraphQL.InputType("UserWhereUniqueInput", {})
 export class UserWhereUniqueInput {
-  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+  @TypeGraphQL.Field(_type => String, {
     nullable: true
   })
-  id?: number | undefined;
+  id?: string | undefined;
 
   @TypeGraphQL.Field(_type => String, {
     nullable: true
   })
-  username?: string | undefined;
-
-  @TypeGraphQL.Field(_type => String, {
-    nullable: true
-  })
-  emailId?: string | undefined;
+  email?: string | undefined;
 
   @TypeGraphQL.Field(_type => [UserWhereInput], {
     nullable: true
@@ -48,6 +45,21 @@ export class UserWhereUniqueInput {
     nullable: true
   })
   updatedAt?: DateTimeFilter | undefined;
+
+  @TypeGraphQL.Field(_type => EnumUserRoleFilter, {
+    nullable: true
+  })
+  role?: EnumUserRoleFilter | undefined;
+
+  @TypeGraphQL.Field(_type => StringFilter, {
+    nullable: true
+  })
+  name?: StringFilter | undefined;
+
+  @TypeGraphQL.Field(_type => StringFilter, {
+    nullable: true
+  })
+  image?: StringFilter | undefined;
 
   @TypeGraphQL.Field(_type => BlogListRelationFilter, {
     nullable: true

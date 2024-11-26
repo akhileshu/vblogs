@@ -9,10 +9,10 @@ import { InterestType } from "../enums/InterestType";
 
 @TypeGraphQL.ObjectType("UserInterest", {})
 export class UserInterest {
-  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+  @TypeGraphQL.Field(_type => String, {
     nullable: false
   })
-  id!: number;
+  id!: string;
 
   @TypeGraphQL.Field(_type => Date, {
     nullable: false
@@ -24,24 +24,24 @@ export class UserInterest {
   })
   updatedAt!: Date;
 
-  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+  @TypeGraphQL.Field(_type => String, {
     nullable: false
   })
-  userId!: number;
+  userId!: string;
 
   user?: User;
 
-  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+  @TypeGraphQL.Field(_type => String, {
     nullable: true
   })
-  technologyId?: number | null;
+  technologyId?: string | null;
 
   Technology?: Technology | null;
 
-  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+  @TypeGraphQL.Field(_type => String, {
     nullable: true
   })
-  topicId?: number | null;
+  topicId?: string | null;
 
   Topic?: Topic | null;
 

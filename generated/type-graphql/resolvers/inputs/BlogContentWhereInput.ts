@@ -4,8 +4,8 @@ import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
 import { BlogRelationFilter } from "../inputs/BlogRelationFilter";
 import { DateTimeFilter } from "../inputs/DateTimeFilter";
-import { IntFilter } from "../inputs/IntFilter";
 import { JsonFilter } from "../inputs/JsonFilter";
+import { StringFilter } from "../inputs/StringFilter";
 
 @TypeGraphQL.InputType("BlogContentWhereInput", {})
 export class BlogContentWhereInput {
@@ -24,10 +24,10 @@ export class BlogContentWhereInput {
   })
   NOT?: BlogContentWhereInput[] | undefined;
 
-  @TypeGraphQL.Field(_type => IntFilter, {
+  @TypeGraphQL.Field(_type => StringFilter, {
     nullable: true
   })
-  id?: IntFilter | undefined;
+  id?: StringFilter | undefined;
 
   @TypeGraphQL.Field(_type => DateTimeFilter, {
     nullable: true
@@ -54,10 +54,10 @@ export class BlogContentWhereInput {
   })
   advanced?: JsonFilter | undefined;
 
-  @TypeGraphQL.Field(_type => IntFilter, {
+  @TypeGraphQL.Field(_type => StringFilter, {
     nullable: true
   })
-  blogId?: IntFilter | undefined;
+  blogId?: StringFilter | undefined;
 
   @TypeGraphQL.Field(_type => BlogRelationFilter, {
     nullable: true

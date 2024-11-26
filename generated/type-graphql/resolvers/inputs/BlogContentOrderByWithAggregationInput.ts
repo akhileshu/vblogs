@@ -2,11 +2,9 @@ import * as TypeGraphQL from "type-graphql";
 import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
-import { BlogContentAvgOrderByAggregateInput } from "../inputs/BlogContentAvgOrderByAggregateInput";
 import { BlogContentCountOrderByAggregateInput } from "../inputs/BlogContentCountOrderByAggregateInput";
 import { BlogContentMaxOrderByAggregateInput } from "../inputs/BlogContentMaxOrderByAggregateInput";
 import { BlogContentMinOrderByAggregateInput } from "../inputs/BlogContentMinOrderByAggregateInput";
-import { BlogContentSumOrderByAggregateInput } from "../inputs/BlogContentSumOrderByAggregateInput";
 import { SortOrder } from "../../enums/SortOrder";
 
 @TypeGraphQL.InputType("BlogContentOrderByWithAggregationInput", {})
@@ -51,11 +49,6 @@ export class BlogContentOrderByWithAggregationInput {
   })
   _count?: BlogContentCountOrderByAggregateInput | undefined;
 
-  @TypeGraphQL.Field(_type => BlogContentAvgOrderByAggregateInput, {
-    nullable: true
-  })
-  _avg?: BlogContentAvgOrderByAggregateInput | undefined;
-
   @TypeGraphQL.Field(_type => BlogContentMaxOrderByAggregateInput, {
     nullable: true
   })
@@ -65,9 +58,4 @@ export class BlogContentOrderByWithAggregationInput {
     nullable: true
   })
   _min?: BlogContentMinOrderByAggregateInput | undefined;
-
-  @TypeGraphQL.Field(_type => BlogContentSumOrderByAggregateInput, {
-    nullable: true
-  })
-  _sum?: BlogContentSumOrderByAggregateInput | undefined;
 }

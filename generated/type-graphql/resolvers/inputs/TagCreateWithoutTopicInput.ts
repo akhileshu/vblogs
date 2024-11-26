@@ -6,6 +6,11 @@ import { TagsOnBlogsCreateNestedManyWithoutTagInput } from "../inputs/TagsOnBlog
 
 @TypeGraphQL.InputType("TagCreateWithoutTopicInput", {})
 export class TagCreateWithoutTopicInput {
+  @TypeGraphQL.Field(_type => String, {
+    nullable: true
+  })
+  id?: string | undefined;
+
   @TypeGraphQL.Field(_type => Date, {
     nullable: true
   })

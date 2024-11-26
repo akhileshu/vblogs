@@ -4,17 +4,17 @@ import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
 import { BlogRelationFilter } from "../inputs/BlogRelationFilter";
 import { DateTimeFilter } from "../inputs/DateTimeFilter";
-import { IntFilter } from "../inputs/IntFilter";
+import { StringFilter } from "../inputs/StringFilter";
 import { TagRelationFilter } from "../inputs/TagRelationFilter";
 import { TagsOnBlogsBlogIdTagIdCompoundUniqueInput } from "../inputs/TagsOnBlogsBlogIdTagIdCompoundUniqueInput";
 import { TagsOnBlogsWhereInput } from "../inputs/TagsOnBlogsWhereInput";
 
 @TypeGraphQL.InputType("TagsOnBlogsWhereUniqueInput", {})
 export class TagsOnBlogsWhereUniqueInput {
-  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+  @TypeGraphQL.Field(_type => String, {
     nullable: true
   })
-  id?: number | undefined;
+  id?: string | undefined;
 
   @TypeGraphQL.Field(_type => TagsOnBlogsBlogIdTagIdCompoundUniqueInput, {
     nullable: true
@@ -46,15 +46,15 @@ export class TagsOnBlogsWhereUniqueInput {
   })
   updatedAt?: DateTimeFilter | undefined;
 
-  @TypeGraphQL.Field(_type => IntFilter, {
+  @TypeGraphQL.Field(_type => StringFilter, {
     nullable: true
   })
-  tagId?: IntFilter | undefined;
+  tagId?: StringFilter | undefined;
 
-  @TypeGraphQL.Field(_type => IntFilter, {
+  @TypeGraphQL.Field(_type => StringFilter, {
     nullable: true
   })
-  blogId?: IntFilter | undefined;
+  blogId?: StringFilter | undefined;
 
   @TypeGraphQL.Field(_type => TagRelationFilter, {
     nullable: true

@@ -6,10 +6,10 @@ import { InterestType } from "../../enums/InterestType";
 
 @TypeGraphQL.InputType("UserInterestCreateManyUserInput", {})
 export class UserInterestCreateManyUserInput {
-  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+  @TypeGraphQL.Field(_type => String, {
     nullable: true
   })
-  id?: number | undefined;
+  id?: string | undefined;
 
   @TypeGraphQL.Field(_type => Date, {
     nullable: true
@@ -21,15 +21,15 @@ export class UserInterestCreateManyUserInput {
   })
   updatedAt?: Date | undefined;
 
-  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+  @TypeGraphQL.Field(_type => String, {
     nullable: true
   })
-  technologyId?: number | undefined;
+  technologyId?: string | undefined;
 
-  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+  @TypeGraphQL.Field(_type => String, {
     nullable: true
   })
-  topicId?: number | undefined;
+  topicId?: string | undefined;
 
   @TypeGraphQL.Field(_type => InterestType, {
     nullable: false

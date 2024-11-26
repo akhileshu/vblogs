@@ -2,18 +2,16 @@ import * as TypeGraphQL from "type-graphql";
 import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
-import { BlogContentAvgAggregate } from "../outputs/BlogContentAvgAggregate";
 import { BlogContentCountAggregate } from "../outputs/BlogContentCountAggregate";
 import { BlogContentMaxAggregate } from "../outputs/BlogContentMaxAggregate";
 import { BlogContentMinAggregate } from "../outputs/BlogContentMinAggregate";
-import { BlogContentSumAggregate } from "../outputs/BlogContentSumAggregate";
 
 @TypeGraphQL.ObjectType("BlogContentGroupBy", {})
 export class BlogContentGroupBy {
-  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+  @TypeGraphQL.Field(_type => String, {
     nullable: false
   })
-  id!: number;
+  id!: string;
 
   @TypeGraphQL.Field(_type => Date, {
     nullable: false
@@ -40,25 +38,15 @@ export class BlogContentGroupBy {
   })
   advanced!: Prisma.JsonValue;
 
-  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+  @TypeGraphQL.Field(_type => String, {
     nullable: false
   })
-  blogId!: number;
+  blogId!: string;
 
   @TypeGraphQL.Field(_type => BlogContentCountAggregate, {
     nullable: true
   })
   _count!: BlogContentCountAggregate | null;
-
-  @TypeGraphQL.Field(_type => BlogContentAvgAggregate, {
-    nullable: true
-  })
-  _avg!: BlogContentAvgAggregate | null;
-
-  @TypeGraphQL.Field(_type => BlogContentSumAggregate, {
-    nullable: true
-  })
-  _sum!: BlogContentSumAggregate | null;
 
   @TypeGraphQL.Field(_type => BlogContentMinAggregate, {
     nullable: true
