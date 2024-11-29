@@ -1,10 +1,13 @@
-import { getPrismaModels } from "@/features/seeding/actions/getAllModels";
+import {
+  getModelCountList,
+  // getPrismaModels,
+} from "@/features/seeding/actions/getAllModels";
 import { SeedManager } from "@/features/seeding/compoents/SeedManager";
-import { allPrismaModels } from "@/features/seeding/temp/get-all-models";
+// import { allPrismaModels } from "@/features/seeding/temp/get-all-models";
 
 export default async function SeedManagerWrapper() {
   // const prismaModels = allPrismaModels;
-  const prismaModels = await getPrismaModels();
+  const modelCountList = await getModelCountList();
 
-  return <SeedManager prismaModels={prismaModels} />;
+  return <SeedManager modelCountList={modelCountList} />;
 }

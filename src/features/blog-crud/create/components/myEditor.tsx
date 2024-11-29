@@ -1,4 +1,6 @@
-"use client"
+/* @ts-nocheck */
+/* eslint-disable */
+"use client";
 
 import { useState } from "react";
 
@@ -40,12 +42,16 @@ const initialValue: CustomElement[] = [
 
 const MyEditor = () => {
   const [editor] = useState(() => withReact(createEditor()));
-   const handleSave = (value) => {
-     console.log(JSON.stringify(value, null, 2)); // Log the editor's value in a readable format
-   };
+  const handleSave = (value:unknown) => {
+    console.log(JSON.stringify(value, null, 2)); // Log the editor's value in a readable format
+  };
 
   return (
-    <Slate editor={editor} onValueChange={(e)=>handleSave(e)} initialValue={initialValue}>
+    <Slate
+      editor={editor}
+      onValueChange={(e) => handleSave(e)}
+      initialValue={initialValue}
+    >
       <Editable />
     </Slate>
   );

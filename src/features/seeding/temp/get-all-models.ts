@@ -1,3 +1,4 @@
+
 import prisma from "@/lib/prisma";
 
 export const prismaModelsHardCodedList = [
@@ -18,5 +19,6 @@ export const allPrismaModels = Object.keys(prisma).filter(
   (key) =>
     !key.startsWith("_") &&
     !key.startsWith("$") &&
+    // @ts-expect-error accessing dynamic property prisma.model
     typeof prisma[key] === "object"
 );

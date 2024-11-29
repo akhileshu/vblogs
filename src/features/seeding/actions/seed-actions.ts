@@ -8,7 +8,7 @@ export async function handleSeedAction(
   models: string[],
   action: (typeof ACTIONS)[keyof typeof ACTIONS]
 ): Promise<string> {
-  const prismaModels = await getPrismaModels()
+  const prismaModels = await getPrismaModels();
   if (!models || models.length === 0) {
     throw new Error("No models selected.");
   }

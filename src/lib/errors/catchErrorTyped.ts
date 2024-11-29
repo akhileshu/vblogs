@@ -19,6 +19,7 @@ export async function catchErrorTyped<
     });
 }
 
+
 //example use 
 // const [error, result] = await catchErrorTyped(createUser(),[NotFoundError, ValidationError]);
 // const [error, result] = await catchErrorTyped((async () => {})(),[NotFoundError, ValidationError]);

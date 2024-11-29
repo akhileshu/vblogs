@@ -13,8 +13,13 @@ interface InputProps {
 
 export function Navbar({ className }: InputProps) {
   return (
-    <div className={cn("flex  border-b-[1px]  justify-between", className)}>
-      <div className="flex gap-2 items-center">
+    <div
+      className={cn(
+        "flex  border-b-[1px]  justify-between ",
+        className
+      )}
+    >
+      <div className="flex gap-2 items-center ">
         <SidebarTrigger />
         <SearchBar />
         <Discover />

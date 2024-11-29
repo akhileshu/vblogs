@@ -1,9 +1,11 @@
 import { cn } from "@/lib/utils";
+import { Loader } from "./Loader";
 
 interface InputProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   className?: string;
   text: string | JSX.Element;
   variant?: "primary" | "outline"; // Add the variant prop
+  isPending?: boolean;
 }
 
 type FancyBtnProps = {
@@ -28,21 +30,32 @@ export const FancyBtn: React.FC<FancyBtnProps> = ({
   );
 };
 
-export function Btn({ className, text, variant = "primary" ,...props }: InputProps) {
+export function Btn({
+  className,
+  isPending,
+  text,
+  variant = "primary",
+  ...props
+}: InputProps) {
   return (
-    <button {...props}
+    <button
+      {...props}
       className={cn(
-        "py-1 px-2 cursor-pointer rounded-sm text-sm ",
+        "py-1  px-2 rounded-sm text-sm disabled:cursor-not-allowed",
         {
-          " bg-indigo-500 hover:bg-indigo-600 text-white rounded-sm":
-            variant === "primary",
+          " bg-indigo-500  text-white rounded-sm": variant === "primary",
           "bg-white border-2 py-[2px]  border-indigo-500 text-indigo-500":
             variant === "outline",
+          "hover:brightness-90":
+            !props.disabled && !isPending && variant === "primary",
         },
         className
       )}
     >
-      {text}
+      <span className="flex-center gap-2">
+        {text}
+        <Loader className={cn("size-5", {"hidden":isPending===undefined,"invisible":isPending===false})} />
+      </span>
     </button>
   );
 }
