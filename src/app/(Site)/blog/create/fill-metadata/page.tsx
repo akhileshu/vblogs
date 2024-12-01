@@ -1,6 +1,6 @@
-import { SelectMetadataWrapper } from "../../../../../../temp/filllBlogMetadata;";
+import { SelectMetadataWrapper } from "@/features/blog-crud/create/components/concept-select/common";
 
-export default function BlogFillMetadataPage() {
+export default async function BlogFillMetadataPage() {
   return (
     <div>
       <SelectMetadataWrapper />

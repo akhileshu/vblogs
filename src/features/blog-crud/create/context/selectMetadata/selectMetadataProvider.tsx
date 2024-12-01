@@ -1,19 +1,19 @@
 import { ReactNode } from "react";
-import { GoalsProvider } from "./goals";
-import { TechnologiesProvider } from "./technologies";
-import { TopicsProvider } from "./topics";
-import { TagsProvider } from "./tags";
+import { GoalProvider } from "./goals";
+import { TopicProvider } from "./topics";
+import { TagProvider } from "./tags";
+import { TechnologyProvider } from "./technologies";
 
 export const SelectMetadataProvider = ({
   children,
 }: {
   children: ReactNode;
 }) => (
-  <GoalsProvider>
-    <TechnologiesProvider>
-      <TopicsProvider>
-        <TagsProvider>{children}</TagsProvider>
-      </TopicsProvider>
-    </TechnologiesProvider>
-  </GoalsProvider>
+  <GoalProvider>
+    <TechnologyProvider>
+      <TopicProvider>
+        <TagProvider>{children}</TagProvider>
+      </TopicProvider>
+    </TechnologyProvider>
+  </GoalProvider>
 );

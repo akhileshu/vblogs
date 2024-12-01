@@ -1,173 +1,227 @@
 "use client";
+import { catchErrorTyped } from "@/lib/errors/catchErrorTyped";
+import { cn } from "@/lib/utils";
+import { areAllTruthy } from "@/utils/allAreTruthy";
+import { useEffect, useState } from "react";
 import {
   getAllGoals,
   getTagsByTopicId,
   getTechnologiesByGoalId,
   getTopicsByTechnologyId,
 } from "../actions/getCategory";
-import { useGoals } from "../context/selectMetadata/goals";
-import { useTechnologies } from "../context/selectMetadata/technologies";
-import { useTopics } from "../context/selectMetadata/topics";
-import { useTags } from "../context/selectMetadata/tags";
-import { useEffect } from "react";
-import { catchErrorTyped } from "@/lib/errors/catchErrorTyped";
-import { SelectMetadataProvider } from "../context/selectMetadata/selectMetadataProvider";
+import { useGoal } from "../context/selectMetadata/goals";
+import { useTag } from "../context/selectMetadata/tags";
+import { useTechnology } from "../context/selectMetadata/technologies";
+import { useTopic } from "../context/selectMetadata/topics";
+import { SearchFromList } from "./searchFromList";
 
 interface SelectMetadataProps {
   className?: string;
 }
 
 export const SelectMetadata = ({ className }: SelectMetadataProps) => {
-  const {
-    goals: {
-      selectedGoalId,
-      errorResultArray: [goalsError, goals],
-    },
-    resetGoals,
-    setGoalId,
-    setGoalErrorResultArray,
-    setGoals,
-  } = useGoals();
+  const [title, setTitle] = useState<string>("");
+  const [SelectedTags, setSelectedTags] = useState<
+    {
+      id: string;
+      title: string;
+    }[]
+  >([]);
 
   const {
-    technologies: {
-      selectedTechnologyId,
-      errorResultArray: [technologiesError, technologies],
+    state: {
+      errorResultArray: goalErrorResultArray,
+      selectedId: selectedGoalId,
+      isLoading: goalIsLoading,
     },
-    resetTechnologies,
-    setTechnologyId,
-    setTechnologyResultArray,
-    setTechnologies,
-  } = useTechnologies();
+    dispatch: goalDispatch,
+  } = useGoal();
+  const [goalError, goals] = goalErrorResultArray ?? [];
+
   const {
-    topics: {
-      selectedTopicId,
-      errorResultArray: [topicsError, topics],
+    state: {
+      errorResultArray: tagErrorResultArray,
+      selectedId: selectedTagId,
+      isLoading: tagIsLoading,
     },
-    resetTopics,
-    setTopicId,
-    setTopicResultArray,
-    setTopics,
-  } = useTopics();
+    dispatch: tagDispatch,
+  } = useTag();
+  const [tagError, tags] = tagErrorResultArray ?? [];
+
   const {
-    tags: {
-      selectedTagId,
-      errorResultArray: [tagsError, tags],
+    state: {
+      errorResultArray: technologyErrorResultArray,
+      selectedId: selectedTechnologyId,
+      isLoading: technologyIsLoading,
     },
-    resetTags,
-    setTagId,
-    setTagErrorResultArray,
-    setTags,
-  } = useTags();
+    dispatch: technologyDispatch,
+  } = useTechnology();
+  const [technologyError, technologies] = technologyErrorResultArray ?? [];
+
+  const {
+    state: {
+      errorResultArray: topicErrorResultArray,
+      selectedId: selectedTopicId,
+      isLoading: topicIsLoading,
+    },
+    dispatch: topicDispatch,
+  } = useTopic();
+  const [topicError, topics] = topicErrorResultArray ?? [];
 
   useEffect(() => {
-    const fetchGoals = async () => {
-      const [error, result] = await catchErrorTyped(getAllGoals());
-      setGoalErrorResultArray([error, result]);
+    const fetch = async () => {
+      goalDispatch({ type: "SET_IS_LOADING", payload: true });
+      const op = await catchErrorTyped(getAllGoals());
+      goalDispatch({ type: "SET_ERROR_RESULT_AND_STOP_LOADING", payload: op });
+      goalDispatch({ type: "SET_SELECTED_ID", payload: null });
     };
-
-    if (goals?.length == 0 || !goals) fetchGoals();
-  }, []);
+    fetch();
+  }, [goalDispatch]);
 
   useEffect(() => {
-    const fetchTechnologies = async () => {
-      const [error, result] = await catchErrorTyped(
-        getTechnologiesByGoalId(selectedGoalId)
-      );
-      setTechnologies({
-        selectedTechnologyId: null,
-        errorResultArray: [error, result],
+    const fetch = async () => {
+      technologyDispatch({ type: "SET_IS_LOADING", payload: true });
+      technologyDispatch({
+        type: "SET_ERROR_RESULT_AND_STOP_LOADING",
+        payload: await catchErrorTyped(
+          getTechnologiesByGoalId(selectedGoalId ?? "")
+        ),
       });
+      technologyDispatch({ type: "SET_SELECTED_ID", payload: null });
     };
-    if (!selectedGoalId) resetTechnologies();
-    else if (selectedGoalId) fetchTechnologies();
-  }, [selectedGoalId]);
+    if (areAllTruthy([selectedGoalId])) fetch();
+    else technologyDispatch({ type: "RESET" }); // on render | goal removed
+  }, [selectedGoalId, technologyDispatch]);
 
   useEffect(() => {
-    const fetchTopics = async () => {
-      const [error, result] = await catchErrorTyped(
-        getTopicsByTechnologyId(selectedTechnologyId)
+    const fetch = async () => {
+      topicDispatch({ type: "SET_IS_LOADING", payload: true });
+      const op = await catchErrorTyped(
+        getTopicsByTechnologyId(selectedTechnologyId ?? "")
       );
-      setTopics({ selectedTopicId: null, errorResultArray: [error, result] });
+      topicDispatch({ type: "SET_ERROR_RESULT_AND_STOP_LOADING", payload: op });
+      topicDispatch({ type: "SET_SELECTED_ID", payload: null });
     };
+    if (areAllTruthy([selectedGoalId, selectedTechnologyId])) fetch();
+    else topicDispatch({ type: "RESET" }); // on render | either of these removed
+  }, [selectedGoalId, selectedTechnologyId, topicDispatch]);
 
-    if (selectedGoalId && selectedTechnologyId) fetchTopics();
-    else resetTopics();
-  }, [selectedGoalId, selectedTechnologyId]);
   useEffect(() => {
-    const fetchTags = async () => {
-      const [error, result] = await catchErrorTyped(
-        getTagsByTopicId(selectedTopicId)
-      );
-      setTags({ selectedTagId: null, errorResultArray: [error, result] });
+    const fetch = async () => {
+      tagDispatch({ type: "SET_IS_LOADING", payload: true });
+      const op = await catchErrorTyped(getTagsByTopicId(selectedTopicId ?? ""));
+      tagDispatch({ type: "SET_ERROR_RESULT_AND_STOP_LOADING", payload: op });
+      tagDispatch({ type: "SET_SELECTED_ID", payload: null });
     };
-    if (selectedGoalId && selectedTechnologyId && selectedTopicId) fetchTags();
-    else resetTags();
-  }, [selectedGoalId, selectedTechnologyId, selectedTopicId]);
+    if (areAllTruthy([selectedGoalId, selectedTechnologyId, selectedTopicId]))
+      fetch();
+    else tagDispatch({ type: "RESET" }); // on render | one of these removed
+  }, [selectedGoalId, selectedTechnologyId, selectedTopicId, tagDispatch]);
+
+  function setSelectedGoalId(value: string | null) {
+    goalDispatch({
+      type: "SET_SELECTED_ID",
+      payload: value || null,
+    });
+  }
+  function setSelectedTechnologyId(value: string | null) {
+    technologyDispatch({
+      type: "SET_SELECTED_ID",
+      payload: value || null,
+    });
+  }
+  function setSelectedTopicId(value: string | null) {
+    topicDispatch({
+      type: "SET_SELECTED_ID",
+      payload: value || null,
+    });
+  }
+  function setSelectedTagId(value: string | null) {
+    tagDispatch({
+      type: "SET_SELECTED_ID",
+      payload: value || null,
+    });
+  }
 
   return (
-    <div className={className}>
-      <select
-        onChange={(e) => setGoalId(e.target.value)}
-        value={selectedGoalId || ""}
-      >
-        <option value="">Select a goal</option>
-        {goals?.map((goal) => (
-          <option key={goal.id} value={goal.id}>
-            {goal.title}
-          </option>
-        ))}
-      </select>
+    <div className={cn(className, "space-y-4 divide-y-2")}>
+      <SearchFromList
+        errorMsg={goalError?.message}
+        isLoading={goalIsLoading}
+        items={goals}
+        onSelect={(id: string) => {
+          setSelectedTechnologyId(null);
+          setSelectedGoalId(id);
+        }}
+        placeholder="select a goal"
+        selectedItemId={selectedGoalId}
+        key={"goals"}
+      />
+      <SearchFromList
+        errorMsg={technologyError?.message}
+        isLoading={technologyIsLoading}
+        items={technologies}
+        onSelect={(id: string) => {
+          setSelectedTopicId(null);
+          setSelectedTechnologyId(id);
+        }}
+        placeholder="select a technology"
+        selectedItemId={selectedTechnologyId}
+        key={"technologies"}
+        toRender={typeof selectedGoalId === "string"}
+      />
+      <SearchFromList
+        errorMsg={topicError?.message}
+        isLoading={topicIsLoading}
+        items={topics}
+        onSelect={(id: string) => {
+          setSelectedTagId(null);
+          setSelectedTopicId(id);
+        }}
+        placeholder="select a topic"
+        selectedItemId={selectedTopicId}
+        key={"topics"}
+        toRender={typeof selectedTechnologyId === "string"}
+      />
+      <SearchFromList
+        errorMsg={tagError?.message}
+        isLoading={tagIsLoading}
+        items={tags}
+        onSelect={(id: string) => {
+          setSelectedTagId(id);
+        }}
+        placeholder="select tags (max 3)"
+        selectedItemId={selectedTagId}
+        key={"tags"}
+        onTagsModify={(id: string, title: string, type: "ADD" | "REMOVE") => {
+          setSelectedTags(
+            type === "ADD"
+              ? [...SelectedTags, { id, title }]
+              : SelectedTags.filter((t) => t.id !== id)
+          );
+        }}
+        tags={SelectedTags}
+        toRender={typeof selectedTopicId === "string"}
+      />
 
-      {selectedGoalId && (
-        <select
-          onChange={(e) => setTechnologyId(e.target.value)}
-          value={selectedTechnologyId || ""}
-        >
-          <option value="">Select a technology</option>
-          {technologies?.map((tech) => (
-            <option key={tech.id} value={tech.id}>
-              {tech.title}
-            </option>
-          ))}
-        </select>
-      )}
+      {SelectedTags.length ? (
+        <div>
+          <label htmlFor="title">title</label>
+          <input
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            type="text"
+            id="title"
+            name="title"
+            required
+          />
 
-      {selectedTechnologyId && (
-        <select
-          onChange={(e) => setTopicId(e.target.value)}
-          value={selectedTopicId || ""}
-        >
-          <option value="">Select a topic</option>
-          {topics?.map((topic) => (
-            <option key={topic.id} value={topic.id}>
-              {topic.title}
-            </option>
-          ))}
-        </select>
-      )}
-
-      {selectedTopicId && (
-        <select
-          value={selectedTagId || ""}
-          onChange={(e) => setTagId(e.target.value)}
-        >
-          <option value="">Select a tag</option>
-          {tags?.map((tag) => (
-            <option key={tag.id} value={tag.id}>
-              {tag.title}
-            </option>
-          ))}
-        </select>
-      )}
+          <button onClick={() => console.log({ selectedTopicId, title , SelectedTags })}>
+            log
+          </button>
+          {/* save in db - navigate to write blog page */}
+        </div>
+      ):null}
     </div>
   );
 };
-
-export function SelectMetadataWrapper({ className }: { className?: string }) {
-  return (
-    <SelectMetadataProvider>
-      <SelectMetadata className={className} />
-    </SelectMetadataProvider>
-  );
-}

@@ -4,21 +4,25 @@ interface LoaderProps {
   className?: string;
 }
 interface LoaderWrapperProps {
-  error?: string | null;
+  errorMsg?: string | null;
   isLoading: boolean;
+  toRender?: boolean;
   children: React.ReactNode;
   className?: string;
 }
 export const LoaderWrapper: React.FC<LoaderWrapperProps> = ({
-  error,
+  errorMsg,
   isLoading,
   children,
   className,
+  toRender = true,
 }) => {
-  return (
+  return !toRender ? (
+    <></>
+  ) : (
     <div className={cn(className)}>
-      {error ? (
-        <p className="text-red-500">{error}</p>
+      {errorMsg ? (
+        <p className="text-red-500">{errorMsg}</p>
       ) : isLoading ? (
         <Loader />
       ) : (

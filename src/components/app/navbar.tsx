@@ -6,6 +6,7 @@ import { ChangeEvent, useState } from "react";
 import { HoverDropdown } from "./hover-dropdown";
 import { Btn } from "./buttons";
 import { AuthNavItem } from "@/features/Auth/components/auth-nav-item";
+import Link from "next/link";
 
 interface InputProps {
   className?: string;
@@ -13,17 +14,15 @@ interface InputProps {
 
 export function Navbar({ className }: InputProps) {
   return (
-    <div
-      className={cn(
-        "flex  border-b-[1px]  justify-between ",
-        className
-      )}
-    >
+    <div className={cn("flex  border-b-[1px]  justify-between ", className)}>
       <div className="flex gap-2 items-center ">
         <SidebarTrigger />
         <SearchBar />
         <Discover />
-        <Btn text="create a blog" />
+        <Link href={"blog/create/fill-metadata"}>
+          <Btn text="create a blog" />
+        </Link>
+
         <Notifications />
       </div>
 
