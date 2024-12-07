@@ -22,14 +22,14 @@ export class TagsOnBlogs {
   })
   updatedAt!: Date;
 
-  Tag?: Tag;
+  tag?: Tag;
 
   @TypeGraphQL.Field(_type => String, {
     nullable: false
   })
   tagId!: string;
 
-  Blog?: Blog;
+  blog?: Blog;
 
   @TypeGraphQL.Field(_type => String, {
     nullable: false

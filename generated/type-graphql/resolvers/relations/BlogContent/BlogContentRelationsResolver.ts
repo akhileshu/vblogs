@@ -9,13 +9,13 @@ export class BlogContentRelationsResolver {
   @TypeGraphQL.FieldResolver(_type => Blog, {
     nullable: false
   })
-  async Blog(@TypeGraphQL.Root() blogContent: BlogContent, @TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo): Promise<Blog> {
+  async blog(@TypeGraphQL.Root() blogContent: BlogContent, @TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo): Promise<Blog> {
     const { _count } = transformInfoIntoPrismaArgs(info);
     return getPrismaFromContext(ctx).blogContent.findUniqueOrThrow({
       where: {
         id: blogContent.id,
       },
-    }).Blog({
+    }).blog({
       ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
     });
   }

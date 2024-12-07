@@ -34,12 +34,12 @@ export class TopicUpdateInput {
   @TypeGraphQL.Field(_type => TechnologyUpdateOneWithoutTopicsNestedInput, {
     nullable: true
   })
-  Technology?: TechnologyUpdateOneWithoutTopicsNestedInput | undefined;
+  technology?: TechnologyUpdateOneWithoutTopicsNestedInput | undefined;
 
   @TypeGraphQL.Field(_type => BlogUpdateManyWithoutTopicNestedInput, {
     nullable: true
   })
-  Blogs?: BlogUpdateManyWithoutTopicNestedInput | undefined;
+  blogs?: BlogUpdateManyWithoutTopicNestedInput | undefined;
 
   @TypeGraphQL.Field(_type => TagUpdateManyWithoutTopicNestedInput, {
     nullable: true

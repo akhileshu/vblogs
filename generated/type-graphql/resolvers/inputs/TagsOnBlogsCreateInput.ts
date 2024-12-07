@@ -25,10 +25,10 @@ export class TagsOnBlogsCreateInput {
   @TypeGraphQL.Field(_type => TagCreateNestedOneWithoutBlogsInput, {
     nullable: false
   })
-  Tag!: TagCreateNestedOneWithoutBlogsInput;
+  tag!: TagCreateNestedOneWithoutBlogsInput;
 
   @TypeGraphQL.Field(_type => BlogCreateNestedOneWithoutTagsInput, {
     nullable: false
   })
-  Blog!: BlogCreateNestedOneWithoutTagsInput;
+  blog!: BlogCreateNestedOneWithoutTagsInput;
 }

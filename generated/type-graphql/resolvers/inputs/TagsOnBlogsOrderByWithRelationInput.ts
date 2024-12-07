@@ -36,10 +36,10 @@ export class TagsOnBlogsOrderByWithRelationInput {
   @TypeGraphQL.Field(_type => TagOrderByWithRelationInput, {
     nullable: true
   })
-  Tag?: TagOrderByWithRelationInput | undefined;
+  tag?: TagOrderByWithRelationInput | undefined;
 
   @TypeGraphQL.Field(_type => BlogOrderByWithRelationInput, {
     nullable: true
   })
-  Blog?: BlogOrderByWithRelationInput | undefined;
+  blog?: BlogOrderByWithRelationInput | undefined;
 }

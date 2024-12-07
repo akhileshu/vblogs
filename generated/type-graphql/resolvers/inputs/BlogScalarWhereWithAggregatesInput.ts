@@ -4,6 +4,7 @@ import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
 import { DateTimeWithAggregatesFilter } from "../inputs/DateTimeWithAggregatesFilter";
 import { EnumSkillLevelWithAggregatesFilter } from "../inputs/EnumSkillLevelWithAggregatesFilter";
+import { IntNullableWithAggregatesFilter } from "../inputs/IntNullableWithAggregatesFilter";
 import { IntWithAggregatesFilter } from "../inputs/IntWithAggregatesFilter";
 import { StringNullableWithAggregatesFilter } from "../inputs/StringNullableWithAggregatesFilter";
 import { StringWithAggregatesFilter } from "../inputs/StringWithAggregatesFilter";
@@ -45,11 +46,6 @@ export class BlogScalarWhereWithAggregatesInput {
   })
   topicId?: StringNullableWithAggregatesFilter | undefined;
 
-  @TypeGraphQL.Field(_type => EnumSkillLevelWithAggregatesFilter, {
-    nullable: true
-  })
-  skillLevel?: EnumSkillLevelWithAggregatesFilter | undefined;
-
   @TypeGraphQL.Field(_type => StringNullableWithAggregatesFilter, {
     nullable: true
   })
@@ -58,25 +54,30 @@ export class BlogScalarWhereWithAggregatesInput {
   @TypeGraphQL.Field(_type => StringWithAggregatesFilter, {
     nullable: true
   })
-  description?: StringWithAggregatesFilter | undefined;
-
-  @TypeGraphQL.Field(_type => StringWithAggregatesFilter, {
-    nullable: true
-  })
   title?: StringWithAggregatesFilter | undefined;
 
-  @TypeGraphQL.Field(_type => StringWithAggregatesFilter, {
+  @TypeGraphQL.Field(_type => EnumSkillLevelWithAggregatesFilter, {
     nullable: true
   })
-  slug?: StringWithAggregatesFilter | undefined;
+  skillLevel?: EnumSkillLevelWithAggregatesFilter | undefined;
+
+  @TypeGraphQL.Field(_type => StringNullableWithAggregatesFilter, {
+    nullable: true
+  })
+  description?: StringNullableWithAggregatesFilter | undefined;
+
+  @TypeGraphQL.Field(_type => StringNullableWithAggregatesFilter, {
+    nullable: true
+  })
+  slug?: StringNullableWithAggregatesFilter | undefined;
 
   @TypeGraphQL.Field(_type => IntWithAggregatesFilter, {
     nullable: true
   })
   views?: IntWithAggregatesFilter | undefined;
 
-  @TypeGraphQL.Field(_type => IntWithAggregatesFilter, {
+  @TypeGraphQL.Field(_type => IntNullableWithAggregatesFilter, {
     nullable: true
   })
-  readTimeInMinutes?: IntWithAggregatesFilter | undefined;
+  readTimeInMinutes?: IntNullableWithAggregatesFilter | undefined;
 }

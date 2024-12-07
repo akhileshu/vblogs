@@ -29,9 +29,9 @@ export class Technology {
   })
   title!: string;
 
-  Topics?: Topic[];
+  topics?: Topic[];
 
-  Goal?: Goal | null;
+  goal?: Goal | null;
 
   @TypeGraphQL.Field(_type => String, {
     nullable: true

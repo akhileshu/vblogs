@@ -35,10 +35,10 @@ export class CreateManyAndReturnTagsOnBlogs {
   @TypeGraphQL.Field(_type => Tag, {
     nullable: false
   })
-  Tag!: Tag;
+  tag!: Tag;
 
   @TypeGraphQL.Field(_type => Blog, {
     nullable: false
   })
-  Blog!: Blog;
+  blog!: Blog;
 }

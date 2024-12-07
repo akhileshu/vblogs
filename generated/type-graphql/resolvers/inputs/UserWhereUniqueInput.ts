@@ -64,7 +64,7 @@ export class UserWhereUniqueInput {
   @TypeGraphQL.Field(_type => BlogListRelationFilter, {
     nullable: true
   })
-  Blogs?: BlogListRelationFilter | undefined;
+  blogs?: BlogListRelationFilter | undefined;
 
   @TypeGraphQL.Field(_type => UserInterestListRelationFilter, {
     nullable: true

@@ -10,13 +10,13 @@ export class TagsOnBlogsRelationsResolver {
   @TypeGraphQL.FieldResolver(_type => Tag, {
     nullable: false
   })
-  async Tag(@TypeGraphQL.Root() tagsOnBlogs: TagsOnBlogs, @TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo): Promise<Tag> {
+  async tag(@TypeGraphQL.Root() tagsOnBlogs: TagsOnBlogs, @TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo): Promise<Tag> {
     const { _count } = transformInfoIntoPrismaArgs(info);
     return getPrismaFromContext(ctx).tagsOnBlogs.findUniqueOrThrow({
       where: {
         id: tagsOnBlogs.id,
       },
-    }).Tag({
+    }).tag({
       ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
     });
   }
@@ -24,13 +24,13 @@ export class TagsOnBlogsRelationsResolver {
   @TypeGraphQL.FieldResolver(_type => Blog, {
     nullable: false
   })
-  async Blog(@TypeGraphQL.Root() tagsOnBlogs: TagsOnBlogs, @TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo): Promise<Blog> {
+  async blog(@TypeGraphQL.Root() tagsOnBlogs: TagsOnBlogs, @TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo): Promise<Blog> {
     const { _count } = transformInfoIntoPrismaArgs(info);
     return getPrismaFromContext(ctx).tagsOnBlogs.findUniqueOrThrow({
       where: {
         id: tagsOnBlogs.id,
       },
-    }).Blog({
+    }).blog({
       ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
     });
   }

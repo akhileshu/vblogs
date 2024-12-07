@@ -47,5 +47,5 @@ export class UserUpdateWithoutInterestsInput {
   @TypeGraphQL.Field(_type => BlogUpdateManyWithoutAuthorNestedInput, {
     nullable: true
   })
-  Blogs?: BlogUpdateManyWithoutAuthorNestedInput | undefined;
+  blogs?: BlogUpdateManyWithoutAuthorNestedInput | undefined;
 }

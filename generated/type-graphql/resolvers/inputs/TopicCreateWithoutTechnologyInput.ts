@@ -31,7 +31,7 @@ export class TopicCreateWithoutTechnologyInput {
   @TypeGraphQL.Field(_type => BlogCreateNestedManyWithoutTopicInput, {
     nullable: true
   })
-  Blogs?: BlogCreateNestedManyWithoutTopicInput | undefined;
+  blogs?: BlogCreateNestedManyWithoutTopicInput | undefined;
 
   @TypeGraphQL.Field(_type => TagCreateNestedManyWithoutTopicInput, {
     nullable: true

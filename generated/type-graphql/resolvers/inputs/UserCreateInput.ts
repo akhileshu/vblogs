@@ -46,7 +46,7 @@ export class UserCreateInput {
   @TypeGraphQL.Field(_type => BlogCreateNestedManyWithoutAuthorInput, {
     nullable: true
   })
-  Blogs?: BlogCreateNestedManyWithoutAuthorInput | undefined;
+  blogs?: BlogCreateNestedManyWithoutAuthorInput | undefined;
 
   @TypeGraphQL.Field(_type => UserInterestCreateNestedManyWithoutUserInput, {
     nullable: true

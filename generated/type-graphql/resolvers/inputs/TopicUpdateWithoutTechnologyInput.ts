@@ -33,7 +33,7 @@ export class TopicUpdateWithoutTechnologyInput {
   @TypeGraphQL.Field(_type => BlogUpdateManyWithoutTopicNestedInput, {
     nullable: true
   })
-  Blogs?: BlogUpdateManyWithoutTopicNestedInput | undefined;
+  blogs?: BlogUpdateManyWithoutTopicNestedInput | undefined;
 
   @TypeGraphQL.Field(_type => TagUpdateManyWithoutTopicNestedInput, {
     nullable: true

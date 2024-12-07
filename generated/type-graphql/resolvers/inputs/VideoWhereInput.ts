@@ -57,10 +57,10 @@ export class VideoWhereInput {
   @TypeGraphQL.Field(_type => BlogRelationFilter, {
     nullable: true
   })
-  Blog?: BlogRelationFilter | undefined;
+  blog?: BlogRelationFilter | undefined;
 
   @TypeGraphQL.Field(_type => VideoSectionListRelationFilter, {
     nullable: true
   })
-  Sections?: VideoSectionListRelationFilter | undefined;
+  sections?: VideoSectionListRelationFilter | undefined;
 }

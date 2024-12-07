@@ -23,7 +23,7 @@ model Goal {
   createdAt    DateTime     @default(now())
   updatedAt    DateTime     @updatedAt
   title        String
-  Technologies Technology[]
+  technologies Technology[]
 }
 
 model Technology {
@@ -31,8 +31,8 @@ model Technology {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   title     String
-  Topics    Topic[]
-  Goal      Goal?    @relation(fields: [goalId], references: [id])
+  topics    Topic[]
+  goal      Goal?    @relation(fields: [goalId], references: [id])
   goalId    String?
 
   userInterests UserInterest[]
@@ -43,9 +43,9 @@ model Topic {
   createdAt     DateTime       @default(now())
   updatedAt     DateTime       @updatedAt
   title         String
-  Technology    Technology?    @relation(fields: [technologyId], references: [id])
+  technology    Technology?    @relation(fields: [technologyId], references: [id])
   technologyId  String?
-  Blogs         Blog[]
+  blogs         Blog[]
   tags          Tag[]
   userInterests UserInterest[]
 }
@@ -57,9 +57,9 @@ model Tag {
 
   title String
 
-  Topic   Topic?        @relation(fields: [topicId], references: [id])
+  topic   Topic?        @relation(fields: [topicId], references: [id])
   topicId String?
-  Blogs   TagsOnBlogs[]
+  blogs   TagsOnBlogs[]
 }
 
 model User {
@@ -68,7 +68,7 @@ model User {
   updatedAt DateTime       @updatedAt
   role      UserRole       @default(LEARNER)
   name      String
-  Blogs     Blog[]
+  blogs     Blog[]
   email     String         @unique
   image     String
   interests UserInterest[]
@@ -83,10 +83,10 @@ model UserInterest {
   user   User   @relation(fields: [userId], references: [id])
 
   technologyId String?
-  Technology   Technology? @relation(fields: [technologyId], references: [id])
+  technology   Technology? @relation(fields: [technologyId], references: [id])
 
   topicId String?
-  Topic   Topic?  @relation(fields: [topicId], references: [id])
+  topic   Topic?  @relation(fields: [topicId], references: [id])
 
   interestType InterestType //field to determine the type of interest (technology or topic)
 }
@@ -97,23 +97,23 @@ enum InterestType {
 }
 
 model Blog {
-  id         String     @id @default(uuid())
-  createdAt  DateTime   @default(now())
-  updatedAt  DateTime   @updatedAt
-  Topic      Topic?     @relation(fields: [topicId], references: [id])
-  topicId    String?
-  skillLevel SkillLevel @default(INTERMEDIATE)
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
-  // 
-  Tags              TagsOnBlogs[]
-  Author            User?         @relation(fields: [authorId], references: [id])
+  topic             Topic?        @relation(fields: [topicId], references: [id])
+  topicId           String?
+  tags              TagsOnBlogs[]
+  author            User?         @relation(fields: [authorId], references: [id])
   authorId          String?
-  content           BlogContent?
-  description       String
   title             String
-  slug              String        @unique // for sharable url
+  // 
+  skillLevel        SkillLevel    @default(INTERMEDIATE)
+  content           BlogContent?
+  description       String?
+  slug              String?       @unique // for sharable url
   views             Int           @default(0)
-  readTimeInMinutes Int
+  readTimeInMinutes Int?
   Video             Video?
 
   @@unique([topicId, title]) // Ensure unique title for each topic
@@ -123,12 +123,12 @@ model Video {
   id        String   @id @default(uuid())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  Blog      Blog     @relation(fields: [blogId], references: [id])
+  blog      Blog     @relation(fields: [blogId], references: [id])
   blogId    String   @unique
 
   videoLink     String
   thumbnailLink String
-  Sections      VideoSection[]
+  sections      VideoSection[]
 }
 
 model VideoSection {
@@ -159,7 +159,7 @@ model BlogContent {
   intro          Json
   implementation Json
   advanced       Json
-  Blog           Blog   @relation(fields: [blogId], references: [id])
+  blog           Blog   @relation(fields: [blogId], references: [id])
   blogId         String @unique
 }
 
@@ -168,9 +168,9 @@ model TagsOnBlogs {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  Tag    Tag    @relation(fields: [tagId], references: [id])
+  tag    Tag    @relation(fields: [tagId], references: [id])
   tagId  String
-  Blog   Blog   @relation(fields: [blogId], references: [id])
+  blog   Blog   @relation(fields: [blogId], references: [id])
   blogId String
 
   @@unique([blogId, tagId]) // a blog can't have the same tag twice
@@ -187,3 +187,4 @@ enum UserRole {
   AUTHOR
   ADMIN
 }
+

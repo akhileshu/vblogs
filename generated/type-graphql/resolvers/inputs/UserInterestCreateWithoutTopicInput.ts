@@ -36,5 +36,5 @@ export class UserInterestCreateWithoutTopicInput {
   @TypeGraphQL.Field(_type => TechnologyCreateNestedOneWithoutUserInterestsInput, {
     nullable: true
   })
-  Technology?: TechnologyCreateNestedOneWithoutUserInterestsInput | undefined;
+  technology?: TechnologyCreateNestedOneWithoutUserInterestsInput | undefined;
 }

@@ -31,11 +31,6 @@ export class BlogGroupBy {
   })
   topicId!: string | null;
 
-  @TypeGraphQL.Field(_type => SkillLevel, {
-    nullable: false
-  })
-  skillLevel!: "BASIC" | "INTERMEDIATE" | "ADVANCED";
-
   @TypeGraphQL.Field(_type => String, {
     nullable: true
   })
@@ -44,17 +39,22 @@ export class BlogGroupBy {
   @TypeGraphQL.Field(_type => String, {
     nullable: false
   })
-  description!: string;
-
-  @TypeGraphQL.Field(_type => String, {
-    nullable: false
-  })
   title!: string;
 
-  @TypeGraphQL.Field(_type => String, {
+  @TypeGraphQL.Field(_type => SkillLevel, {
     nullable: false
   })
-  slug!: string;
+  skillLevel!: "BASIC" | "INTERMEDIATE" | "ADVANCED";
+
+  @TypeGraphQL.Field(_type => String, {
+    nullable: true
+  })
+  description!: string | null;
+
+  @TypeGraphQL.Field(_type => String, {
+    nullable: true
+  })
+  slug!: string | null;
 
   @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
     nullable: false
@@ -62,9 +62,9 @@ export class BlogGroupBy {
   views!: number;
 
   @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
-    nullable: false
+    nullable: true
   })
-  readTimeInMinutes!: number;
+  readTimeInMinutes!: number | null;
 
   @TypeGraphQL.Field(_type => BlogCountAggregate, {
     nullable: true

@@ -51,22 +51,22 @@ export class CreateManyAndReturnUserInterest {
   })
   user!: User;
 
-  Technology!: Technology | null;
-  Topic!: Topic | null;
+  technology!: Technology | null;
+  topic!: Topic | null;
 
   @TypeGraphQL.Field(_type => Technology, {
-    name: "Technology",
+    name: "technology",
     nullable: true
   })
   getTechnology(@TypeGraphQL.Root() root: CreateManyAndReturnUserInterest, @TypeGraphQL.Args() args: CreateManyAndReturnUserInterestTechnologyArgs): Technology | null {
-    return root.Technology;
+    return root.technology;
   }
 
   @TypeGraphQL.Field(_type => Topic, {
-    name: "Topic",
+    name: "topic",
     nullable: true
   })
   getTopic(@TypeGraphQL.Root() root: CreateManyAndReturnUserInterest, @TypeGraphQL.Args() args: CreateManyAndReturnUserInterestTopicArgs): Topic | null {
-    return root.Topic;
+    return root.topic;
   }
 }

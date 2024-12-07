@@ -1,7 +1,5 @@
+import React from "react";
+
 export default function BlogCreatePage() {
-  return (
-    <div>
-      <h1>blog create route</h1>
-    </div>
-  );
+  return <div>write blog : pass slug</div>;
 }

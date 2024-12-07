@@ -36,14 +36,14 @@ export class UserInterest {
   })
   technologyId?: string | null;
 
-  Technology?: Technology | null;
+  technology?: Technology | null;
 
   @TypeGraphQL.Field(_type => String, {
     nullable: true
   })
   topicId?: string | null;
 
-  Topic?: Topic | null;
+  topic?: Topic | null;
 
   @TypeGraphQL.Field(_type => InterestType, {
     nullable: false

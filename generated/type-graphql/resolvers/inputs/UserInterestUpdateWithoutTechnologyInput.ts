@@ -38,5 +38,5 @@ export class UserInterestUpdateWithoutTechnologyInput {
   @TypeGraphQL.Field(_type => TopicUpdateOneWithoutUserInterestsNestedInput, {
     nullable: true
   })
-  Topic?: TopicUpdateOneWithoutUserInterestsNestedInput | undefined;
+  topic?: TopicUpdateOneWithoutUserInterestsNestedInput | undefined;
 }

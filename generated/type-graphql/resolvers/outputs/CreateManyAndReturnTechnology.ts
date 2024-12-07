@@ -32,13 +32,13 @@ export class CreateManyAndReturnTechnology {
   })
   goalId!: string | null;
 
-  Goal!: Goal | null;
+  goal!: Goal | null;
 
   @TypeGraphQL.Field(_type => Goal, {
-    name: "Goal",
+    name: "goal",
     nullable: true
   })
   getGoal(@TypeGraphQL.Root() root: CreateManyAndReturnTechnology, @TypeGraphQL.Args() args: CreateManyAndReturnTechnologyGoalArgs): Goal | null {
-    return root.Goal;
+    return root.goal;
   }
 }

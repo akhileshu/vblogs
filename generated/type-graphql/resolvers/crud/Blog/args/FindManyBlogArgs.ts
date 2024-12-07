@@ -35,5 +35,5 @@ export class FindManyBlogArgs {
   @TypeGraphQL.Field(_type => [BlogScalarFieldEnum], {
     nullable: true
   })
-  distinct?: Array<"id" | "createdAt" | "updatedAt" | "topicId" | "skillLevel" | "authorId" | "description" | "title" | "slug" | "views" | "readTimeInMinutes"> | undefined;
+  distinct?: Array<"id" | "createdAt" | "updatedAt" | "topicId" | "authorId" | "title" | "skillLevel" | "description" | "slug" | "views" | "readTimeInMinutes"> | undefined;
 }

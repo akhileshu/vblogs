@@ -14,13 +14,13 @@ export class TechnologyRelationsResolver {
   @TypeGraphQL.FieldResolver(_type => [Topic], {
     nullable: false
   })
-  async Topics(@TypeGraphQL.Root() technology: Technology, @TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: TechnologyTopicsArgs): Promise<Topic[]> {
+  async topics(@TypeGraphQL.Root() technology: Technology, @TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: TechnologyTopicsArgs): Promise<Topic[]> {
     const { _count } = transformInfoIntoPrismaArgs(info);
     return getPrismaFromContext(ctx).technology.findUniqueOrThrow({
       where: {
         id: technology.id,
       },
-    }).Topics({
+    }).topics({
       ...args,
       ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
     });
@@ -29,13 +29,13 @@ export class TechnologyRelationsResolver {
   @TypeGraphQL.FieldResolver(_type => Goal, {
     nullable: true
   })
-  async Goal(@TypeGraphQL.Root() technology: Technology, @TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: TechnologyGoalArgs): Promise<Goal | null> {
+  async goal(@TypeGraphQL.Root() technology: Technology, @TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: TechnologyGoalArgs): Promise<Goal | null> {
     const { _count } = transformInfoIntoPrismaArgs(info);
     return getPrismaFromContext(ctx).technology.findUniqueOrThrow({
       where: {
         id: technology.id,
       },
-    }).Goal({
+    }).goal({
       ...args,
       ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
     });

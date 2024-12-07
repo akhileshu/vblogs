@@ -30,10 +30,10 @@ export class TechnologyCreateWithoutUserInterestsInput {
   @TypeGraphQL.Field(_type => TopicCreateNestedManyWithoutTechnologyInput, {
     nullable: true
   })
-  Topics?: TopicCreateNestedManyWithoutTechnologyInput | undefined;
+  topics?: TopicCreateNestedManyWithoutTechnologyInput | undefined;
 
   @TypeGraphQL.Field(_type => GoalCreateNestedOneWithoutTechnologiesInput, {
     nullable: true
   })
-  Goal?: GoalCreateNestedOneWithoutTechnologiesInput | undefined;
+  goal?: GoalCreateNestedOneWithoutTechnologiesInput | undefined;
 }

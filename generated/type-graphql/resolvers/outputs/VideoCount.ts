@@ -6,13 +6,13 @@ import { VideoCountSectionsArgs } from "./args/VideoCountSectionsArgs";
 
 @TypeGraphQL.ObjectType("VideoCount", {})
 export class VideoCount {
-  Sections!: number;
+  sections!: number;
 
   @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
-    name: "Sections",
+    name: "sections",
     nullable: false
   })
   getSections(@TypeGraphQL.Root() root: VideoCount, @TypeGraphQL.Args() args: VideoCountSectionsArgs): number {
-    return root.Sections;
+    return root.sections;
   }
 }

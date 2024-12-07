@@ -39,5 +39,5 @@ export class CreateManyAndReturnVideo {
   @TypeGraphQL.Field(_type => Blog, {
     nullable: false
   })
-  Blog!: Blog;
+  blog!: Blog;
 }

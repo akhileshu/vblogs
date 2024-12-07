@@ -8,6 +8,7 @@ import { BlogWhereInput } from "../inputs/BlogWhereInput";
 import { DateTimeFilter } from "../inputs/DateTimeFilter";
 import { EnumSkillLevelFilter } from "../inputs/EnumSkillLevelFilter";
 import { IntFilter } from "../inputs/IntFilter";
+import { IntNullableFilter } from "../inputs/IntNullableFilter";
 import { StringFilter } from "../inputs/StringFilter";
 import { StringNullableFilter } from "../inputs/StringNullableFilter";
 import { TagsOnBlogsListRelationFilter } from "../inputs/TagsOnBlogsListRelationFilter";
@@ -62,11 +63,6 @@ export class BlogWhereUniqueInput {
   })
   topicId?: StringNullableFilter | undefined;
 
-  @TypeGraphQL.Field(_type => EnumSkillLevelFilter, {
-    nullable: true
-  })
-  skillLevel?: EnumSkillLevelFilter | undefined;
-
   @TypeGraphQL.Field(_type => StringNullableFilter, {
     nullable: true
   })
@@ -75,37 +71,42 @@ export class BlogWhereUniqueInput {
   @TypeGraphQL.Field(_type => StringFilter, {
     nullable: true
   })
-  description?: StringFilter | undefined;
+  title?: StringFilter | undefined;
 
-  @TypeGraphQL.Field(_type => StringFilter, {
+  @TypeGraphQL.Field(_type => EnumSkillLevelFilter, {
     nullable: true
   })
-  title?: StringFilter | undefined;
+  skillLevel?: EnumSkillLevelFilter | undefined;
+
+  @TypeGraphQL.Field(_type => StringNullableFilter, {
+    nullable: true
+  })
+  description?: StringNullableFilter | undefined;
 
   @TypeGraphQL.Field(_type => IntFilter, {
     nullable: true
   })
   views?: IntFilter | undefined;
 
-  @TypeGraphQL.Field(_type => IntFilter, {
+  @TypeGraphQL.Field(_type => IntNullableFilter, {
     nullable: true
   })
-  readTimeInMinutes?: IntFilter | undefined;
+  readTimeInMinutes?: IntNullableFilter | undefined;
 
   @TypeGraphQL.Field(_type => TopicNullableRelationFilter, {
     nullable: true
   })
-  Topic?: TopicNullableRelationFilter | undefined;
+  topic?: TopicNullableRelationFilter | undefined;
 
   @TypeGraphQL.Field(_type => TagsOnBlogsListRelationFilter, {
     nullable: true
   })
-  Tags?: TagsOnBlogsListRelationFilter | undefined;
+  tags?: TagsOnBlogsListRelationFilter | undefined;
 
   @TypeGraphQL.Field(_type => UserNullableRelationFilter, {
     nullable: true
   })
-  Author?: UserNullableRelationFilter | undefined;
+  author?: UserNullableRelationFilter | undefined;
 
   @TypeGraphQL.Field(_type => BlogContentNullableRelationFilter, {
     nullable: true

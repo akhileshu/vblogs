@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "Blog" ALTER COLUMN "slug" DROP NOT NULL,
+ALTER COLUMN "readTimeInMinutes" DROP NOT NULL;

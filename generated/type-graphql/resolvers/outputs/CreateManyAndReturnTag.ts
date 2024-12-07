@@ -32,13 +32,13 @@ export class CreateManyAndReturnTag {
   })
   topicId!: string | null;
 
-  Topic!: Topic | null;
+  topic!: Topic | null;
 
   @TypeGraphQL.Field(_type => Topic, {
-    name: "Topic",
+    name: "topic",
     nullable: true
   })
   getTopic(@TypeGraphQL.Root() root: CreateManyAndReturnTag, @TypeGraphQL.Args() args: CreateManyAndReturnTagTopicArgs): Topic | null {
-    return root.Topic;
+    return root.topic;
   }
 }

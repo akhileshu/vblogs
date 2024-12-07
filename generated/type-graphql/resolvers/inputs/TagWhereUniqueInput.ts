@@ -54,10 +54,10 @@ export class TagWhereUniqueInput {
   @TypeGraphQL.Field(_type => TopicNullableRelationFilter, {
     nullable: true
   })
-  Topic?: TopicNullableRelationFilter | undefined;
+  topic?: TopicNullableRelationFilter | undefined;
 
   @TypeGraphQL.Field(_type => TagsOnBlogsListRelationFilter, {
     nullable: true
   })
-  Blogs?: TagsOnBlogsListRelationFilter | undefined;
+  blogs?: TagsOnBlogsListRelationFilter | undefined;
 }

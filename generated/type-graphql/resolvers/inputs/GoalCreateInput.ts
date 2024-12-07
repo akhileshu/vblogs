@@ -29,5 +29,5 @@ export class GoalCreateInput {
   @TypeGraphQL.Field(_type => TechnologyCreateNestedManyWithoutGoalInput, {
     nullable: true
   })
-  Technologies?: TechnologyCreateNestedManyWithoutGoalInput | undefined;
+  technologies?: TechnologyCreateNestedManyWithoutGoalInput | undefined;
 }

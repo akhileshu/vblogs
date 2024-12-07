@@ -35,10 +35,10 @@ export class VideoCreateInput {
   @TypeGraphQL.Field(_type => BlogCreateNestedOneWithoutVideoInput, {
     nullable: false
   })
-  Blog!: BlogCreateNestedOneWithoutVideoInput;
+  blog!: BlogCreateNestedOneWithoutVideoInput;
 
   @TypeGraphQL.Field(_type => VideoSectionCreateNestedManyWithoutVideoInput, {
     nullable: true
   })
-  Sections?: VideoSectionCreateNestedManyWithoutVideoInput | undefined;
+  sections?: VideoSectionCreateNestedManyWithoutVideoInput | undefined;
 }

@@ -18,7 +18,6 @@ export function useFetch<T>(
 
   useEffect(() => {
     const fetchData = async () => {
-      debugger;
       setLoading(true);
       const [error, result] = await catchErrorTyped(callbackFunction());
       if (error) setError(error);
@@ -32,3 +31,8 @@ export function useFetch<T>(
 
   return { data, error, loading };
 }
+
+
+  
+
+

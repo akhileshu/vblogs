@@ -27,7 +27,7 @@ export class Goal {
   })
   title!: string;
 
-  Technologies?: Technology[];
+  technologies?: Technology[];
 
   @TypeGraphQL.Field(_type => GoalCount, {
     nullable: true

@@ -36,7 +36,7 @@ export class BlogContent {
   })
   advanced!: Prisma.JsonValue;
 
-  Blog?: Blog;
+  blog?: Blog;
 
   @TypeGraphQL.Field(_type => String, {
     nullable: false

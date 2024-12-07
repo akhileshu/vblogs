@@ -6,13 +6,13 @@ import { GoalCountTechnologiesArgs } from "./args/GoalCountTechnologiesArgs";
 
 @TypeGraphQL.ObjectType("GoalCount", {})
 export class GoalCount {
-  Technologies!: number;
+  technologies!: number;
 
   @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
-    name: "Technologies",
+    name: "technologies",
     nullable: false
   })
   getTechnologies(@TypeGraphQL.Root() root: GoalCount, @TypeGraphQL.Args() args: GoalCountTechnologiesArgs): number {
-    return root.Technologies;
+    return root.technologies;
   }
 }

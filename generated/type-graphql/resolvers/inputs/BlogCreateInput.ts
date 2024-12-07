@@ -26,25 +26,25 @@ export class BlogCreateInput {
   })
   updatedAt?: Date | undefined;
 
+  @TypeGraphQL.Field(_type => String, {
+    nullable: false
+  })
+  title!: string;
+
   @TypeGraphQL.Field(_type => SkillLevel, {
     nullable: true
   })
   skillLevel?: "BASIC" | "INTERMEDIATE" | "ADVANCED" | undefined;
 
   @TypeGraphQL.Field(_type => String, {
-    nullable: false
+    nullable: true
   })
-  description!: string;
+  description?: string | undefined;
 
   @TypeGraphQL.Field(_type => String, {
-    nullable: false
+    nullable: true
   })
-  title!: string;
-
-  @TypeGraphQL.Field(_type => String, {
-    nullable: false
-  })
-  slug!: string;
+  slug?: string | undefined;
 
   @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
     nullable: true
@@ -52,24 +52,24 @@ export class BlogCreateInput {
   views?: number | undefined;
 
   @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
-    nullable: false
+    nullable: true
   })
-  readTimeInMinutes!: number;
+  readTimeInMinutes?: number | undefined;
 
   @TypeGraphQL.Field(_type => TopicCreateNestedOneWithoutBlogsInput, {
     nullable: true
   })
-  Topic?: TopicCreateNestedOneWithoutBlogsInput | undefined;
+  topic?: TopicCreateNestedOneWithoutBlogsInput | undefined;
 
   @TypeGraphQL.Field(_type => TagsOnBlogsCreateNestedManyWithoutBlogInput, {
     nullable: true
   })
-  Tags?: TagsOnBlogsCreateNestedManyWithoutBlogInput | undefined;
+  tags?: TagsOnBlogsCreateNestedManyWithoutBlogInput | undefined;
 
   @TypeGraphQL.Field(_type => UserCreateNestedOneWithoutBlogsInput, {
     nullable: true
   })
-  Author?: UserCreateNestedOneWithoutBlogsInput | undefined;
+  author?: UserCreateNestedOneWithoutBlogsInput | undefined;
 
   @TypeGraphQL.Field(_type => BlogContentCreateNestedOneWithoutBlogInput, {
     nullable: true

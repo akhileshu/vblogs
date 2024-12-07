@@ -46,7 +46,7 @@ export class UserOrderByWithRelationInput {
   @TypeGraphQL.Field(_type => BlogOrderByRelationAggregateInput, {
     nullable: true
   })
-  Blogs?: BlogOrderByRelationAggregateInput | undefined;
+  blogs?: BlogOrderByRelationAggregateInput | undefined;
 
   @TypeGraphQL.Field(_type => UserInterestOrderByRelationAggregateInput, {
     nullable: true

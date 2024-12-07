@@ -36,5 +36,5 @@ export class VideoUpdateWithoutSectionsInput {
   @TypeGraphQL.Field(_type => BlogUpdateOneRequiredWithoutVideoNestedInput, {
     nullable: true
   })
-  Blog?: BlogUpdateOneRequiredWithoutVideoNestedInput | undefined;
+  blog?: BlogUpdateOneRequiredWithoutVideoNestedInput | undefined;
 }

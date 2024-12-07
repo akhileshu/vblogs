@@ -26,11 +26,6 @@ export class BlogCreateManyInput {
   })
   topicId?: string | undefined;
 
-  @TypeGraphQL.Field(_type => SkillLevel, {
-    nullable: true
-  })
-  skillLevel?: "BASIC" | "INTERMEDIATE" | "ADVANCED" | undefined;
-
   @TypeGraphQL.Field(_type => String, {
     nullable: true
   })
@@ -39,17 +34,22 @@ export class BlogCreateManyInput {
   @TypeGraphQL.Field(_type => String, {
     nullable: false
   })
-  description!: string;
-
-  @TypeGraphQL.Field(_type => String, {
-    nullable: false
-  })
   title!: string;
 
-  @TypeGraphQL.Field(_type => String, {
-    nullable: false
+  @TypeGraphQL.Field(_type => SkillLevel, {
+    nullable: true
   })
-  slug!: string;
+  skillLevel?: "BASIC" | "INTERMEDIATE" | "ADVANCED" | undefined;
+
+  @TypeGraphQL.Field(_type => String, {
+    nullable: true
+  })
+  description?: string | undefined;
+
+  @TypeGraphQL.Field(_type => String, {
+    nullable: true
+  })
+  slug?: string | undefined;
 
   @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
     nullable: true
@@ -57,7 +57,7 @@ export class BlogCreateManyInput {
   views?: number | undefined;
 
   @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
-    nullable: false
+    nullable: true
   })
-  readTimeInMinutes!: number;
+  readTimeInMinutes?: number | undefined;
 }

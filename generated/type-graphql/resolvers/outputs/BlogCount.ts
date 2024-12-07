@@ -6,13 +6,13 @@ import { BlogCountTagsArgs } from "./args/BlogCountTagsArgs";
 
 @TypeGraphQL.ObjectType("BlogCount", {})
 export class BlogCount {
-  Tags!: number;
+  tags!: number;
 
   @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
-    name: "Tags",
+    name: "tags",
     nullable: false
   })
   getTags(@TypeGraphQL.Root() root: BlogCount, @TypeGraphQL.Args() args: BlogCountTagsArgs): number {
-    return root.Tags;
+    return root.tags;
   }
 }

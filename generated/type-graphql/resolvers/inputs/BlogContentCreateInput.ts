@@ -39,5 +39,5 @@ export class BlogContentCreateInput {
   @TypeGraphQL.Field(_type => BlogCreateNestedOneWithoutContentInput, {
     nullable: false
   })
-  Blog!: BlogCreateNestedOneWithoutContentInput;
+  blog!: BlogCreateNestedOneWithoutContentInput;
 }

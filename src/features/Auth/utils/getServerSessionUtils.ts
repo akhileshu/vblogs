@@ -15,5 +15,9 @@ export const verifyRoleOnServer = async (userRole:UserRole) => {
     }
     return false;
   };
+export const getServerSessionUserByRole = async (userRole: UserRole) => {
+  const user = await getServerSessionUser();
+  if (user && user.role === userRole) return user
+};
 
 

@@ -28,14 +28,14 @@ export class Tag {
   })
   title!: string;
 
-  Topic?: Topic | null;
+  topic?: Topic | null;
 
   @TypeGraphQL.Field(_type => String, {
     nullable: true
   })
   topicId?: string | null;
 
-  Blogs?: TagsOnBlogs[];
+  blogs?: TagsOnBlogs[];
 
   @TypeGraphQL.Field(_type => TagCount, {
     nullable: true

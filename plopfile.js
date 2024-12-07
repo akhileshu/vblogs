@@ -56,3 +56,4 @@ plop.setGenerator("graphql-resolver", {
   ],
 });
 }
+

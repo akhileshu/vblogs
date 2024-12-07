@@ -30,10 +30,10 @@ export class TagCreateInput {
   @TypeGraphQL.Field(_type => TopicCreateNestedOneWithoutTagsInput, {
     nullable: true
   })
-  Topic?: TopicCreateNestedOneWithoutTagsInput | undefined;
+  topic?: TopicCreateNestedOneWithoutTagsInput | undefined;
 
   @TypeGraphQL.Field(_type => TagsOnBlogsCreateNestedManyWithoutTagInput, {
     nullable: true
   })
-  Blogs?: TagsOnBlogsCreateNestedManyWithoutTagInput | undefined;
+  blogs?: TagsOnBlogsCreateNestedManyWithoutTagInput | undefined;
 }

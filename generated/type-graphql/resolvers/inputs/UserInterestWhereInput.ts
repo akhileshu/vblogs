@@ -70,10 +70,10 @@ export class UserInterestWhereInput {
   @TypeGraphQL.Field(_type => TechnologyNullableRelationFilter, {
     nullable: true
   })
-  Technology?: TechnologyNullableRelationFilter | undefined;
+  technology?: TechnologyNullableRelationFilter | undefined;
 
   @TypeGraphQL.Field(_type => TopicNullableRelationFilter, {
     nullable: true
   })
-  Topic?: TopicNullableRelationFilter | undefined;
+  topic?: TopicNullableRelationFilter | undefined;
 }

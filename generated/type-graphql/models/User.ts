@@ -34,7 +34,7 @@ export class User {
   })
   name!: string;
 
-  Blogs?: Blog[];
+  blogs?: Blog[];
 
   @TypeGraphQL.Field(_type => String, {
     nullable: false

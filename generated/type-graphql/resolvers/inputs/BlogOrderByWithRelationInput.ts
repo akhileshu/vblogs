@@ -32,20 +32,10 @@ export class BlogOrderByWithRelationInput {
   })
   topicId?: SortOrderInput | undefined;
 
-  @TypeGraphQL.Field(_type => SortOrder, {
-    nullable: true
-  })
-  skillLevel?: "asc" | "desc" | undefined;
-
   @TypeGraphQL.Field(_type => SortOrderInput, {
     nullable: true
   })
   authorId?: SortOrderInput | undefined;
-
-  @TypeGraphQL.Field(_type => SortOrder, {
-    nullable: true
-  })
-  description?: "asc" | "desc" | undefined;
 
   @TypeGraphQL.Field(_type => SortOrder, {
     nullable: true
@@ -55,32 +45,42 @@ export class BlogOrderByWithRelationInput {
   @TypeGraphQL.Field(_type => SortOrder, {
     nullable: true
   })
-  slug?: "asc" | "desc" | undefined;
+  skillLevel?: "asc" | "desc" | undefined;
+
+  @TypeGraphQL.Field(_type => SortOrderInput, {
+    nullable: true
+  })
+  description?: SortOrderInput | undefined;
+
+  @TypeGraphQL.Field(_type => SortOrderInput, {
+    nullable: true
+  })
+  slug?: SortOrderInput | undefined;
 
   @TypeGraphQL.Field(_type => SortOrder, {
     nullable: true
   })
   views?: "asc" | "desc" | undefined;
 
-  @TypeGraphQL.Field(_type => SortOrder, {
+  @TypeGraphQL.Field(_type => SortOrderInput, {
     nullable: true
   })
-  readTimeInMinutes?: "asc" | "desc" | undefined;
+  readTimeInMinutes?: SortOrderInput | undefined;
 
   @TypeGraphQL.Field(_type => TopicOrderByWithRelationInput, {
     nullable: true
   })
-  Topic?: TopicOrderByWithRelationInput | undefined;
+  topic?: TopicOrderByWithRelationInput | undefined;
 
   @TypeGraphQL.Field(_type => TagsOnBlogsOrderByRelationAggregateInput, {
     nullable: true
   })
-  Tags?: TagsOnBlogsOrderByRelationAggregateInput | undefined;
+  tags?: TagsOnBlogsOrderByRelationAggregateInput | undefined;
 
   @TypeGraphQL.Field(_type => UserOrderByWithRelationInput, {
     nullable: true
   })
-  Author?: UserOrderByWithRelationInput | undefined;
+  author?: UserOrderByWithRelationInput | undefined;
 
   @TypeGraphQL.Field(_type => BlogContentOrderByWithRelationInput, {
     nullable: true

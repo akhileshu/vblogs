@@ -6,6 +6,8 @@ import { BlogContentUpdateOneWithoutBlogNestedInput } from "../inputs/BlogConten
 import { DateTimeFieldUpdateOperationsInput } from "../inputs/DateTimeFieldUpdateOperationsInput";
 import { EnumSkillLevelFieldUpdateOperationsInput } from "../inputs/EnumSkillLevelFieldUpdateOperationsInput";
 import { IntFieldUpdateOperationsInput } from "../inputs/IntFieldUpdateOperationsInput";
+import { NullableIntFieldUpdateOperationsInput } from "../inputs/NullableIntFieldUpdateOperationsInput";
+import { NullableStringFieldUpdateOperationsInput } from "../inputs/NullableStringFieldUpdateOperationsInput";
 import { StringFieldUpdateOperationsInput } from "../inputs/StringFieldUpdateOperationsInput";
 import { TagsOnBlogsUpdateManyWithoutBlogNestedInput } from "../inputs/TagsOnBlogsUpdateManyWithoutBlogNestedInput";
 import { TopicUpdateOneWithoutBlogsNestedInput } from "../inputs/TopicUpdateOneWithoutBlogsNestedInput";
@@ -28,45 +30,45 @@ export class BlogUpdateWithoutAuthorInput {
   })
   updatedAt?: DateTimeFieldUpdateOperationsInput | undefined;
 
-  @TypeGraphQL.Field(_type => EnumSkillLevelFieldUpdateOperationsInput, {
-    nullable: true
-  })
-  skillLevel?: EnumSkillLevelFieldUpdateOperationsInput | undefined;
-
-  @TypeGraphQL.Field(_type => StringFieldUpdateOperationsInput, {
-    nullable: true
-  })
-  description?: StringFieldUpdateOperationsInput | undefined;
-
   @TypeGraphQL.Field(_type => StringFieldUpdateOperationsInput, {
     nullable: true
   })
   title?: StringFieldUpdateOperationsInput | undefined;
 
-  @TypeGraphQL.Field(_type => StringFieldUpdateOperationsInput, {
+  @TypeGraphQL.Field(_type => EnumSkillLevelFieldUpdateOperationsInput, {
     nullable: true
   })
-  slug?: StringFieldUpdateOperationsInput | undefined;
+  skillLevel?: EnumSkillLevelFieldUpdateOperationsInput | undefined;
+
+  @TypeGraphQL.Field(_type => NullableStringFieldUpdateOperationsInput, {
+    nullable: true
+  })
+  description?: NullableStringFieldUpdateOperationsInput | undefined;
+
+  @TypeGraphQL.Field(_type => NullableStringFieldUpdateOperationsInput, {
+    nullable: true
+  })
+  slug?: NullableStringFieldUpdateOperationsInput | undefined;
 
   @TypeGraphQL.Field(_type => IntFieldUpdateOperationsInput, {
     nullable: true
   })
   views?: IntFieldUpdateOperationsInput | undefined;
 
-  @TypeGraphQL.Field(_type => IntFieldUpdateOperationsInput, {
+  @TypeGraphQL.Field(_type => NullableIntFieldUpdateOperationsInput, {
     nullable: true
   })
-  readTimeInMinutes?: IntFieldUpdateOperationsInput | undefined;
+  readTimeInMinutes?: NullableIntFieldUpdateOperationsInput | undefined;
 
   @TypeGraphQL.Field(_type => TopicUpdateOneWithoutBlogsNestedInput, {
     nullable: true
   })
-  Topic?: TopicUpdateOneWithoutBlogsNestedInput | undefined;
+  topic?: TopicUpdateOneWithoutBlogsNestedInput | undefined;
 
   @TypeGraphQL.Field(_type => TagsOnBlogsUpdateManyWithoutBlogNestedInput, {
     nullable: true
   })
-  Tags?: TagsOnBlogsUpdateManyWithoutBlogNestedInput | undefined;
+  tags?: TagsOnBlogsUpdateManyWithoutBlogNestedInput | undefined;
 
   @TypeGraphQL.Field(_type => BlogContentUpdateOneWithoutBlogNestedInput, {
     nullable: true

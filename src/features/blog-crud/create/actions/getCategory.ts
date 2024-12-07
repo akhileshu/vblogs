@@ -7,7 +7,7 @@ import {
   getTopicsByTechnologyIdFromDb,
 } from "@/database/getCategory";
 
-export const getAllGoals = async () => {
+export const getAllGoals =async () => {
   //   if (1) throw new Error("Internal Server Error");
 
   return await getAllGoalsFromDb();

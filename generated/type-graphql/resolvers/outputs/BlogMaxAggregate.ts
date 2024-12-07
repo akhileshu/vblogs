@@ -26,11 +26,6 @@ export class BlogMaxAggregate {
   })
   topicId!: string | null;
 
-  @TypeGraphQL.Field(_type => SkillLevel, {
-    nullable: true
-  })
-  skillLevel!: "BASIC" | "INTERMEDIATE" | "ADVANCED" | null;
-
   @TypeGraphQL.Field(_type => String, {
     nullable: true
   })
@@ -39,12 +34,17 @@ export class BlogMaxAggregate {
   @TypeGraphQL.Field(_type => String, {
     nullable: true
   })
-  description!: string | null;
+  title!: string | null;
+
+  @TypeGraphQL.Field(_type => SkillLevel, {
+    nullable: true
+  })
+  skillLevel!: "BASIC" | "INTERMEDIATE" | "ADVANCED" | null;
 
   @TypeGraphQL.Field(_type => String, {
     nullable: true
   })
-  title!: string | null;
+  description!: string | null;
 
   @TypeGraphQL.Field(_type => String, {
     nullable: true

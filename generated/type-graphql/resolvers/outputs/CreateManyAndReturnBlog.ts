@@ -30,11 +30,6 @@ export class CreateManyAndReturnBlog {
   })
   topicId!: string | null;
 
-  @TypeGraphQL.Field(_type => SkillLevel, {
-    nullable: false
-  })
-  skillLevel!: "BASIC" | "INTERMEDIATE" | "ADVANCED";
-
   @TypeGraphQL.Field(_type => String, {
     nullable: true
   })
@@ -43,17 +38,22 @@ export class CreateManyAndReturnBlog {
   @TypeGraphQL.Field(_type => String, {
     nullable: false
   })
-  description!: string;
-
-  @TypeGraphQL.Field(_type => String, {
-    nullable: false
-  })
   title!: string;
 
-  @TypeGraphQL.Field(_type => String, {
+  @TypeGraphQL.Field(_type => SkillLevel, {
     nullable: false
   })
-  slug!: string;
+  skillLevel!: "BASIC" | "INTERMEDIATE" | "ADVANCED";
+
+  @TypeGraphQL.Field(_type => String, {
+    nullable: true
+  })
+  description!: string | null;
+
+  @TypeGraphQL.Field(_type => String, {
+    nullable: true
+  })
+  slug!: string | null;
 
   @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
     nullable: false
@@ -61,26 +61,26 @@ export class CreateManyAndReturnBlog {
   views!: number;
 
   @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
-    nullable: false
+    nullable: true
   })
-  readTimeInMinutes!: number;
+  readTimeInMinutes!: number | null;
 
-  Topic!: Topic | null;
-  Author!: User | null;
+  topic!: Topic | null;
+  author!: User | null;
 
   @TypeGraphQL.Field(_type => Topic, {
-    name: "Topic",
+    name: "topic",
     nullable: true
   })
   getTopic(@TypeGraphQL.Root() root: CreateManyAndReturnBlog, @TypeGraphQL.Args() args: CreateManyAndReturnBlogTopicArgs): Topic | null {
-    return root.Topic;
+    return root.topic;
   }
 
   @TypeGraphQL.Field(_type => User, {
-    name: "Author",
+    name: "author",
     nullable: true
   })
   getAuthor(@TypeGraphQL.Root() root: CreateManyAndReturnBlog, @TypeGraphQL.Args() args: CreateManyAndReturnBlogAuthorArgs): User | null {
-    return root.Author;
+    return root.author;
   }
 }

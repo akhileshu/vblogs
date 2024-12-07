@@ -27,13 +27,13 @@ export class UserInterestRelationsResolver {
   @TypeGraphQL.FieldResolver(_type => Technology, {
     nullable: true
   })
-  async Technology(@TypeGraphQL.Root() userInterest: UserInterest, @TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: UserInterestTechnologyArgs): Promise<Technology | null> {
+  async technology(@TypeGraphQL.Root() userInterest: UserInterest, @TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: UserInterestTechnologyArgs): Promise<Technology | null> {
     const { _count } = transformInfoIntoPrismaArgs(info);
     return getPrismaFromContext(ctx).userInterest.findUniqueOrThrow({
       where: {
         id: userInterest.id,
       },
-    }).Technology({
+    }).technology({
       ...args,
       ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
     });
@@ -42,13 +42,13 @@ export class UserInterestRelationsResolver {
   @TypeGraphQL.FieldResolver(_type => Topic, {
     nullable: true
   })
-  async Topic(@TypeGraphQL.Root() userInterest: UserInterest, @TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: UserInterestTopicArgs): Promise<Topic | null> {
+  async topic(@TypeGraphQL.Root() userInterest: UserInterest, @TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: UserInterestTopicArgs): Promise<Topic | null> {
     const { _count } = transformInfoIntoPrismaArgs(info);
     return getPrismaFromContext(ctx).userInterest.findUniqueOrThrow({
       where: {
         id: userInterest.id,
       },
-    }).Topic({
+    }).topic({
       ...args,
       ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
     });

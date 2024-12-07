@@ -7,15 +7,15 @@ import { TechnologyCountUserInterestsArgs } from "./args/TechnologyCountUserInte
 
 @TypeGraphQL.ObjectType("TechnologyCount", {})
 export class TechnologyCount {
-  Topics!: number;
+  topics!: number;
   userInterests!: number;
 
   @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
-    name: "Topics",
+    name: "topics",
     nullable: false
   })
   getTopics(@TypeGraphQL.Root() root: TechnologyCount, @TypeGraphQL.Args() args: TechnologyCountTopicsArgs): number {
-    return root.Topics;
+    return root.topics;
   }
 
   @TypeGraphQL.Field(_type => TypeGraphQL.Int, {

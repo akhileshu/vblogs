@@ -30,14 +30,14 @@ export class Topic {
   })
   title!: string;
 
-  Technology?: Technology | null;
+  technology?: Technology | null;
 
   @TypeGraphQL.Field(_type => String, {
     nullable: true
   })
   technologyId?: string | null;
 
-  Blogs?: Blog[];
+  blogs?: Blog[];
 
   tags?: Tag[];
 

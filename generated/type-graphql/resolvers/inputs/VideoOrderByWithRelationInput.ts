@@ -41,10 +41,10 @@ export class VideoOrderByWithRelationInput {
   @TypeGraphQL.Field(_type => BlogOrderByWithRelationInput, {
     nullable: true
   })
-  Blog?: BlogOrderByWithRelationInput | undefined;
+  blog?: BlogOrderByWithRelationInput | undefined;
 
   @TypeGraphQL.Field(_type => VideoSectionOrderByRelationAggregateInput, {
     nullable: true
   })
-  Sections?: VideoSectionOrderByRelationAggregateInput | undefined;
+  sections?: VideoSectionOrderByRelationAggregateInput | undefined;
 }

@@ -53,10 +53,10 @@ export class UserInterestOrderByWithRelationInput {
   @TypeGraphQL.Field(_type => TechnologyOrderByWithRelationInput, {
     nullable: true
   })
-  Technology?: TechnologyOrderByWithRelationInput | undefined;
+  technology?: TechnologyOrderByWithRelationInput | undefined;
 
   @TypeGraphQL.Field(_type => TopicOrderByWithRelationInput, {
     nullable: true
   })
-  Topic?: TopicOrderByWithRelationInput | undefined;
+  topic?: TopicOrderByWithRelationInput | undefined;
 }

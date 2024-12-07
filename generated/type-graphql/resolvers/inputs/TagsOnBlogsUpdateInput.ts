@@ -27,10 +27,10 @@ export class TagsOnBlogsUpdateInput {
   @TypeGraphQL.Field(_type => TagUpdateOneRequiredWithoutBlogsNestedInput, {
     nullable: true
   })
-  Tag?: TagUpdateOneRequiredWithoutBlogsNestedInput | undefined;
+  tag?: TagUpdateOneRequiredWithoutBlogsNestedInput | undefined;
 
   @TypeGraphQL.Field(_type => BlogUpdateOneRequiredWithoutTagsNestedInput, {
     nullable: true
   })
-  Blog?: BlogUpdateOneRequiredWithoutTagsNestedInput | undefined;
+  blog?: BlogUpdateOneRequiredWithoutTagsNestedInput | undefined;
 }

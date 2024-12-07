@@ -41,5 +41,5 @@ export class BlogContentUpdateInput {
   @TypeGraphQL.Field(_type => BlogUpdateOneRequiredWithoutContentNestedInput, {
     nullable: true
   })
-  Blog?: BlogUpdateOneRequiredWithoutContentNestedInput | undefined;
+  blog?: BlogUpdateOneRequiredWithoutContentNestedInput | undefined;
 }

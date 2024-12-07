@@ -5,10 +5,10 @@ export enum BlogScalarFieldEnum {
   createdAt = "createdAt",
   updatedAt = "updatedAt",
   topicId = "topicId",
-  skillLevel = "skillLevel",
   authorId = "authorId",
-  description = "description",
   title = "title",
+  skillLevel = "skillLevel",
+  description = "description",
   slug = "slug",
   views = "views",
   readTimeInMinutes = "readTimeInMinutes"

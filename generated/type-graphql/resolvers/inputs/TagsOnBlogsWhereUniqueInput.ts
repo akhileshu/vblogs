@@ -59,10 +59,10 @@ export class TagsOnBlogsWhereUniqueInput {
   @TypeGraphQL.Field(_type => TagRelationFilter, {
     nullable: true
   })
-  Tag?: TagRelationFilter | undefined;
+  tag?: TagRelationFilter | undefined;
 
   @TypeGraphQL.Field(_type => BlogRelationFilter, {
     nullable: true
   })
-  Blog?: BlogRelationFilter | undefined;
+  blog?: BlogRelationFilter | undefined;
 }

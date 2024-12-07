@@ -23,7 +23,7 @@ export class Video {
   })
   updatedAt!: Date;
 
-  Blog?: Blog;
+  blog?: Blog;
 
   @TypeGraphQL.Field(_type => String, {
     nullable: false
@@ -40,7 +40,7 @@ export class Video {
   })
   thumbnailLink!: string;
 
-  Sections?: VideoSection[];
+  sections?: VideoSection[];
 
   @TypeGraphQL.Field(_type => VideoCount, {
     nullable: true

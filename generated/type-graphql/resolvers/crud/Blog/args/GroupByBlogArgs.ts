@@ -20,7 +20,7 @@ export class GroupByBlogArgs {
   @TypeGraphQL.Field(_type => [BlogScalarFieldEnum], {
     nullable: false
   })
-  by!: Array<"id" | "createdAt" | "updatedAt" | "topicId" | "skillLevel" | "authorId" | "description" | "title" | "slug" | "views" | "readTimeInMinutes">;
+  by!: Array<"id" | "createdAt" | "updatedAt" | "topicId" | "authorId" | "title" | "skillLevel" | "description" | "slug" | "views" | "readTimeInMinutes">;
 
   @TypeGraphQL.Field(_type => BlogScalarWhereWithAggregatesInput, {
     nullable: true

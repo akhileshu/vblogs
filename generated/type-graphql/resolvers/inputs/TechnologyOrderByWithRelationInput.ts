@@ -38,12 +38,12 @@ export class TechnologyOrderByWithRelationInput {
   @TypeGraphQL.Field(_type => TopicOrderByRelationAggregateInput, {
     nullable: true
   })
-  Topics?: TopicOrderByRelationAggregateInput | undefined;
+  topics?: TopicOrderByRelationAggregateInput | undefined;
 
   @TypeGraphQL.Field(_type => GoalOrderByWithRelationInput, {
     nullable: true
   })
-  Goal?: GoalOrderByWithRelationInput | undefined;
+  goal?: GoalOrderByWithRelationInput | undefined;
 
   @TypeGraphQL.Field(_type => UserInterestOrderByRelationAggregateInput, {
     nullable: true

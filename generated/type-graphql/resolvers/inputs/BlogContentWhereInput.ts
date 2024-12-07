@@ -62,5 +62,5 @@ export class BlogContentWhereInput {
   @TypeGraphQL.Field(_type => BlogRelationFilter, {
     nullable: true
   })
-  Blog?: BlogRelationFilter | undefined;
+  blog?: BlogRelationFilter | undefined;
 }

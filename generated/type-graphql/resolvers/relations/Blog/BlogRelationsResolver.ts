@@ -18,13 +18,13 @@ export class BlogRelationsResolver {
   @TypeGraphQL.FieldResolver(_type => Topic, {
     nullable: true
   })
-  async Topic(@TypeGraphQL.Root() blog: Blog, @TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: BlogTopicArgs): Promise<Topic | null> {
+  async topic(@TypeGraphQL.Root() blog: Blog, @TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: BlogTopicArgs): Promise<Topic | null> {
     const { _count } = transformInfoIntoPrismaArgs(info);
     return getPrismaFromContext(ctx).blog.findUniqueOrThrow({
       where: {
         id: blog.id,
       },
-    }).Topic({
+    }).topic({
       ...args,
       ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
     });
@@ -33,13 +33,13 @@ export class BlogRelationsResolver {
   @TypeGraphQL.FieldResolver(_type => [TagsOnBlogs], {
     nullable: false
   })
-  async Tags(@TypeGraphQL.Root() blog: Blog, @TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: BlogTagsArgs): Promise<TagsOnBlogs[]> {
+  async tags(@TypeGraphQL.Root() blog: Blog, @TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: BlogTagsArgs): Promise<TagsOnBlogs[]> {
     const { _count } = transformInfoIntoPrismaArgs(info);
     return getPrismaFromContext(ctx).blog.findUniqueOrThrow({
       where: {
         id: blog.id,
       },
-    }).Tags({
+    }).tags({
       ...args,
       ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
     });
@@ -48,13 +48,13 @@ export class BlogRelationsResolver {
   @TypeGraphQL.FieldResolver(_type => User, {
     nullable: true
   })
-  async Author(@TypeGraphQL.Root() blog: Blog, @TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: BlogAuthorArgs): Promise<User | null> {
+  async author(@TypeGraphQL.Root() blog: Blog, @TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: BlogAuthorArgs): Promise<User | null> {
     const { _count } = transformInfoIntoPrismaArgs(info);
     return getPrismaFromContext(ctx).blog.findUniqueOrThrow({
       where: {
         id: blog.id,
       },
-    }).Author({
+    }).author({
       ...args,
       ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
     });

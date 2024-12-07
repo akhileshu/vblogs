@@ -55,12 +55,12 @@ export class TechnologyWhereUniqueInput {
   @TypeGraphQL.Field(_type => TopicListRelationFilter, {
     nullable: true
   })
-  Topics?: TopicListRelationFilter | undefined;
+  topics?: TopicListRelationFilter | undefined;
 
   @TypeGraphQL.Field(_type => GoalNullableRelationFilter, {
     nullable: true
   })
-  Goal?: GoalNullableRelationFilter | undefined;
+  goal?: GoalNullableRelationFilter | undefined;
 
   @TypeGraphQL.Field(_type => UserInterestListRelationFilter, {
     nullable: true

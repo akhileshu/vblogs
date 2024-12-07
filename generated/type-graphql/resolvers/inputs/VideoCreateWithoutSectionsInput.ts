@@ -34,5 +34,5 @@ export class VideoCreateWithoutSectionsInput {
   @TypeGraphQL.Field(_type => BlogCreateNestedOneWithoutVideoInput, {
     nullable: false
   })
-  Blog!: BlogCreateNestedOneWithoutVideoInput;
+  blog!: BlogCreateNestedOneWithoutVideoInput;
 }

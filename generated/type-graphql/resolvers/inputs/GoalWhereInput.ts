@@ -46,5 +46,5 @@ export class GoalWhereInput {
   @TypeGraphQL.Field(_type => TechnologyListRelationFilter, {
     nullable: true
   })
-  Technologies?: TechnologyListRelationFilter | undefined;
+  technologies?: TechnologyListRelationFilter | undefined;
 }

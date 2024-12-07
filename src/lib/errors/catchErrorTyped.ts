@@ -19,6 +19,27 @@ export async function catchErrorTyped<
     });
 }
 
+export async function catchErrorTypedForFunction<
+  TArgs extends unknown[],
+  T,
+  E extends new (message?: string) => Error
+>(fn: (...args: TArgs) => Promise<T>, errorsToCatch?: E[]) {
+  return async (
+    ...args: TArgs
+  ): Promise<[undefined, T] | [InstanceType<E>]> => {
+    try {
+      return [undefined, await fn(...args)];
+    } catch (error) {
+      if (
+        errorsToCatch == undefined ||
+        errorsToCatch.some((e) => error instanceof e)
+      )
+        return [error] as [InstanceType<E>];
+      throw error;
+    }
+  };
+}
+
 //example use
 // const [error, result] = await catchErrorTyped(createUser(),[NotFoundError, ValidationError]);
 // const [error, result] = await catchErrorTyped((async () => {})(),[NotFoundError, ValidationError]);

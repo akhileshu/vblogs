@@ -29,5 +29,5 @@ export class TagCreateWithoutTopicInput {
   @TypeGraphQL.Field(_type => TagsOnBlogsCreateNestedManyWithoutTagInput, {
     nullable: true
   })
-  Blogs?: TagsOnBlogsCreateNestedManyWithoutTagInput | undefined;
+  blogs?: TagsOnBlogsCreateNestedManyWithoutTagInput | undefined;
 }

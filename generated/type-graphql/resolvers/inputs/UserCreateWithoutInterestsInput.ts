@@ -45,5 +45,5 @@ export class UserCreateWithoutInterestsInput {
   @TypeGraphQL.Field(_type => BlogCreateNestedManyWithoutAuthorInput, {
     nullable: true
   })
-  Blogs?: BlogCreateNestedManyWithoutAuthorInput | undefined;
+  blogs?: BlogCreateNestedManyWithoutAuthorInput | undefined;
 }

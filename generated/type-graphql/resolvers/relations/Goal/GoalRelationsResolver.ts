@@ -10,13 +10,13 @@ export class GoalRelationsResolver {
   @TypeGraphQL.FieldResolver(_type => [Technology], {
     nullable: false
   })
-  async Technologies(@TypeGraphQL.Root() goal: Goal, @TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: GoalTechnologiesArgs): Promise<Technology[]> {
+  async technologies(@TypeGraphQL.Root() goal: Goal, @TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: GoalTechnologiesArgs): Promise<Technology[]> {
     const { _count } = transformInfoIntoPrismaArgs(info);
     return getPrismaFromContext(ctx).goal.findUniqueOrThrow({
       where: {
         id: goal.id,
       },
-    }).Technologies({
+    }).technologies({
       ...args,
       ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
     });

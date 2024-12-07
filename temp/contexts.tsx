@@ -9,6 +9,10 @@ import React, {
 import { getAllGoals } from "../src/features/blog-crud/create/actions/getCategory";
 import { CatchErrorTypedReturn } from "@/types/resolvedPromise";
 
+export interface IGreenBoxProps extends React.HTMLAttributes<HTML > {
+  title: string;
+}
+
 type Goals = {
   selectedGoalId: string | null;
   errorResultArray: CatchErrorTypedReturn<typeof getAllGoals>;
@@ -147,3 +151,4 @@ export const SelectionProvider = ({ children }: { children: ReactNode }) => (
     </TechnologyProvider>
   </GoalsProvider>
 );
+

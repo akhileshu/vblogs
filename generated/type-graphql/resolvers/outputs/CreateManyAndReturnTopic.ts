@@ -32,13 +32,13 @@ export class CreateManyAndReturnTopic {
   })
   technologyId!: string | null;
 
-  Technology!: Technology | null;
+  technology!: Technology | null;
 
   @TypeGraphQL.Field(_type => Technology, {
-    name: "Technology",
+    name: "technology",
     nullable: true
   })
   getTechnology(@TypeGraphQL.Root() root: CreateManyAndReturnTopic, @TypeGraphQL.Args() args: CreateManyAndReturnTopicTechnologyArgs): Technology | null {
-    return root.Technology;
+    return root.technology;
   }
 }
