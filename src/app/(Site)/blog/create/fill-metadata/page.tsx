@@ -1,41 +1,35 @@
-import {
-  GoalsServer,
-  TechnologiesServer,
-  TopicsServer,
-} from "@/features/blog-crud/create/components/server";
+"use client";
+import { GoalSelector, TechSelector, TopicSelector } from "@/features/blog-crud/create/components/client";
+import { useState } from "react";
 
-export default async function SelectMetadata(props: {
-  params: Promise<{ slug: string }>;
-  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
-}) {
-
-  /* 
-  there is a problem with this approach 
-  even if single search param changes , all below params are recalcualted , as they are props they causse unnecessary re-renders
-  because fetching is causing via rerenders ,not able to set loading using Suspense
-  
-  */
-  const searchParams = await props.searchParams;
-
-  const selectedGoalId = searchParams?.goalId;
-  const selectedTechId = searchParams?.techId;
-  const selectedTopicId = searchParams?.topicId;
+export default function SelectMetadata() {
+  const [selectedGoalId, setSelectedGoalId] = useState<string | null>(null);
+  const [selectedTechId, setSelectedTechId] = useState<string | null>(null);
+  const [selectedTopicId, setSelectedTopicId] = useState<string | null>(null);
 
   return (
     <div>
-      <GoalsServer selectedGoalId={selectedGoalId} />
+      <GoalSelector
+        selectedGoalId={selectedGoalId}
+        setSelectedGoalId={setSelectedGoalId}
+        setSelectedTechId={setSelectedTechId}
+        setSelectedTopicId={setSelectedTopicId}
+      />
 
-      {typeof selectedGoalId==="string" && (
-        <TechnologiesServer
+      {selectedGoalId && (
+        <TechSelector
           selectedGoalId={selectedGoalId}
           selectedTechId={selectedTechId}
+          setSelectedTechId={setSelectedTechId}
+          setSelectedTopicId={setSelectedTopicId}
         />
       )}
 
-      {typeof selectedTechId==="string" && (
-        <TopicsServer
+      {selectedTechId && (
+        <TopicSelector
           selectedTechId={selectedTechId}
           selectedTopicId={selectedTopicId}
+          setSelectedTopicId={setSelectedTopicId}
         />
       )}
     </div>

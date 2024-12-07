@@ -1,125 +1,134 @@
 // app/blog/create/fill-metadata/client/GoalSelector.tsx
 "use client";
-import { CatchErrorTypedResult } from "@/types/resolvedPromise";
-import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
-import { useRouter } from "next/navigation";
-import { getAllGoals } from "../actions/getCategory";
-import { Suspense } from "react";
-
-function updateSearchParam(
-  query: string,
-  value: string,
-  router: AppRouterInstance,
-  queriesToDelete: string[] = []
-) {
-  const searchParams = new URLSearchParams(window.location.search);
-  searchParams.set(query, value);
-  queriesToDelete.forEach((q) => searchParams.delete(q));
-  router.push(`/blog/create/fill-metadata?${searchParams.toString()}`);
-}
+import { useFetchData } from "@/hooks/useFetch";
+import { ReactNode } from "react";
+import {
+  getAllGoals,
+  getTechnologiesByGoalId,
+  getTopicsByTechnologyId,
+} from "../actions/getCategory";
 
 interface GoalSelectorProps {
-  goalsErrorResultArray: CatchErrorTypedResult<
-    Awaited<ReturnType<typeof getAllGoals>>
-  >;
-  selectedGoalId?: string | string[] | undefined;
+  selectedGoalId?: string | null;
+  setSelectedGoalId: (id: string) => void;
+  setSelectedTechId: (id: string) => void;
+  setSelectedTopicId: (id: string) => void;
 }
 
 export const GoalSelector = ({
-  goalsErrorResultArray,
   selectedGoalId,
+  setSelectedGoalId,
+  setSelectedTechId,
+  setSelectedTopicId,
 }: GoalSelectorProps) => {
-  const [goalsError, goals] = goalsErrorResultArray;
-  const router = useRouter();
+  const { data, error, isLoading } = useFetchData(() => getAllGoals(), []);
 
   return (
-    <select
-      onChange={(e) =>
-        updateSearchParam("goalId", e.target.value, router, [
-          "techId",
-          "topicId",
-          "tagId",
-        ])
-      }
-      value={selectedGoalId || ""}
-    >
-      <option value="">Select Goal</option>
-      {goals?.map((goal) => (
-        <option key={goal.id} value={goal.id}>
-          {goal.title}
-        </option>
-      ))}
-    </select>
+    <LoadingAndError isLoading={isLoading} error={error}>
+      <select
+        onChange={(e) => {
+          setSelectedGoalId(e.target.value);
+          setSelectedTechId("");
+          setSelectedTopicId("");
+        }}
+        value={selectedGoalId || ""}
+      >
+        <option value="">Select Goal</option>
+        {data?.map((goal) => (
+          <option key={goal.id} value={goal.id}>
+            {goal.title}
+          </option>
+        ))}
+      </select>
+    </LoadingAndError>
   );
 };
 
 // app/blog/create/fill-metadata/client/TechSelector.tsx
 
 interface TechSelectorProps {
-  technologiesErrorResultArray:
-    | CatchErrorTypedResult<Awaited<ReturnType<typeof getAllGoals>>>
-    | [];
-  selectedTechId?: string | string[] | undefined;
+  selectedGoalId: string;
+  selectedTechId?: string | null;
+  setSelectedTechId: (id: string) => void;
+  setSelectedTopicId: (id: string) => void;
 }
 
 export const TechSelector = ({
-  technologiesErrorResultArray,
   selectedTechId,
+  setSelectedTechId,
+  selectedGoalId,
+  setSelectedTopicId,
 }: TechSelectorProps) => {
-  const [technologiesError, technologies] = technologiesErrorResultArray ?? [];
-  const router = useRouter();
+  const { data, error, isLoading } = useFetchData(
+    () => getTechnologiesByGoalId(selectedGoalId),
+    [selectedGoalId]
+  );
 
   return (
-    <Suspense fallback={<p>Loading...</p>}>
+    <LoadingAndError isLoading={isLoading} error={error}>
       <select
-        onChange={(e) =>
-          updateSearchParam("techId", e.target.value, router, [
-            "topicId",
-            "tagId",
-          ])
-        }
+        onChange={(e) => {
+          setSelectedTechId(e.target.value);
+          setSelectedTopicId("");
+        }}
         value={selectedTechId || ""}
       >
         <option value="">Select Technology</option>
-        {technologies?.map((tech) => (
+        {data?.map((tech) => (
           <option key={tech.id} value={tech.id}>
             {tech.title}
           </option>
         ))}
       </select>
-    </Suspense>
+    </LoadingAndError>
   );
 };
 
 // app/blog/create/fill-metadata/client/TopicSelector.tsx
 
 interface TopicSelectorProps {
-  topicsErrorResultArray:
-    | CatchErrorTypedResult<Awaited<ReturnType<typeof getAllGoals>>>
-    | [];
-  selectedTopicId?: string | string[] | undefined;
+  selectedTopicId?: string | null;
+  setSelectedTopicId: (id: string) => void;
+  selectedTechId: string;
 }
 
 export const TopicSelector = ({
-  topicsErrorResultArray,
   selectedTopicId,
+  selectedTechId,
+  setSelectedTopicId,
 }: TopicSelectorProps) => {
-  const [topicsError, topics] = topicsErrorResultArray ?? [];
-  const router = useRouter();
+  const { data, error, isLoading } = useFetchData(
+    () => getTopicsByTechnologyId(selectedTechId),
+    [selectedTechId]
+  );
 
   return (
-    <select
-      onChange={(e) =>
-        updateSearchParam("topicId", e.target.value, router, ["tagId"])
-      }
-      value={selectedTopicId || ""}
-    >
-      <option value="">Select Topic</option>
-      {topics?.map((topic) => (
-        <option key={topic.id} value={topic.id}>
-          {topic.title}
-        </option>
-      ))}
-    </select>
+    <LoadingAndError isLoading={isLoading} error={error}>
+      <select
+        onChange={(e) => setSelectedTopicId(e.target.value)}
+        value={selectedTopicId || ""}
+      >
+        <option value="">Select Topic</option>
+        {data?.map((topic) => (
+          <option key={topic.id} value={topic.id}>
+            {topic.title}
+          </option>
+        ))}
+      </select>
+    </LoadingAndError>
   );
+};
+
+const LoadingAndError = ({
+  isLoading,
+  error,
+  children,
+}: {
+  isLoading: boolean;
+  error: string | null;
+  children: ReactNode;
+}) => {
+  if (isLoading) return <p>Loading...</p>;
+  if (error) return <p>{error}</p>;
+  return children;
 };

@@ -1,38 +1,28 @@
 import { catchErrorTyped } from "@/lib/errors/catchErrorTyped";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
-export function useFetch<T>(
+export function useFetchData<T>(
   callbackFunction: () => Promise<T>,
-  dependencies: unknown[] = [],
-  shouldFetch: boolean = true
+  dependencies: string[] = []
 ) {
-  const [data, setData] = useState<T | null>(null);
-  const [error, setError] = useState<Error | null>(null);
-  const [loading, setLoading] = useState<boolean>(false);
-  const stableCallback = useCallback(callbackFunction, dependencies);
-  console.log("fetch dependencies", [
-    callbackFunction,
-    shouldFetch,
-    ...dependencies,
-  ]);
+  const [data, setData] = useState<T | undefined | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   useEffect(() => {
     const fetchData = async () => {
-      setLoading(true);
-      const [error, result] = await catchErrorTyped(callbackFunction());
-      if (error) setError(error);
-      else setData(result);
-      setLoading(false);
+      setIsLoading(true);
+        const [error, data] = await catchErrorTyped(callbackFunction());
+        if (error) {
+          setError(error.message);
+        } else {
+          setData(data);
+        }
+        setIsLoading(false);
     };
 
-    if (shouldFetch) fetchData();
-    // Include dependencies and `shouldFetch` in the dependency array
-  }, [stableCallback, shouldFetch]);
+    fetchData();
+  }, [...dependencies]);
 
-  return { data, error, loading };
+  return { data, error, isLoading };
 }
-
-
-  
-
-
