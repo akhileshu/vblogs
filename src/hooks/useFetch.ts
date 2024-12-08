@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 
 export function useFetchData<T>(
   callbackFunction: () => Promise<T>,
-  dependencies: string[] = []
+  dependencies: unknown[] = []
 ) {
   const [data, setData] = useState<T | undefined | null>(null);
   const [error, setError] = useState<string | null>(null);

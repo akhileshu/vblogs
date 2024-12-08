@@ -1,27 +1,53 @@
 "use client";
-import { GoalSelector, TechSelector, TopicSelector } from "@/features/blog-crud/create/components/client";
+import {
+  GoalSelector,
+  TagsSelector,
+  TechSelector,
+  TopicSelector,
+} from "@/features/blog-crud/create/components/client";
 import { useState } from "react";
+export type OnSelectedTagsModify=(tagId: string, action: "add" | "remove") => void
 
 export default function SelectMetadata() {
   const [selectedGoalId, setSelectedGoalId] = useState<string | null>(null);
   const [selectedTechId, setSelectedTechId] = useState<string | null>(null);
   const [selectedTopicId, setSelectedTopicId] = useState<string | null>(null);
+  const [selectedTagIds, setSelectedTagIds] = useState<string[]>([]);
 
+  function onSelectedGoalIdChange(goalId: string | null) {
+    setSelectedGoalId(goalId);
+    setSelectedTechId(null);
+    setSelectedTopicId(null);
+    setSelectedTagIds([]);
+  }
+  function onSelectedTechIdChange(techId: string | null) {
+    setSelectedTechId(techId);
+    setSelectedTopicId(null);
+    setSelectedTagIds([]);
+  }
+  function onSelectedTopicIdChange(topicId: string | null) {
+    setSelectedTopicId(topicId);
+    setSelectedTagIds([]);
+  }
+  function onSelectedTagsModify(tagId: string, action: "add" | "remove") {
+    setSelectedTagIds(
+      action === "add"
+        ? [...selectedTagIds, tagId]
+        : selectedTagIds.filter((id) => id !== tagId)
+    );
+  }
   return (
-    <div>
+    <div className="flex gap-2 flex-wrap">
       <GoalSelector
         selectedGoalId={selectedGoalId}
-        setSelectedGoalId={setSelectedGoalId}
-        setSelectedTechId={setSelectedTechId}
-        setSelectedTopicId={setSelectedTopicId}
+        onSelectedGoalIdChange={onSelectedGoalIdChange}
       />
 
       {selectedGoalId && (
         <TechSelector
           selectedGoalId={selectedGoalId}
           selectedTechId={selectedTechId}
-          setSelectedTechId={setSelectedTechId}
-          setSelectedTopicId={setSelectedTopicId}
+          onSelectedTechIdChange={onSelectedTechIdChange}
         />
       )}
 
@@ -29,7 +55,14 @@ export default function SelectMetadata() {
         <TopicSelector
           selectedTechId={selectedTechId}
           selectedTopicId={selectedTopicId}
-          setSelectedTopicId={setSelectedTopicId}
+          onSelectedTopicIdChange={onSelectedTopicIdChange}
+        />
+      )}
+      {selectedTopicId && (
+        <TagsSelector
+          selectedTopicId={selectedTopicId}
+          onSelectedTagsModify={onSelectedTagsModify}
+          selectedTagIds={selectedTagIds}
         />
       )}
     </div>

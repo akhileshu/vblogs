@@ -7,17 +7,17 @@ import prisma from "@/lib/prisma";
 import { z } from "zod";
 
 // Zod schema for validation
-const tagSchema = z.object({
-  id: z.string().uuid("Invalid Tag ID"),
-  title: z.string().min(1, "Tag title is required"),
-});
+// const tagSchema = z.object({
+//   id: z.string().uuid("Invalid Tag ID"),
+//   title: z.string().min(1, "Tag title is required"),
+// });
 
 const AddBlogMetadataSchema = z.object({
   title: z.string().min(1, "Title is required"),
   topicId: z.string().uuid("Invalid Topic ID"),
   tags: z.string().transform((tagsString) => {
     const parsedTags = JSON.parse(tagsString);
-    return z.array(tagSchema).parse(parsedTags); //After parsing the JSON string, the parsedTags is validated against an array of tagSchema objects.
+    return z.array(z.string().uuid("Invalid Tag ID")).parse(parsedTags); //After parsing the JSON string, the parsedTags is validated against an array of tagSchema objects.
   }),
 });
 

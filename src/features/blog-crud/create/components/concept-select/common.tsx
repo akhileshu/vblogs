@@ -4,31 +4,20 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useFormState } from "react-dom";
 import { addBlogMetaData } from "../../actions/addBlogMetadata";
-import { SelectMetadataProvider } from "../../context/selectMetadata/selectMetadataProvider";
-import { SelectMetadata } from "../waterfallSelect";
-
-export function SelectMetadataWrapper({ className }: { className?: string }) {
-  return (
-    <SelectMetadataProvider>
-      <SelectMetadata className={className} />
-    </SelectMetadataProvider>
-  );
-}
 
 export function getFilteredArray<T extends { title: string; id: string }>(
-  array: T[] | undefined,
+  array: T[] | undefined | null,
   searchQuery: string,
-  tags?: {
-    id: string;
-    title: string;
-  }[]
+  selectedTagIds?: string[],
+  selectedId?: string
 ) {
   const filterOutSelectedTags = (itemId: string) => {
-    return !tags || !tags.some((tag) => tag.id === itemId);
+    return !selectedTagIds || !selectedTagIds.some((id) => id === itemId);
   };
   return array?.filter(
     (item) =>
       item.title.toLowerCase().includes(searchQuery.toLowerCase()) &&
+      item.id !== selectedId &&
       filterOutSelectedTags(item.id)
   );
 }
@@ -48,19 +37,16 @@ export function SelectionSearchInput({
       placeholder={placeholder}
       value={value}
       onChange={(e) => onchange(e.target.value)}
-      className="border p-1 mb-2 w-72"
+      className="border p-1 mb-2 w-full rounded-sm text-sm"
     />
   );
 }
 
 export function AddBlogMetadataForm({
-  tags,
+  tagIds,
   selectedTopicId,
 }: {
-  tags: {
-    id: string;
-    title: string;
-  }[];
+  tagIds: string[];
   selectedTopicId: string;
 }) {
   const [title, setTitle] = useState<string>("");
@@ -100,7 +86,7 @@ export function AddBlogMetadataForm({
         name="tags"
         type="text"
         id="tags"
-        value={JSON.stringify(tags)}
+        value={JSON.stringify(tagIds)}
       />
       <SubmitButton />
     </form>

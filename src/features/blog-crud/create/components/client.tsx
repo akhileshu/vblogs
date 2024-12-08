@@ -1,134 +1,101 @@
-// app/blog/create/fill-metadata/client/GoalSelector.tsx
 "use client";
-import { useFetchData } from "@/hooks/useFetch";
-import { ReactNode } from "react";
+import { OnSelectedTagsModify } from "@/app/(Site)/blog/create/fill-metadata/page";
 import {
   getAllGoals,
+  getTagsByTopicId,
   getTechnologiesByGoalId,
   getTopicsByTechnologyId,
 } from "../actions/getCategory";
+import { MultiSelectDropdown, SelectorDropdown } from "./searchFromList";
 
 interface GoalSelectorProps {
-  selectedGoalId?: string | null;
-  setSelectedGoalId: (id: string) => void;
-  setSelectedTechId: (id: string) => void;
-  setSelectedTopicId: (id: string) => void;
+  selectedGoalId: string | null;
+  onSelectedGoalIdChange: (id: string | null) => void;
 }
 
 export const GoalSelector = ({
   selectedGoalId,
-  setSelectedGoalId,
-  setSelectedTechId,
-  setSelectedTopicId,
+  onSelectedGoalIdChange,
 }: GoalSelectorProps) => {
-  const { data, error, isLoading } = useFetchData(() => getAllGoals(), []);
-
   return (
-    <LoadingAndError isLoading={isLoading} error={error}>
-      <select
-        onChange={(e) => {
-          setSelectedGoalId(e.target.value);
-          setSelectedTechId("");
-          setSelectedTopicId("");
-        }}
-        value={selectedGoalId || ""}
-      >
-        <option value="">Select Goal</option>
-        {data?.map((goal) => (
-          <option key={goal.id} value={goal.id}>
-            {goal.title}
-          </option>
-        ))}
-      </select>
-    </LoadingAndError>
+    <SelectorDropdown
+      fetchData={getAllGoals}
+      fetchDataDependencies={[]}
+      selectedId={selectedGoalId}
+      onSelectedIdChange={onSelectedGoalIdChange}
+      placeholder="Search Goal"
+      getOptionKey={(goal) => goal.id}
+      getOptionLabel={(goal) => goal.title}
+    />
   );
 };
 
-// app/blog/create/fill-metadata/client/TechSelector.tsx
-
 interface TechSelectorProps {
   selectedGoalId: string;
-  selectedTechId?: string | null;
-  setSelectedTechId: (id: string) => void;
-  setSelectedTopicId: (id: string) => void;
+  selectedTechId: string | null;
+  onSelectedTechIdChange: (id: string | null) => void;
 }
 
 export const TechSelector = ({
   selectedTechId,
-  setSelectedTechId,
-  selectedGoalId,
-  setSelectedTopicId,
+  selectedGoalId,onSelectedTechIdChange
 }: TechSelectorProps) => {
-  const { data, error, isLoading } = useFetchData(
-    () => getTechnologiesByGoalId(selectedGoalId),
-    [selectedGoalId]
-  );
-
   return (
-    <LoadingAndError isLoading={isLoading} error={error}>
-      <select
-        onChange={(e) => {
-          setSelectedTechId(e.target.value);
-          setSelectedTopicId("");
-        }}
-        value={selectedTechId || ""}
-      >
-        <option value="">Select Technology</option>
-        {data?.map((tech) => (
-          <option key={tech.id} value={tech.id}>
-            {tech.title}
-          </option>
-        ))}
-      </select>
-    </LoadingAndError>
+    <SelectorDropdown
+      fetchData={() => getTechnologiesByGoalId(selectedGoalId)}
+      selectedId={selectedTechId}
+      fetchDataDependencies={[selectedGoalId]}
+      onSelectedIdChange={onSelectedTechIdChange}
+      placeholder="Search Technology"
+      getOptionKey={(tech) => tech.id}
+      getOptionLabel={(tech) => tech.title}
+    />
   );
 };
 
-// app/blog/create/fill-metadata/client/TopicSelector.tsx
-
 interface TopicSelectorProps {
-  selectedTopicId?: string | null;
-  setSelectedTopicId: (id: string) => void;
+  selectedTopicId: string | null;
+  onSelectedTopicIdChange: (id: string | null) => void;
   selectedTechId: string;
 }
 
 export const TopicSelector = ({
   selectedTopicId,
   selectedTechId,
-  setSelectedTopicId,
+  onSelectedTopicIdChange,
 }: TopicSelectorProps) => {
-  const { data, error, isLoading } = useFetchData(
-    () => getTopicsByTechnologyId(selectedTechId),
-    [selectedTechId]
-  );
-
   return (
-    <LoadingAndError isLoading={isLoading} error={error}>
-      <select
-        onChange={(e) => setSelectedTopicId(e.target.value)}
-        value={selectedTopicId || ""}
-      >
-        <option value="">Select Topic</option>
-        {data?.map((topic) => (
-          <option key={topic.id} value={topic.id}>
-            {topic.title}
-          </option>
-        ))}
-      </select>
-    </LoadingAndError>
+    <SelectorDropdown
+      fetchData={() => getTopicsByTechnologyId(selectedTechId)}
+      fetchDataDependencies={[selectedTechId]}
+      selectedId={selectedTopicId}
+      onSelectedIdChange={onSelectedTopicIdChange}
+      placeholder="Search Topic"
+      getOptionKey={(topic) => topic.id}
+      getOptionLabel={(topic) => topic.title}
+    />
   );
 };
+interface TagsSelectorProps {
+  selectedTopicId: string;
+  onSelectedTagsModify: OnSelectedTagsModify;
+  selectedTagIds: string[];
+}
 
-const LoadingAndError = ({
-  isLoading,
-  error,
-  children,
-}: {
-  isLoading: boolean;
-  error: string | null;
-  children: ReactNode;
-}) => {
-  if (isLoading) return <p>Loading...</p>;
-  if (error) return <p>{error}</p>;
-  return children;
+export const TagsSelector = ({
+  selectedTagIds,
+  selectedTopicId,
+  onSelectedTagsModify,
+}: TagsSelectorProps) => {
+  return (
+    <MultiSelectDropdown
+      fetchData={() => getTagsByTopicId(selectedTopicId)}
+      fetchDataDependencies={[selectedTopicId]}
+      selectedIds={selectedTagIds}
+      onSelectedTagsModify={onSelectedTagsModify}
+      placeholder="Search Tags"
+      getOptionKey={(Tags) => Tags.id}
+      getOptionLabel={(Tags) => Tags.title}
+    />
+  );
 };
