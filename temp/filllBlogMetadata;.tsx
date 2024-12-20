@@ -1,5 +1,5 @@
 "use client";
-import { useFetch } from "@/hooks/useFetch";
+import { useFetch } from "@/shared/hooks/useFetch";
 import {
   getAllGoals,
   getTagsByTopicId,

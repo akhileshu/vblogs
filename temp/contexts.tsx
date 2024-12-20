@@ -1,4 +1,4 @@
-import { catchErrorTyped } from "@/lib/errors/catchErrorTyped";
+import { catchErrorTyped } from "@/shared/lib/errors/catchErrorTyped";
 import React, {
   createContext,
   useContext,
@@ -7,9 +7,9 @@ import React, {
   useMemo,
 } from "react";
 import { getAllGoals } from "../src/features/blog-crud/create/actions/getCategory";
-import { CatchErrorTypedReturn } from "@/types/resolvedPromise";
+import { CatchErrorTypedReturn } from "@/shared/types/resolvedPromise";
 
-export interface IGreenBoxProps extends React.HTMLAttributes<HTML > {
+export interface IGreenBoxProps extends React.HTMLAttributes<HTML> {
   title: string;
 }
 
@@ -151,4 +151,3 @@ export const SelectionProvider = ({ children }: { children: ReactNode }) => (
     </TechnologyProvider>
   </GoalsProvider>
 );
-

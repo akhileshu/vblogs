@@ -5,9 +5,5 @@ interface InputProps {
 }
 
 export function Blog({ className }: InputProps) {
-  return (
-    <div className={cn('', className)}></div>
-  );
+  return <div className={cn("", className)}></div>;
 }
-
-

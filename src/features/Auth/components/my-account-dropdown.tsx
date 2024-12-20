@@ -1,6 +1,7 @@
-import { Avatar } from "@/components/app/avatar";
-import { Btn } from "@/components/app/buttons";
-import { AppDropDownMenu } from "@/components/app/dropdown-menu";
+
+import { Avatar } from "@/shared/components/app/avatar";
+import { Btn } from "@/shared/components/app/buttons";
+import { AppDropDownMenu } from "@/shared/components/app/dropdown-menu";
 import { signOut } from "next-auth/react";
 import Link from "next/link";
 

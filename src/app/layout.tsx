@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 import { getServerSession } from "next-auth";
-import SessionProvider from "@/providers/session-provider";
+import SessionProvider from "@/shared/providers/session-provider";
 
 export const metadata: Metadata = {
   title: "Create Next App",

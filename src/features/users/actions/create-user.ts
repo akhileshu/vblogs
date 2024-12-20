@@ -1,24 +1,24 @@
-"use server"
+"use server";
 
-import { createResponse } from "@/lib/response";
-import { catchErrorTyped } from "@/lib/errors/catchErrorTyped"
+import { createResponse } from "@/shared/lib/response";
+import { catchErrorTyped } from "@/shared/lib/errors/catchErrorTyped";
 
-export async function createUser(){
+export async function createUser() {
   const response = createResponse();
-    return await catchErrorTyped(updateUser());
+  return await catchErrorTyped(updateUser());
 }
 
-export async function updateUser(){
-    return "updateUser"
+export async function updateUser() {
+  return "updateUser";
 }
 
-const obj={
-  success:false,
-  message:"msg",
-  status:"validation failed",
-  error:null,
-  data:null
-}
+const obj = {
+  success: false,
+  message: "msg",
+  status: "validation failed",
+  error: null,
+  data: null,
+};
 
 /* 
 export async function fetchUserByIdAction(
@@ -37,4 +37,3 @@ use in client
 const [error, user] = await fetchUserByIdAction(params.id);
 
 */
-

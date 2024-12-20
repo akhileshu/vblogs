@@ -1,5 +1,5 @@
-import { Btn } from "@/components/app/buttons";
-import { openPopupWindow } from "@/lib/open-popup-window";
+import { Btn } from "@/shared/components/app/buttons";
+import { openPopupWindow } from "@/shared/lib/open-popup-window";
 import { FcGoogle } from "react-icons/fc";
 
 export const JoinWithGoogleButton = () => {

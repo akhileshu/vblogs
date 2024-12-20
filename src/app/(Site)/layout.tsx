@@ -1,9 +1,8 @@
+import { AppSidebar } from "@/shared/components/app/app-sidebar";
+import { Navbar } from "@/shared/components/app/navbar";
+import { SidebarProvider } from "@/components/ui/sidebar";
 import type { Metadata } from "next";
 
-import { SidebarProvider } from "@/components/ui/sidebar";
-
-import { AppSidebar } from "../../components/app/app-sidebar";
-import { Navbar } from "../../components/app/navbar";
 
 export const metadata: Metadata = {
   title: "Create Next App",

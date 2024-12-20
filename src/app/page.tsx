@@ -1,8 +1,8 @@
 "use client";
 
+import { Btn } from "@/shared/components/app/buttons";
 import Image from "next/image";
 import Link from "next/link";
-import { Btn } from "../components/app/buttons";
 
 export default function Home() {
   return (

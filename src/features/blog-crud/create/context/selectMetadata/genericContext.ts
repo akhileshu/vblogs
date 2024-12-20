@@ -1,4 +1,4 @@
-import { CatchErrorTypedResult } from "@/types/resolvedPromise";
+import { CatchErrorTypedResult } from "@/shared/types/resolvedPromise";
 import { createContext, Dispatch, useContext } from "react";
 
 type Action<T> =

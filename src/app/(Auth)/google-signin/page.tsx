@@ -10,10 +10,8 @@ const GoogleSignIn = () => {
   const isLoading = status === "loading";
   const showLoaderAtStart = true;
 
-
-
   useEffect(() => {
-    if (!isLoading && !session ) {
+    if (!isLoading && !session) {
       signIn("google");
     }
     if (session) {
@@ -22,7 +20,6 @@ const GoogleSignIn = () => {
   }, [session, isLoading]);
 
   return (
-
     <LoaderWrapper
       isLoading={showLoaderAtStart}
       // error={error}

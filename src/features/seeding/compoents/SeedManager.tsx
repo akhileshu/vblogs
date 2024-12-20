@@ -1,8 +1,8 @@
 "use client";
 
 import { Btn } from "@/components/app/buttons";
-import { getErrorMsg } from "@/utils/getErrorMsg";
-import { revalidateTagUtil } from "@/utils/revalidateTagUtils";
+import { getErrorMsg } from "@/shared/utils/getErrorMsg";
+import { revalidateTagUtil } from "@/shared/utils/revalidateTagUtils";
 import { useState, useTransition } from "react";
 import { getPrismaModels } from "../actions/getAllModels";
 import { handleSeedAction } from "../actions/seed-actions";

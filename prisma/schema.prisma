@@ -8,10 +8,10 @@ generator client {
   provider = "prisma-client-js"
 }
 
-generator typegraphql {
-  provider = "typegraphql-prisma"
-  output   = "../generated/type-graphql" // Set the output to a directory outside node_modules
-}
+// generator typegraphql {
+//   provider = "typegraphql-prisma"
+//   output   = "../generated/type-graphql" // Set the output to a directory outside node_modules
+// }
 
 datasource db {
   provider = "postgresql"
@@ -187,4 +187,3 @@ enum UserRole {
   AUTHOR
   ADMIN
 }
-

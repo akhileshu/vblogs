@@ -1,7 +1,11 @@
 import { ReactNode, use, useReducer } from "react";
-import { createGenericContext, defaultState, genericReducer } from "./genericContext";
+import {
+  createGenericContext,
+  defaultState,
+  genericReducer,
+} from "./genericContext";
 import { getAllGoals } from "../../actions/getCategory";
-import { catchErrorTyped } from "@/lib/errors/catchErrorTyped";
+import { catchErrorTyped } from "@/shared/lib/errors/catchErrorTyped";
 
 export const { Context: GoalContext, useGenericContext: useGoal } =
   createGenericContext<Awaited<ReturnType<typeof getAllGoals>>>();

@@ -4,9 +4,14 @@ import {
   TagsSelector,
   TechSelector,
   TopicSelector,
-} from "@/features/blog-crud/create/components/client";
+} from "@/features/blog-crud/create/components/concept-select/metadata-selectors";
+import { AddBlogMetadataForm } from "@/features/blog-crud/create/components/concept-select/AddBlogMetadataForm";
 import { useState } from "react";
-export type OnSelectedTagsModify=(tagId: string, action: "add" | "remove") => void
+export type OnSelectedTagsModify = (
+  tagId: string,
+  action: "add" | "remove"
+) => void;
+
 
 export default function SelectMetadata() {
   const [selectedGoalId, setSelectedGoalId] = useState<string | null>(null);
@@ -19,7 +24,7 @@ export default function SelectMetadata() {
     setSelectedTechId(null);
     setSelectedTopicId(null);
     setSelectedTagIds([]);
-  }
+  } 
   function onSelectedTechIdChange(techId: string | null) {
     setSelectedTechId(techId);
     setSelectedTopicId(null);
@@ -65,6 +70,12 @@ export default function SelectMetadata() {
           selectedTagIds={selectedTagIds}
         />
       )}
-    </div>
+      {selectedTopicId && selectedTagIds.length > 0 && (
+        <AddBlogMetadataForm
+          tagIds={selectedTagIds}
+          selectedTopicId={selectedTopicId}
+        />
+      )}
+    </div>  
   );
 }

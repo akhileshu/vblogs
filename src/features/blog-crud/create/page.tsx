@@ -2,8 +2,8 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import MyEditor from "./components/myEditor";
-import { useSuggestions } from "@/app/hooks/useSuggestions";
+import MyEditor from "./components/richText/myEditor";
+import { useSuggestions } from "@/shared/hooks/useSuggestions";
 import { ImagePlus } from "lucide-react";
 import SuggestionInput from "@/components/app/SuggestionInput";
 

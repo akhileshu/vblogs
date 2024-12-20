@@ -5,7 +5,5 @@ interface InputProps {
 }
 
 export default function Input({ className }: InputProps) {
-  return (
-    <div className={cn('', className)}>root page for - with navbars</div>
-  );
+  return <div className={cn("", className)}>root page for - with navbars</div>;
 }

@@ -1,9 +1,7 @@
 "use server";
 
-import {
-  getServerSessionUserByRole
-} from "@/features/Auth/utils/getServerSessionUtils";
-import prisma from "@/lib/prisma";
+import { getServerSessionUserByRole } from "@/features/Auth/utils/getServerSessionUtils";
+import prisma from "@/shared/lib/prisma";
 import { z } from "zod";
 
 // Zod schema for validation
@@ -32,8 +30,7 @@ export const addBlogMetaData = async (
   if (error) return { fieldErrors: error.formErrors.fieldErrors };
   const { tags, title, topicId } = data;
   const user = await getServerSessionUserByRole("AUTHOR");
-  if (!user)
-    return { errorMsg: "Please Login as Author" };
+  if (!user) return { errorMsg: "Please Login as Author" };
   const blogData = await prisma.blog.create({
     data: {
       title,
@@ -41,7 +38,7 @@ export const addBlogMetaData = async (
       authorId: user.id,
       tags: {
         create: tags.map((tag) => ({
-          tagId: tag.id
+          tagId: tag,
         })),
       },
     },

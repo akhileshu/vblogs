@@ -1,4 +1,4 @@
-import prisma from "@/lib/prisma";
+import prisma from "@/shared/lib/prisma";
 import { jsonData } from "./data";
 
 export const bulkInsert = async () => {

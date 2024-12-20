@@ -1,6 +1,6 @@
 "use server";
 
-import prisma from "@/lib/prisma";
+import prisma from "@/shared/lib/prisma";
 import { unstable_cache } from "next/cache";
 
 export const getCachedRowCount = async (model: string) =>

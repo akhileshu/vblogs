@@ -5,7 +5,7 @@ import {
   getTagsByTopicIdFromDb,
   getTechnologiesByGoalIdFromDb,
   getTopicsByTechnologyIdFromDb,
-} from "@/database/getCategory";
+} from "@/shared/database/getCategory";
 
 export const getAllGoals =async () => {
   //   if (1) throw new Error("Internal Server Error");
