@@ -1,4 +1,4 @@
-import { Btn } from "@/shared/components/app/buttons";
+import { Btn } from "@/shared/components/buttons";
 import { openPopupWindow } from "@/shared/lib/open-popup-window";
 import { FcGoogle } from "react-icons/fc";
 

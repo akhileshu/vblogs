@@ -1,10 +1,14 @@
 "use client";
 
-import { LoaderWrapper } from "@/components/app/Loader";
 import { cn } from "@/lib/utils";
+import { LoaderWrapper } from "@/shared/components/Loader";
 import { signIn, useSession } from "next-auth/react";
 import { useEffect } from "react";
 
+//bug :
+/* 
+if existing user is erased from db , user still loggedin in app , but will cause error in db query/mutation
+*/
 const GoogleSignIn = () => {
   const { data: session, status } = useSession();
   const isLoading = status === "loading";

@@ -8,10 +8,10 @@ export const bulkInsert = async () => {
     const createdGoal = await prisma.goal.create({
       data: {
         title: goal,
-        Technologies: {
+        technologies: {
           create: technologies.map((tech) => ({
             title: tech.title,
-            Topics: {
+            topics: {
               create: tech.topics.map((topic) => ({
                 title: topic.title,
                 tags: { create: topic.tags.map((tag) => ({ title: tag })) },

@@ -1,81 +1,37 @@
 "use client";
+
+import { AddBlogMetadataForm } from "@/features/blog/create/components/concept-select/AddBlogMetadataForm";
 import {
-  GoalSelector,
-  TagsSelector,
-  TechSelector,
-  TopicSelector,
-} from "@/features/blog-crud/create/components/concept-select/metadata-selectors";
-import { AddBlogMetadataForm } from "@/features/blog-crud/create/components/concept-select/AddBlogMetadataForm";
-import { useState } from "react";
-export type OnSelectedTagsModify = (
-  tagId: string,
-  action: "add" | "remove"
-) => void;
+  DropdownProvider,
+  fetchCreateBlogConcepts,
+  HierarchialDropdowns,
+  useDropdownContext,
+} from "@/features/hierarchical-dropdowns";
 
-
-export default function SelectMetadata() {
-  const [selectedGoalId, setSelectedGoalId] = useState<string | null>(null);
-  const [selectedTechId, setSelectedTechId] = useState<string | null>(null);
-  const [selectedTopicId, setSelectedTopicId] = useState<string | null>(null);
-  const [selectedTagIds, setSelectedTagIds] = useState<string[]>([]);
-
-  function onSelectedGoalIdChange(goalId: string | null) {
-    setSelectedGoalId(goalId);
-    setSelectedTechId(null);
-    setSelectedTopicId(null);
-    setSelectedTagIds([]);
-  } 
-  function onSelectedTechIdChange(techId: string | null) {
-    setSelectedTechId(techId);
-    setSelectedTopicId(null);
-    setSelectedTagIds([]);
-  }
-  function onSelectedTopicIdChange(topicId: string | null) {
-    setSelectedTopicId(topicId);
-    setSelectedTagIds([]);
-  }
-  function onSelectedTagsModify(tagId: string, action: "add" | "remove") {
-    setSelectedTagIds(
-      action === "add"
-        ? [...selectedTagIds, tagId]
-        : selectedTagIds.filter((id) => id !== tagId)
-    );
-  }
+export default function page() {
   return (
-    <div className="flex gap-2 flex-wrap">
-      <GoalSelector
-        selectedGoalId={selectedGoalId}
-        onSelectedGoalIdChange={onSelectedGoalIdChange}
-      />
-
-      {selectedGoalId && (
-        <TechSelector
-          selectedGoalId={selectedGoalId}
-          selectedTechId={selectedTechId}
-          onSelectedTechIdChange={onSelectedTechIdChange}
-        />
-      )}
-
-      {selectedTechId && (
-        <TopicSelector
-          selectedTechId={selectedTechId}
-          selectedTopicId={selectedTopicId}
-          onSelectedTopicIdChange={onSelectedTopicIdChange}
-        />
-      )}
-      {selectedTopicId && (
-        <TagsSelector
-          selectedTopicId={selectedTopicId}
-          onSelectedTagsModify={onSelectedTagsModify}
-          selectedTagIds={selectedTagIds}
-        />
-      )}
-      {selectedTopicId && selectedTagIds.length > 0 && (
-        <AddBlogMetadataForm
-          tagIds={selectedTagIds}
-          selectedTopicId={selectedTopicId}
-        />
-      )}
-    </div>  
+    <DropdownProvider>
+      <SelectMetadata />
+    </DropdownProvider>
   );
 }
+
+const SelectMetadata = () => {
+  const { selectedOptions } = useDropdownContext();
+  const selectedTopicId = selectedOptions[2]?.[0]?.id ;
+  const selectedTagIds = selectedOptions[3]?.map((option) => option.id) || [];
+  return (
+    <div className="flex gap-2 flex-wrap">
+      <HierarchialDropdowns
+        className="flex-1 m-0"
+        fetchOptionsForLevel={fetchCreateBlogConcepts}
+      />
+      {selectedTagIds.length > 0 && (
+        <AddBlogMetadataForm
+          tagIds={selectedTagIds}
+          topicId={selectedTopicId}
+        />
+      )}
+    </div>
+  );
+};

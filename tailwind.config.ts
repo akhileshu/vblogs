@@ -2,9 +2,7 @@ import type { Config } from "tailwindcss";
 
 const config: Config = {
   darkMode: ["class"],
-  content: [
-    "./src/**/*.{tsx,mdx}",
-  ],
+  content: ["./src/**/*.{tsx,mdx}"],
   // content: [
   //   "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
   //   "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
@@ -18,6 +16,9 @@ const config: Config = {
       screens: {
         "2xl": "1400px",
       },
+    },
+    variants: {
+      scrollbar: ["rounded"], // enable rounded variants
     },
     extend: {
       colors: {
@@ -97,6 +98,7 @@ const config: Config = {
       });
     },
     require("tailwindcss-animate"),
+    require("tailwind-scrollbar"),
   ],
 };
 export default config;

@@ -1,6 +1,6 @@
 "use client";
 
-import { Btn } from "@/shared/components/app/buttons";
+import { Btn } from "@/shared/components/buttons";
 import Image from "next/image";
 import Link from "next/link";
 

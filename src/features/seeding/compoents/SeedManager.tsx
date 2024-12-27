@@ -1,12 +1,12 @@
 "use client";
 
-import { Btn } from "@/components/app/buttons";
 import { getErrorMsg } from "@/shared/utils/getErrorMsg";
 import { revalidateTagUtil } from "@/shared/utils/revalidateTagUtils";
 import { useState, useTransition } from "react";
-import { getPrismaModels } from "../actions/getAllModels";
-import { handleSeedAction } from "../actions/seed-actions";
+import { getPrismaModels } from "../actions/get-prisma-model-list";
+import { handleSeedAction } from "../actions/handle-seed";
 import { ACTIONS } from "../types/types";
+import { Btn } from "@/shared/components/buttons";
 
 export const SeedManager = ({
   modelCountList,

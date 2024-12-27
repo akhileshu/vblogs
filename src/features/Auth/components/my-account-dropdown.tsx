@@ -1,10 +1,8 @@
-
-import { Avatar } from "@/shared/components/app/avatar";
-import { Btn } from "@/shared/components/app/buttons";
-import { AppDropDownMenu } from "@/shared/components/app/dropdown-menu";
+import { Avatar } from "@/shared/components/avatar";
+import { Btn } from "@/shared/components/buttons";
+import { AppDropDownMenu } from "@/shared/components/dropdown-menu";
 import { signOut } from "next-auth/react";
 import Link from "next/link";
-
 
 export function MyAccountDropdown({ avatarUrl }: { avatarUrl: string }) {
   return (

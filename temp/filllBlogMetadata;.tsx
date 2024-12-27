@@ -5,7 +5,7 @@ import {
   getTagsByTopicId,
   getTechnologiesByGoalId,
   getTopicsByTechnologyId,
-} from "../src/features/blog-crud/create/actions/getCategory";
+} from "../src/features/blog/create/actions/getCategory";
 
 interface SelectGoalProps {
   className?: string;

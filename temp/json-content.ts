@@ -1,6 +1,36 @@
 import { Descendant } from "slate";
 
-export const content:Descendant[] = [
+export const content: Descendant[] = [
+  {
+    type: "heading-one",
+    children: [{ text: "h1-nodejs- a js runtime environment" }],
+    id: "very-unique-id",
+  },
+  {
+    type: "heading-two",
+    children: [{ text: "h2-fs module" }],
+    id: "very-unique-id",
+  },
+  {
+    type: "heading-three",
+    children: [{ text: "h3-create a file in nextjs" }],
+    id: "very-unique-id",
+  },
+  {
+    type: "heading-two",
+    children: [{ text: "h2-os module" }],
+    id: "very-unique-id",
+  },
+  {
+    type: "heading-two",
+    children: [{ text: "h2-multi threading" }],
+    id: "very-unique-id",
+  },
+  {
+    type: "heading-three",
+    children: [{ text: "h3-why multi threading is important" }],
+    id: "very-unique-id",
+  },
   {
     type: "code-block",
     language: "jsx",

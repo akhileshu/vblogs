@@ -111,12 +111,25 @@ model Blog {
   skillLevel        SkillLevel    @default(INTERMEDIATE)
   content           BlogContent?
   description       String?
-  slug              String?       @unique // for sharable url
+  slug              String        @unique // for sharable url
   views             Int           @default(0)
   readTimeInMinutes Int?
   Video             Video?
 
   @@unique([topicId, title]) // Ensure unique title for each topic
+}
+
+model BlogContent {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  fullContent    Json
+  intro          Json?
+  implementation Json?
+  advanced       Json?
+  blog           Blog   @relation(fields: [blogId], references: [id])
+  blogId         String @unique
 }
 
 model Video {
@@ -149,18 +162,6 @@ enum BlogPart {
   INTRO
   IMPLEMENTATION
   ADVANCED
-}
-
-model BlogContent {
-  id        String   @id @default(uuid())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  intro          Json
-  implementation Json
-  advanced       Json
-  blog           Blog   @relation(fields: [blogId], references: [id])
-  blogId         String @unique
 }
 
 model TagsOnBlogs {

@@ -6,7 +6,7 @@ import React, {
   ReactNode,
   useMemo,
 } from "react";
-import { getAllGoals } from "../src/features/blog-crud/create/actions/getCategory";
+import { getAllGoals } from "../src/features/blog/create/actions/getCategory";
 import { CatchErrorTypedReturn } from "@/shared/types/resolvedPromise";
 
 export interface IGreenBoxProps extends React.HTMLAttributes<HTML> {
