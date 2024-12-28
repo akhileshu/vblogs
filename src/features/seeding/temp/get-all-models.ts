@@ -1,6 +1,8 @@
+"use server";
+
 import prisma from "@/shared/lib/prisma";
 
-export const prismaModelsHardCodedList = [
+const prismaModelsHardCodedList = [
   "goal",
   "technology",
   "topic",
@@ -14,10 +16,12 @@ export const prismaModelsHardCodedList = [
   "tagsOnBlogs",
 ];
 
-export const allPrismaModels = Object.keys(prisma).filter(
-  (key) =>
-    !key.startsWith("_") &&
-    !key.startsWith("$") &&
-    // @ts-expect-error accessing dynamic property prisma.model
-    typeof prisma[key] === "object"
-);
+export const allPrismaModels = async () => {
+  return Object.keys(prisma).filter(
+    (key) =>
+      !key.startsWith("_") &&
+      !key.startsWith("$") &&
+      // @ts-expect-error accessing dynamic property prisma.model
+      typeof prisma[key] === "object"
+  );
+};

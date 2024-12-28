@@ -1,0 +1,38 @@
+"use server";
+
+import { Response } from "@/server-actions/types/response";
+import { {{pascalCase model}}Service } from "@/services/prisma/{{kebab-case model}}/{{kebab-case model}}-service";import prisma from "@/shared/lib/prisma";
+import { getErrorMsg } from "@/shared/utils/getErrorMsg";
+import { z } from "zod";
+
+const Update{{pascalCase model}}Schema = z.object({
+id: z.string().uuid(),
+});
+
+export const update{{pascalCase model}}Handler = async (
+  prevState: unknown,
+  formData: FormData
+): Promise<
+  Response<
+    Awaited<ReturnType<{{pascalCase model}}Service["update{{pascalCase model}}"]>>,
+    z.infer<typeof Update{{pascalCase model}}Schema>
+  >
+> => {
+  try {
+    const { data: {id,...validatedData}, error } = Update{{pascalCase model}}Schema.safeParse(formData);
+    if (error)
+      return {
+        success: false,
+        fieldErrors: error.formErrors.fieldErrors,
+        errorMsg: "validation failed",
+      };
+    const {{camelCase model}}Service = new {{pascalCase model}}Service(prisma);
+    return { success: true, data: await {{camelCase model}}Service.update{{pascalCase model}}(id,validatedData) };
+  } catch (error) {
+    //handle error thrown by prisma service - throws parsed/understandable error message in Error object
+    return {
+      success: false,
+      errorMsg: getErrorMsg(error),
+    };
+  }
+};

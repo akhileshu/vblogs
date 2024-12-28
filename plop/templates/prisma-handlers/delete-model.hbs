@@ -1,0 +1,33 @@
+"use server";
+
+import { Response } from "@/server-actions/types/response";
+import { {{pascalCase model}}Service } from "@/services/prisma/{{kebab-case model}}/{{kebab-case model}}-service";import prisma from "@/shared/lib/prisma";
+import { getErrorMsg } from "@/shared/utils/getErrorMsg";
+import { IdSchema } from "@/server-actions/utils/zod";
+
+
+
+export const delete{{pascalCase model}}Handler = async (
+  id: string
+): Promise<
+  Response<
+    Awaited<ReturnType<{{pascalCase model}}Service["delete{{pascalCase model}}"]>>
+  >
+> => {
+  try {
+    const { data: validatedId, error } = IdSchema.safeParse(id);
+    if (error)
+      return {
+        success: false,
+        errorMsg: "Invalid ID format",
+      };
+    const {{camelCase model}}Service = new {{pascalCase model}}Service(prisma);
+    return { success: true, data: await {{camelCase model}}Service.delete{{pascalCase model}}(validatedId) };
+  } catch (error) {
+    //handle error thrown by prisma service - throws parsed/understandable error message in Error object
+    return {
+      success: false,
+      errorMsg: getErrorMsg(error),
+    };
+  }
+};

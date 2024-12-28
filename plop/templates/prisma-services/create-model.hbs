@@ -1,0 +1,5 @@
+import type{ PrismaClient, Prisma } from "@prisma/client";
+
+export async function create{{pascalCase model}}(prisma: PrismaClient, data: Prisma.{{pascalCase model}}CreateInput) {
+  return prisma.{{camelCase model}}.create({ data });
+}

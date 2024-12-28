@@ -1,0 +1,25 @@
+"use server";
+
+import { Response } from "@/server-actions/types/response";
+import { {{pascalCase model}}Service } from "@/services/prisma/{{kebab-case model}}/{{kebab-case model}}-service";import prisma from "@/shared/lib/prisma";
+import { getErrorMsg } from "@/shared/utils/getErrorMsg";
+
+
+export const getAll{{pascalCase model}}sHandler = async (
+): Promise<
+  Response<
+    Awaited<ReturnType<{{pascalCase model}}Service["getAll{{pascalCase model}}s"]>>
+  >
+> => {
+  try {
+
+    const {{camelCase model}}Service = new {{pascalCase model}}Service(prisma);
+    return { success: true, data: await {{camelCase model}}Service.getAll{{pascalCase model}}s() };
+  } catch (error) {
+    //handle error thrown by prisma service - throws parsed/understandable error message in Error object
+    return {
+      success: false,
+      errorMsg: getErrorMsg(error),
+    };
+  }
+};

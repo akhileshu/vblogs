@@ -1,0 +1,5 @@
+export {createGoalHandler} from './create-blog'
+export {deleteGoalHandler} from './delete-blog'
+export {getAllGoalsHandler} from './get-blogs'
+export {getGoalByIdHandler} from './get-blog-by-id'
+export {updateGoalHandler} from './update-blog'
