@@ -2,8 +2,11 @@
 
 import { Response } from "@/server-actions/types/response";
 import { {{pascalCase model}}Service } from "@/services/prisma/{{kebab-case model}}/{{kebab-case model}}-service";import prisma from "@/shared/lib/prisma";
-import { getErrorMsg } from "@/shared/utils/getErrorMsg";
 import { z } from "zod";
+import {
+  failure,
+  failureWithFieldErrors,
+} from "@/server-actions/utils/response";
 
 const Create{{pascalCase model}}Schema = z.object({
 
@@ -20,19 +23,10 @@ export const create{{pascalCase model}}Handler = async (
 > => {
   try {
     const { data: validatedData, error } = Create{{pascalCase model}}Schema.safeParse(Object.fromEntries(formData.entries()));
-    if (error)
-      return {
-        success: false,
-        fieldErrors: error.formErrors.fieldErrors,
-        errorMsg: "validation failed",
-      };
+    if (error) return failureWithFieldErrors(error);
     const {{camelCase model}}Service = new {{pascalCase model}}Service(prisma);
     return { success: true, data: await {{camelCase model}}Service.create{{pascalCase model}}(validatedData) };
   } catch (error) {
-    //handle error thrown by prisma service - throws parsed/understandable error message in Error object
-    return {
-      success: false,
-      errorMsg: getErrorMsg(error),
-    };
+    return failure(error)
   }
 };

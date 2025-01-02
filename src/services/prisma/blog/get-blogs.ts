@@ -1,5 +1,9 @@
 import type{ PrismaClient } from "@prisma/client";
 
 export async function getAllBlogs(prisma: PrismaClient) {
-  return prisma.blog.findMany();
+  try {
+    return prisma.blog.findMany({});
+  } catch (error) {
+    throw error;
+  }
 }

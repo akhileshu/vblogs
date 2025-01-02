@@ -1,6 +1,6 @@
 "use client";
 
-import { getLoggedInAuthorBlogs } from "@/features/blog/create/actions/getBlog";
+import { BlogService } from "@/services/prisma/blog/blog-service";
 import { Btn, StyledLink } from "@/shared/components/buttons";
 import { LoaderWrapper } from "@/shared/components/Loader";
 import { getUrl } from "@/shared/lib/get-url";
@@ -14,7 +14,7 @@ export function MyBlogs({
   data,
 }: {
   errorMsg?: string;
-  data?: Awaited<ReturnType<typeof getLoggedInAuthorBlogs>>;
+  data?: Awaited<ReturnType<BlogService["getBlogsByAuthorId"]>>;
 }) {
   const handleDelete = (id: string) => {
     console.log(`Deleting blog with ID: ${id}`);

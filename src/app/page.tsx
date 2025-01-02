@@ -1,7 +1,7 @@
 "use client";
 
-import { allPrismaModels } from "@/features/seeding/temp/get-all-models";
 import { Btn } from "@/shared/components/buttons";
+import { allPrismaModels } from "@/shared/utils/allPrismaModels";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -16,8 +16,8 @@ export default function Home() {
           height={400}
           className="aspect-video w-[500px] rounded-2xl"
         ></Image>
-        <button onClick={async()=>{
-          console.log( await allPrismaModels())
+        <button onClick={()=>{
+          console.log(  allPrismaModels())
         }}>log models</button>
         <Link href="/site">
           <Btn text="Continue" variant="outline" />

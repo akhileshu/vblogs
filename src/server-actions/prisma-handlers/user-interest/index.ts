@@ -1,5 +1,0 @@
-export {createUserInterestHandler} from './create-blog'
-export {deleteUserInterestHandler} from './delete-blog'
-export {getAllUserInterestsHandler} from './get-blogs'
-export {getUserInterestByIdHandler} from './get-blog-by-id'
-export {updateUserInterestHandler} from './update-blog'

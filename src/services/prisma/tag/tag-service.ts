@@ -6,6 +6,7 @@ import { getTagById } from "./get-tag-by-id";
 import { updateTag } from "./update-tag";
 import { deleteTag } from "./delete-tag";
 import { getAllTags } from "./get-tags";
+import { getTagsByTopicId } from "./get-tags-by-topic-id";
 
 export class TagService extends BaseService {
   constructor(prisma: PrismaClient) {
@@ -44,6 +45,10 @@ export class TagService extends BaseService {
     await this.beforeAction("getAll", null);
     const result = await getAllTags(this.prisma);
     await this.afterAction("getAll", result);
+    return result;
+  }
+  async getTagsByTopicId(topicId: string) {
+    const result = await getTagsByTopicId(this.prisma,topicId);
     return result;
   }
 

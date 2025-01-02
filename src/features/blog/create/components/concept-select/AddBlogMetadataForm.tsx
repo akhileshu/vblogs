@@ -2,10 +2,10 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useFormState } from "react-dom";
-import { addBlogMetaData } from "../../actions/addBlogMetadata";
 import AppInput, { AppCard } from "@/shared/components/standard-components";
 import { SubmitButton } from "@/shared/components/formSubmitButton";
 import { getUrl } from "@/shared/lib/get-url";
+import { addBlogMetadataHandler } from "@/server-actions/prisma-handlers/blog/add-blog-metadata-Handler";
 
 export function AddBlogMetadataForm({
   tagIds,
@@ -16,17 +16,20 @@ export function AddBlogMetadataForm({
 }) {
   const [title, setTitle] = useState<string>("");
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const initialState = {
     fieldErrors: undefined,
     errorMsg: undefined,
     data: undefined,
+    success:false
   };
-  const [state, formAction] = useFormState(addBlogMetaData, null);
+  const [result, formAction] = useFormState(addBlogMetadataHandler, null);
   const router = useRouter();
 
-  const { data, errorMsg, fieldErrors } = state || {};
-  if (data) router.push(getUrl("blogCreate", data.slug));
-  console.log({ errorMsg, fieldErrors, initialState });
+  if (result?.success) router.push(getUrl("blogCreate", result.data.slug));
+  else {
+    console.error(result?.errorMsg);
+  }
 
   return (
     <AppCard title="Provide additional details" widthVariant="medium">

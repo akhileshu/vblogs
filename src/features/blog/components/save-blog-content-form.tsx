@@ -1,8 +1,8 @@
 "use client";
 
-import { getBlogContentBySlug } from "@/features/blog/create/actions/getBlog";
-import { saveBlogContent } from "@/features/blog/create/actions/saveBlogContent";
 import SlateRichText from "@/features/blog/richText/slate-rich-text";
+import { saveBlogContentHandler } from "@/server-actions/prisma-handlers/blog/save-blog-content-Handler";
+import { BlogService } from "@/services/prisma/blog/blog-service";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useFormState } from "react-dom";
@@ -15,14 +15,13 @@ export default function SaveBlogContentForm({
 }: {
   params: { slug: string };
   mode: "create" | "edit";
-  blogContent?: Awaited<ReturnType<typeof getBlogContentBySlug>>;
+  blogContent?: Awaited<ReturnType<BlogService["getBlogContentBySlug"]>>;
 }) {
-  const [state, formAction] = useFormState(saveBlogContent, null);
+  const [result, formAction] = useFormState(saveBlogContentHandler, null);
   const router = useRouter();
   const [content, setContent] = useState("");
 
-  const { data, errorMsg, fieldErrors } = state || {};
-  if (data) router.push(`/dashboard`);
+  if (result?.success) router.push(`/dashboard`);
 
   return (
     <div>

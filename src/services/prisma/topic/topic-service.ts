@@ -6,6 +6,7 @@ import { getTopicById } from "./get-topic-by-id";
 import { updateTopic } from "./update-topic";
 import { deleteTopic } from "./delete-topic";
 import { getAllTopics } from "./get-topics";
+import { getTopicsByTechnologyId } from "./get-topics-by-technology-id";
 
 export class TopicService extends BaseService {
   constructor(prisma: PrismaClient) {
@@ -44,6 +45,10 @@ export class TopicService extends BaseService {
     await this.beforeAction("getAll", null);
     const result = await getAllTopics(this.prisma);
     await this.afterAction("getAll", result);
+    return result;
+  }
+  async getTopicsByTechnologyId(technologyId: string) {
+    const result = await getTopicsByTechnologyId(this.prisma, technologyId);
     return result;
   }
 

@@ -6,6 +6,16 @@
       "type": "shell",
       "command": "npx prisma studio",
       "problemMatcher": []
+    },
+    {
+      "label": "Generate Component Here",
+      "type": "shell",
+      "command": "npx plop component --path '${fileDirname}'",
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      }
     }
   ]
 }

@@ -1,0 +1,18 @@
+Validation of user input happens in the handler.
+Validation of business logic (e.g., user authorization) happens in the service.
+
+https://onedrive.live.com/view.aspx?resid=5FA4374D715893D7%21305746&id=documents&wd=target%28folder%20structure.one%7C9503C156-ADCA-4BDA-B442-378B7FEC73CD%2F%29
+onenote:https://d.docs.live.net/5fa4374d715893d7/Documents/vblog/folder%20structure.one#section-id={9503C156-ADCA-4BDA-B442-378B7FEC73CD}&end
+for features folder , will have 2 level nesting
+feature/blog - by domain , code placed here can be access by descendents only
+feature/blog/create - by action
+use index.ts for organized exports/imports
+src/shared code can be accessed anywhere
+src/app
+src/shared - can be accessed by app,features
+also place code here that individual features need shared code or need to communicate with each other
+src/featuers - individual features can be access by app - to render on app router
+
+mutation suceess
+redirect - avoid - use multistep form renderer , sometimes we need to redirect after mutation success - use redirectOnSuccess
+prompt to redirect - toast with redirect link

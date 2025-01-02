@@ -42,7 +42,7 @@ export const HierarchialDropdowns = ({
       if (nextLevel)
         setLevels((prev) => [...prev.slice(0, levelIndex), nextLevel]);
     } catch (error) {
-      // alert("Error fetching options : " + getErrorMsg(error));
+      console.log(getErrorMsg(error));
       if (levels.length > levelIndex) clearFurtherLevels(levelIndex);
     }
   };

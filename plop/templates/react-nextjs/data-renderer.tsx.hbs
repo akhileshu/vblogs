@@ -1,0 +1,21 @@
+import { ErrorWhileFetching, NoDataMessage } from "@/shared/components/error";
+import { LoaderWrapper } from "@/shared/components/Loader";
+import { cn } from "@/lib/utils";
+
+type {{pascalCase action}}Props = {
+  className?: string;
+};
+export default async function {{pascalCase action}}({className}: {{pascalCase action}}Props) {
+
+  const result = await {{camelCase action}}Handler();
+  if (!result.success) return <ErrorWhileFetching errorMsg={result.errorMsg} />;
+  if (!result.data || !result.data.length)
+    return <NoDataMessage message="No data available." />;
+  return (
+    <LoaderWrapper className={cn("",className)}>
+      <div>
+        display fetched data here
+      </div>
+    </LoaderWrapper>
+  );
+}

@@ -1,10 +1,9 @@
-import { getBlogContentBySlug } from "@/features/blog/create/actions/getBlog";
 import SlateRichText from "@/features/blog/richText/slate-rich-text";
+import { getBlogContentBySlugHandler } from "@/server-actions/prisma-handlers/blog/get-blog-content-by-slug-Handler";
 import { LoaderWrapper } from "@/shared/components/Loader";
-import { catchErrorTyped } from "@/shared/lib/errors/catchErrorTyped";
-import { CatchErrorTypedResult } from "@/shared/types/resolvedPromise";
 import { Descendant } from "slate";
 import SaveBlogContentForm from "../../../../../features/blog/components/save-blog-content-form";
+import { ErrorWhileFetching } from "@/shared/components/error";
 
 export default async function BlogReadOrCreateOrEdit({
   params,
@@ -15,37 +14,29 @@ export default async function BlogReadOrCreateOrEdit({
   }>;
 }) {
   const { mode, slug } = await params;
-  let blogContentError: CatchErrorTypedResult<
-    Awaited<ReturnType<typeof getBlogContentBySlug>>
-  >[0];
-  let blogContentData: CatchErrorTypedResult<
-    Awaited<ReturnType<typeof getBlogContentBySlug>>
-  >[1];
-  if (mode === "edit" || mode === "read") {
-    [blogContentError, blogContentData] = await catchErrorTyped(
-      getBlogContentBySlug(slug)
-    );
+
+  //conditional fetching from serveraction
+  const result: Awaited<ReturnType<typeof getBlogContentBySlugHandler>> | null =
+    mode === "edit" || mode === "read"
+      ? await getBlogContentBySlugHandler(slug)
+      : null;
+
+  if (result && !result.success) {
+    return <ErrorWhileFetching errorMsg={result.errorMsg} />;
   }
 
   return (
-    <LoaderWrapper
-      // isLoading={
-      //   (mode === "edit" || mode === "read") &&
-      //   !blogContentData &&
-      //   !blogContentError
-      // }
-      errorMsg={blogContentError?.message}
-    >
+    <LoaderWrapper>
       {mode === "create" || mode === "edit" ? (
         <SaveBlogContentForm
-          blogContent={blogContentData}
+          blogContent={result?.data}
           mode={mode}
           params={{ slug }}
         />
       ) : mode === "read" ? (
         <SlateRichText
           contentMode={mode}
-          contentJSON={blogContentData?.fullContent as Descendant[]}
+          contentJSON={result?.data?.fullContent as Descendant[]}
         />
       ) : (
         <p>Invalid mode specified</p>

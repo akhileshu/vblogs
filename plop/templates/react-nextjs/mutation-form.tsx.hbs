@@ -1,0 +1,50 @@
+"use client";
+import { useFormState } from "react-dom";
+import   AppInput, { AppCard } from "@/shared/components/standard-components";
+import { SubmitButton } from "@/shared/components/formSubmitButton";
+import { cn } from "@/lib/utils";
+import { appToast } from "@/shared/lib/toast";
+
+type {{pascalCase action}}Props = {
+  className?: string;
+};
+
+export const {{pascalCase action}}: React.FC<{{pascalCase action}}Props> = ({className}) => {
+
+  const [result, formAction] = useFormState({{camelCase action}}Handler, null);
+  if (result?.success) {
+appToast.success(
+            "{{sentence-case action}} successful"
+          );
+  }
+  else {
+   appToast.error(
+            "{{sentence-case action}} failure"
+          );
+  }
+
+  return (
+    <AppCard className={cn("",className)} title="Provide details for {{sentence-case action}}" widthVariant="medium">
+      <form action={formAction}>
+        {/*
+         <label className="text-gray-500" htmlFor="title">
+          give a title
+        </label>
+        <AppInput
+          widthVariant="full"
+          type="text"
+          placeholder={"ex: How to create a blog in Next.js"}
+          value={title}
+          id="title"
+          name="title"
+          onChange={(e) => setTitle(e.target.value)}
+          required
+        /> 
+          <input hidden name="topicId" type="text" id="topicId" value={topicId} /> 
+          */}
+
+         <SubmitButton />
+      </form>
+    </AppCard>
+  );
+}

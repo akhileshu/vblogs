@@ -2,8 +2,11 @@
 
 import { Response } from "@/server-actions/types/response";
 import { {{pascalCase model}}Service } from "@/services/prisma/{{kebab-case model}}/{{kebab-case model}}-service";import prisma from "@/shared/lib/prisma";
-import { getErrorMsg } from "@/shared/utils/getErrorMsg";
 import { IdSchema } from "@/server-actions/utils/zod";
+import {
+  failure,
+  failureWithFieldErrors,
+} from "@/server-actions/utils/response";
 
 export const get{{pascalCase model}}ByIdHandler = async (
   id: string
@@ -15,17 +18,10 @@ export const get{{pascalCase model}}ByIdHandler = async (
   try {
     const { data: validatedId, error } = IdSchema.safeParse(id);
     if (error)
-      return {
-        success: false,
-        errorMsg: "Invalid ID format",
-      };
+      return failure("Invalid ID format");
     const {{camelCase model}}Service = new {{pascalCase model}}Service(prisma);
     return { success: true, data: await {{camelCase model}}Service.get{{pascalCase model}}ById(validatedId) };
   } catch (error) {
-    //handle error thrown by prisma service - throws parsed/understandable error message in Error object
-    return {
-      success: false,
-      errorMsg: getErrorMsg(error),
-    };
+    return failure(error)
   }
 };

@@ -1,0 +1,39 @@
+import React, { createContext, useContext, useState } from "react";
+
+type Context = {
+  state: State;
+  setState: React.Dispatch<React.SetStateAction<State>>;
+};
+
+const initialState={
+    // Add properties for your state here
+}
+
+type State = typeof initialState;
+const {{pascalCase contextName}}Context = createContext<Context>({
+  state: initialState,
+  setState: () => {},
+});
+
+export const use{{pascalCase contextName}}Context = () => {
+  const context = useContext({{pascalCase contextName}}Context);
+  if (!context) {
+    throw new Error(`$use{{pascalCase contextName}}Context must be used within {{pascalCase contextName}}Provider`);
+  }
+  return context;
+};
+
+type {{pascalCase contextName}}ProviderProps={
+    children: React.ReactNode
+}
+export const {{pascalCase contextName}}Provider: React.FC<{{pascalCase contextName}}ProviderProps> = ({
+  children,
+}) => {
+  const [state, setState] = useState<State>(initialState);
+
+  return (
+    <{{pascalCase contextName}}Context.Provider value=\{{ state, setState }}>
+      {children}
+    </{{pascalCase contextName}}Context.Provider>
+  );
+};

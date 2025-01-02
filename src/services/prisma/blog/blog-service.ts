@@ -6,12 +6,25 @@ import { getBlogById } from "./get-blog-by-id";
 import { updateBlog } from "./update-blog";
 import { deleteBlog } from "./delete-blog";
 import { getAllBlogs } from "./get-blogs";
+import { getBlogContentBySlug } from "./get-blog-content-by-slug";
+import { getBlogsByAuthorId } from "./get-blogs-by-author-id";
+import { getBlogSearchResults } from "./get-blog-search-results";
+import { AddBlogMetadataInput, BlogSearchQueryParameters, SaveBlogContentInput } from "@/shared/types/models/blog";
+import { addBlogMetadata } from "./add-blog-metadata";
+
+import { saveBlogContent } from "./save-blog-content";
+import { getServerSessionUserByRole } from "@/features/Auth/utils/getServerSessionUtils";
 
 export class BlogService extends BaseService {
   constructor(prisma: PrismaClient) {
     super(prisma);
   }
 
+  private async getLoggedInAuthor() {
+    const user = await getServerSessionUserByRole("AUTHOR");
+    if (!user) throw new Error("Please login as an author.");
+    return user;
+  }
   async createBlog(data: Prisma.BlogCreateInput) {
     await this.beforeAction("create", data);
     const result = await createBlog(this.prisma, data);
@@ -47,6 +60,30 @@ export class BlogService extends BaseService {
     return result;
   }
 
+  async getBlogContentBySlug(slug: string) {
+    await this.beforeAction("getBlogContentBySlug", slug);
+    const result = await getBlogContentBySlug(this.prisma, slug);
+    await this.afterAction("getBlogContentBySlug", result);
+    return result;
+  }
+  async getBlogSearchResults(params: BlogSearchQueryParameters) {
+    const result = await getBlogSearchResults(this.prisma, params);
+    return result;
+  }
+  async getBlogsByAuthorId(authorId: string) {
+    const result = await getBlogsByAuthorId(this.prisma, authorId);
+    return result;
+  }
+  async addBlogMetadata(data: AddBlogMetadataInput) {
+    const author = await this.getLoggedInAuthor();
+    const result = await addBlogMetadata(this.prisma, data, author.id);
+    return result;
+  }
+  async saveBlogContent(data: SaveBlogContentInput) {
+    await this.getLoggedInAuthor();
+    return await saveBlogContent(this.prisma, data);
+  }
+
   protected async beforeAction(action: string, data: unknown) {
     super.beforeAction(action, data);
     // Custom logic specific to BlogService
@@ -57,6 +94,3 @@ export class BlogService extends BaseService {
     // Custom logic specific to BlogService
   }
 }
-
-
-

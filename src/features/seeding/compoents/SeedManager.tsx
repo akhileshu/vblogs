@@ -3,9 +3,9 @@
 import { getErrorMsg } from "@/shared/utils/getErrorMsg";
 import { revalidateTagUtil } from "@/shared/utils/revalidateTagUtils";
 import { useState, useTransition } from "react";
-import { getPrismaModels } from "../actions/get-prisma-model-list";
+import { getPrismaModelsForSeed } from "../actions/get-prisma-model-list";
 import { handleSeedAction } from "../actions/handle-seed";
-import { ACTIONS } from "../types/types";
+import { ACTIONS } from "../types";
 import { Btn } from "@/shared/components/buttons";
 
 export const SeedManager = ({
@@ -97,7 +97,7 @@ export const SeedManager = ({
         <Btn
           text={"selectAll"}
           onClick={async () => {
-            const models = await getPrismaModels();
+            const models = await getPrismaModelsForSeed();
             setSelectedModels(models);
           }}
           disabled={isPending}

@@ -6,6 +6,7 @@ import { getTechnologyById } from "./get-technology-by-id";
 import { updateTechnology } from "./update-technology";
 import { deleteTechnology } from "./delete-technology";
 import { getAllTechnologys } from "./get-technologys";
+import { getTechnologiesByGoalId } from "./get-technologies-by-goal-id";
 
 export class TechnologyService extends BaseService {
   constructor(prisma: PrismaClient) {
@@ -44,6 +45,10 @@ export class TechnologyService extends BaseService {
     await this.beforeAction("getAll", null);
     const result = await getAllTechnologys(this.prisma);
     await this.afterAction("getAll", result);
+    return result;
+  }
+  async getTechnologiesByGoalId(goalId: string) {
+    const result = await getTechnologiesByGoalId(this.prisma, goalId);
     return result;
   }
 

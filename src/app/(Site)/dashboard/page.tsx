@@ -1,14 +1,22 @@
-import { getLoggedInAuthorBlogs } from "@/features/blog/create/actions/getBlog";
+import { getServerSessionUserByRole } from "@/features/Auth/utils/getServerSessionUtils";
 import { MyBlogs } from "@/features/dashboard/components/my-blogs";
-import { catchErrorTyped } from "@/shared/lib/errors/catchErrorTyped";
+import { getBlogsByAuthorIdHandler } from "@/server-actions/prisma-handlers/blog/get-blogs-by-author-id-Handler";
+import { ErrorWhileFetching, NoDataMessage } from "@/shared/components/error";
+import { LoaderWrapper } from "@/shared/components/Loader";
 
 export default async function page() {
-  const [error, data] = await catchErrorTyped(getLoggedInAuthorBlogs());
+  const user = await getServerSessionUserByRole("AUTHOR");
+  if (!user) {
+    return <p>Please Login as Author</p>;
+  }
+  const result = await getBlogsByAuthorIdHandler(user.id);
+  if (!result.success) return <ErrorWhileFetching errorMsg={result.errorMsg} />;
+  if (!result.data.length)
+    return <NoDataMessage message="you did not publish any blogs yet!" />;
   return (
-    <div>
+    <LoaderWrapper>
       <div>Dashboard</div>
-
-      <MyBlogs errorMsg={error?.message} data={data} />
-    </div>
+      <MyBlogs data={result.data} />
+    </LoaderWrapper>
   );
 }

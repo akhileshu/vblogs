@@ -1,9 +1,8 @@
-import {
-  getAllGoals,
-  getTechnologiesByGoalId,
-  getTopicsByTechnologyId,
-} from "@/features/blog/create/actions/getCategory";
+
+import { getAllGoalsHandler } from "@/server-actions/prisma-handlers/goal";
 import { FetchOptionsForLevel, Option, SELECT_TYPE } from "../types";
+import { getTechnologiesByGoalIdHandler } from "@/server-actions/prisma-handlers/technology/get-technologies-by-goal-id-Handler";
+import { getTopicsByTechnologyIdHandler } from "@/server-actions/prisma-handlers/topic/get-topics-by-technology-id-Handler";
 
 export const fetchSearchBlogConcepts: FetchOptionsForLevel<Option> = async (
   levelIndex,
@@ -11,22 +10,28 @@ export const fetchSearchBlogConcepts: FetchOptionsForLevel<Option> = async (
 ) => {
   switch (levelIndex) {
     case 0:
+      let result = await getAllGoalsHandler();
+      if (!result.success) return null;
       return {
         label: "Goal",
-        options: await getAllGoals(),
+        options: result.data,
         selectType: SELECT_TYPE.single,
       };
 
     case 1:
+      result = await getTechnologiesByGoalIdHandler(selectedOptions[0].id);
+      if (!result.success) return null;
       return {
         label: "Technology",
-        options: await getTechnologiesByGoalId(selectedOptions[0].id),
+        options: result.data,
         selectType: SELECT_TYPE.single,
       };
     case 2:
+      result = await getTopicsByTechnologyIdHandler(selectedOptions[0].id);
+      if (!result.success) return null;
       return {
         label: "Topics",
-        options: await getTopicsByTechnologyId(selectedOptions[0].id),
+        options: result.data,
         selectType: SELECT_TYPE.multiple,
       };
 

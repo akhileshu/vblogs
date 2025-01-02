@@ -1,0 +1,20 @@
+import { useState } from 'react';
+
+type {{pascalCase name}}State = {
+  // Add properties for your state here
+};
+const initialState = {
+    // Add properties for your state here
+    };
+
+const use{{pascalCase name}} = () => {
+  const [state, setState] = useState<{{pascalCase name}}State>(initialState);
+
+  const updateState = (newState: {{pascalCase name}}State) => {
+    setState(newState);
+  };
+
+  return { state, updateState };
+};
+
+export default use{{pascalCase name}};

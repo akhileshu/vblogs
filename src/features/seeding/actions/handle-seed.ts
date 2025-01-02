@@ -1,12 +1,12 @@
 "use server";
-import { ACTIONS } from "../types/types";
-import { getPrismaModels } from "./get-prisma-model-list";
+import { ACTIONS } from "../types";
+import { getPrismaModelsForSeed } from "./get-prisma-model-list";
 
 export async function handleSeedAction(
   models: string[],
   action: (typeof ACTIONS)[keyof typeof ACTIONS]
 ): Promise<string> {
-  const prismaModels = await getPrismaModels();
+  const prismaModels = await getPrismaModelsForSeed();
   if (!models || models.length === 0) {
     throw new Error("No models selected.");
   }
@@ -22,8 +22,6 @@ export async function handleSeedAction(
 
   return `${action} successfully executed for models: ${models.join(", ")}`;
 }
-
-
 
 export async function executeDynamicSeedAction(
   model: string,
