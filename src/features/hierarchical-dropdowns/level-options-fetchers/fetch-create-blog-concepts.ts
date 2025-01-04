@@ -9,9 +9,10 @@ export const fetchCreateBlogConcepts: FetchOptionsForLevel<Option> = async (
   levelIndex,
   selectedOptions
 ) => {
+  let result;
   switch (levelIndex) {
     case 0:
-      let result = await getAllGoalsHandler();
+     result = await getAllGoalsHandler();
       if (!result.success) return null;
       return {
         label: "Goal",

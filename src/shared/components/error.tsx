@@ -9,7 +9,7 @@ type ErrorWhileFetchingProps = {
 export const ErrorWhileFetching: React.FC<ErrorWhileFetchingProps> = ({className,errorMsg}) => {
   return (
     <div className={cn("text-red-500 border rounded-md m-2 p-2", className)}>
-      <p>Error while fetching data: {errorMsg}</p>
+      <p><span className="font-bold">Error while fetching data:</span> {errorMsg}</p>
     </div>
   );
 };

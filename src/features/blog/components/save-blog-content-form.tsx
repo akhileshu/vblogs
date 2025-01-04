@@ -1,8 +1,10 @@
 "use client";
 
+import { useSessionUserByRole } from "@/features/Auth/utils/useClientSessionUtils";
 import SlateRichText from "@/features/blog/richText/slate-rich-text";
 import { saveBlogContentHandler } from "@/server-actions/prisma-handlers/blog/save-blog-content-Handler";
 import { BlogService } from "@/services/prisma/blog/blog-service";
+import { revalidateTagUtil } from "@/shared/utils/revalidateTagUtils";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useFormState } from "react-dom";
@@ -21,13 +23,21 @@ export default function SaveBlogContentForm({
   const router = useRouter();
   const [content, setContent] = useState("");
 
-  if (result?.success) router.push(`/dashboard`);
+  const author = useSessionUserByRole("AUTHOR");
+  if (!author) {
+    throw new Error("Author not found");
+  }
+
+  if (result?.success) {
+    router.push(`/dashboard`);
+    revalidateTagUtil(`get-blogs-by-author-id-${author.id}`);
+  }
 
   return (
     <div>
       <form action={formAction}>
         <input type="hidden" name="slug" value={slug} />
-        <input type="text" name="content" value={content} />
+        <input type="hidden" name="content" value={content} />
         {mode === "edit" ? (
           <SlateRichText
             contentJSON={blogContent?.fullContent as Descendant[]}

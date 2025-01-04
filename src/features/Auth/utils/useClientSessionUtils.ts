@@ -5,6 +5,10 @@ export const useSessionUser = () => {
   const { data: session } = useSession();
   return session?.user;
 };
+export const useSessionUserByRole = (userRole: UserRole) => {
+  const user = useSessionUser();
+  if (user && user.role === userRole) return user;
+};
 
 export const useVerifyRole = (userRole: UserRole) => {
   const user = useSessionUser();

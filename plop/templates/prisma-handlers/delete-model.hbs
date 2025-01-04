@@ -8,22 +8,28 @@ import {
   failureWithFieldErrors,
 } from "@/server-actions/utils/response";
 
-
+const Delete{{pascalCase model}}Schema = z.object({
+  blogId: IdSchema
+});
 
 export const delete{{pascalCase model}}Handler = async (
-  id: string
+   prevState: unknown,
+  formData: FormData
 ): Promise<
   Response<
     Awaited<ReturnType<{{pascalCase model}}Service["delete{{pascalCase model}}"]>>
   >
 > => {
   try {
-    const { data: validatedId, error } = IdSchema.safeParse(id);
+    const { data: validatedData, error } = Delete{{pascalCase model}}Schema.safeParse(Object.fromEntries(formData.entries()));
     if (error)
       return failure("Invalid ID format");
     const {{camelCase model}}Service = new {{pascalCase model}}Service(prisma);
-    return { success: true, data: await {{camelCase model}}Service.delete{{pascalCase model}}(validatedId) };
+    return { success: true, data: await {{camelCase model}}Service.delete{{pascalCase model}}(validatedData.id) };
   } catch (error) {
-    return failure(error)
+    if(error instanceof FieldsError)return failureWithFieldErrors(error);
+    return failure(error);
   }
 };
+
+// End of handler

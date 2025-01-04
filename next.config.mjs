@@ -42,6 +42,22 @@ const nextConfig = {
   //     },
   //   ];
   // },
+
+  //fix slow page compilation on dev server
+  swcMinify: true,
+  productionBrowserSourceMaps: false, // Disable source maps in development
+  optimizeFonts: false, // Disable font optimization
+  minify: false, // Disable minification
+  concurrentFeatures: true,
+  fastRefresh: true,
+  onDemandEntries: {
+    // period (in ms) where the server will keep pages in the buffer
+    maxInactiveAge: 15 * 60 * 1000, // 15 minutes
+    // number of pages that should be kept simultaneously without being disposed
+    pagesBufferLength: 4,
+  },
+
+  
 };
 
 export default nextConfig;

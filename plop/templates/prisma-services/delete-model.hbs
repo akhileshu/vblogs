@@ -1,5 +1,9 @@
 import type{ PrismaClient } from "@prisma/client";
 
 export async function delete{{pascalCase model}}(prisma: PrismaClient, id: string) {
-  return prisma.{{camelCase model}}.delete({ where: { id } });
+  try{
+     return prisma.{{camelCase model}}.delete({ where: { id } });
+  }catch(error){
+    throw error
+  }
 }

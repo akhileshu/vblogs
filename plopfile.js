@@ -107,7 +107,7 @@ export default function plop(/** @type {import('plop').NodePlopAPI} */ plop) {
         },
         {
           type: "add",
-          path: `src/services/prisma/{{kebab-case model}}/get-{{kebab-case model}}s.ts`,
+          path: `src/services/prisma/{{kebab-case model}}/get-all-{{kebab-case model}}s.ts`,
           templateFile: "./plop/templates/prisma-services/get-all-models.hbs",
           data: { model },
         },
@@ -168,6 +168,35 @@ export default function plop(/** @type {import('plop').NodePlopAPI} */ plop) {
       ]);
     },
   });
+
+plop.setGenerator("append-cached-handler", {
+  prompts: [
+    {
+      type: "input",
+      name: "model",
+      message:
+        "Enter the model name (e.g., User or UserOrderProduct(services combined))",
+    },
+    {
+      type: "input",
+      name: "action",
+      message: "Enter the action name (e.g., getWatchedVideosByUserId)",
+    },
+  ],
+  description: "generate cached handler - for fetch handlers only",
+  actions: (data) => {
+    return [
+      {
+        type: "append",
+        path: `src/server-actions/prisma-handlers/{{kebab-case model}}/{{kebab-case action}}.ts`,
+        pattern: /(\/\/ End of handler)/,
+        templateFile: "./plop/templates/prisma-handlers/cached-handler.ts.hbs",
+        data: { cachedAction: data.action.replace(/^get/, "getCached") },
+      },
+    ];
+  },
+});
+
   plop.setGenerator("prisma-handler-&-service-by-name", {
     prompts: [
       {
@@ -181,11 +210,18 @@ export default function plop(/** @type {import('plop').NodePlopAPI} */ plop) {
         name: "action",
         message: "Enter the action name (e.g., getWatchedVideosByUserId)",
       },
+      {
+        type: "confirm",
+        name: "withCachedHandler",
+        message: "Do you want to add a cached handler? - for fetch handlers only ",
+        default: false,
+      },
     ],
-    description: "generate prisma-handler-&-service-by-name",
+    description:
+      "Generate prisma handler, service , by name, and optionally cached handler",
 
-    actions: () => {
-      return [
+    actions: (data) => {
+      const actions = [
         {
           type: "add",
           path: `src/server-actions/prisma-handlers/{{kebab-case model}}/{{kebab-case action}}.ts`,
@@ -229,6 +265,18 @@ export default function plop(/** @type {import('plop').NodePlopAPI} */ plop) {
           abortOnFail: false, // Continue even if this action fails
         },
       ];
+      if (data.withCachedHandler) {
+        actions.push({
+          type: "append",
+          path: `src/server-actions/prisma-handlers/{{kebab-case model}}/{{kebab-case action}}.ts`,
+          pattern: /(\/\/ End of handler)/,
+          templateFile:
+            "./plop/templates/prisma-handlers/cached-handler.ts.hbs",
+          data: { cachedAction: data.action.replace(/^get/, "getCached") },
+        });
+      }
+
+      return actions;
     },
   });
 

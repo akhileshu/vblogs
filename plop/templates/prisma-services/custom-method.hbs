@@ -1,5 +1,10 @@
 import type{ PrismaClient, Prisma } from "@prisma/client";
 
 export async function {{camelCase action}}(prisma: PrismaClient, data: any) {
-  throw new Error("Not implemented");
+  try{
+    throw new Error("Not implemented");
+  }catch(error){
+    throw error
+  }
+  
 }

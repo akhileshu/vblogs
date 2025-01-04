@@ -52,6 +52,9 @@ export const authOptions: NextAuthOptions = {
           update: { name, role },
           create: { email, name, role, image: picture },
         });
+        if (!userprofile.id) {
+          throw new Error("Failed to upsert user");
+        }
         user.id = userprofile.id;
         return true;
       } catch (error) {
@@ -60,6 +63,10 @@ export const authOptions: NextAuthOptions = {
     },
     async session({ token, session }) {
       //debugger;
+      /* 
+      saw a bug where token.id was giving a id that didn't exist in the database
+      fix: check if token.id exists in the database - in jwt callback
+       */
       if (token) {
         const { id, role, email, name, picture } = token;
         session.user.id = id;
@@ -77,7 +84,18 @@ export const authOptions: NextAuthOptions = {
         token.id = user.id;
         token.role = user.role;
         token.picture = user.picture;
-      }
+      } 
+      // below code might be causing session clerning after server restart
+      /* else if (token.id) {
+        const dbUser = await prisma.user.findUnique({
+          where: { id: token.id },
+        });
+        if (dbUser) {
+          token.role = dbUser.role;
+          token.picture = dbUser.image;
+        } else throw new Error("User not found - please sign in again");
+      } */
+
       return token;
     },
   },

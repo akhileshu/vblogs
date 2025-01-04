@@ -1,7 +1,8 @@
 "use server";
 
 import { Response } from "@/server-actions/types/response";
-import { {{pascalCase model}}Service } from "@/services/prisma/{{kebab-case model}}/{{kebab-case model}}-service";import prisma from "@/shared/lib/prisma";
+import { {{pascalCase model}}Service } from "@/services/prisma/{{kebab-case model}}/{{kebab-case model}}-service";
+import prisma from "@/shared/lib/prisma";
 import {
   failure,
   failureWithFieldErrors,
@@ -19,6 +20,9 @@ export const getAll{{pascalCase model}}sHandler = async (
     const {{camelCase model}}Service = new {{pascalCase model}}Service(prisma);
     return { success: true, data: await {{camelCase model}}Service.getAll{{pascalCase model}}s() };
   } catch (error) {
-    return failure(error)
+    if(error instanceof FieldsError)return failureWithFieldErrors(error);
+    return failure(error);
   }
 };
+
+// End of handler

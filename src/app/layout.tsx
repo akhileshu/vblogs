@@ -4,6 +4,7 @@ import "./globals.css";
 import { getServerSession } from "next-auth";
 import SessionProvider from "@/shared/providers/session-provider";
 import { ToasterProvider } from "@/shared/providers/toaster";
+import TopLoader from "@/shared/components/Toploader";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -20,7 +21,8 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className="flex flex-col">
-        <ToasterProvider/>
+        <TopLoader />
+        <ToasterProvider />
         <SessionProvider session={session}>{children}</SessionProvider>
       </body>
     </html>

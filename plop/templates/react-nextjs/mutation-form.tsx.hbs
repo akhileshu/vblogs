@@ -4,6 +4,8 @@ import   AppInput, { AppCard } from "@/shared/components/standard-components";
 import { SubmitButton } from "@/shared/components/formSubmitButton";
 import { cn } from "@/lib/utils";
 import { appToast } from "@/shared/lib/toast";
+import { extractResultData } from "@/server-actions/utils/response";
+import { useEffect} from "react";
 
 type {{pascalCase action}}Props = {
   className?: string;
@@ -12,16 +14,15 @@ type {{pascalCase action}}Props = {
 export const {{pascalCase action}}: React.FC<{{pascalCase action}}Props> = ({className}) => {
 
   const [result, formAction] = useFormState({{camelCase action}}Handler, null);
-  if (result?.success) {
-appToast.success(
-            "{{sentence-case action}} successful"
-          );
-  }
-  else {
-   appToast.error(
-            "{{sentence-case action}} failure"
-          );
-  }
+  const { data, success, errorMsg, fieldErrors } = extractResultData(result);
+
+  useEffect(() => {
+    if (errorMsg) {
+      appToast.error(errorMsg);
+      console.log(errorMsg);
+    }
+     if (success) appToast.success("success");
+  }, [errorMsg, success]);
 
   return (
     <AppCard className={cn("",className)} title="Provide details for {{sentence-case action}}" widthVariant="medium">
@@ -30,6 +31,7 @@ appToast.success(
          <label className="text-gray-500" htmlFor="title">
           give a title
         </label>
+        <p className="text-red-500">{fieldErrors?.title}</p>
         <AppInput
           widthVariant="full"
           type="text"

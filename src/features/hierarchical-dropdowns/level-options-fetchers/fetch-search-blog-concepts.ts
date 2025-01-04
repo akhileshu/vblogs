@@ -1,4 +1,3 @@
-
 import { getAllGoalsHandler } from "@/server-actions/prisma-handlers/goal";
 import { FetchOptionsForLevel, Option, SELECT_TYPE } from "../types";
 import { getTechnologiesByGoalIdHandler } from "@/server-actions/prisma-handlers/technology/get-technologies-by-goal-id-Handler";

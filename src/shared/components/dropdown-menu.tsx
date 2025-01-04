@@ -1,10 +1,10 @@
 import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuLabel,
-    DropdownMenuSeparator,
-    DropdownMenuTrigger,
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
 interface AppDropDownMenuProps {
@@ -18,14 +18,20 @@ export function AppDropDownMenu({
   trigger,
   label,
   items,
-  children
+  children,
 }: AppDropDownMenuProps) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>{trigger}</DropdownMenuTrigger>
       <DropdownMenuContent>
-        <DropdownMenuLabel>{label}</DropdownMenuLabel>
-        <DropdownMenuSeparator />
+        {label ? (
+          <>
+            {" "}
+            <DropdownMenuLabel>{label}</DropdownMenuLabel>
+            <DropdownMenuSeparator />
+          </>
+        ) : null}
+
         {items?.map((item, index) => (
           <DropdownMenuItem key={index}>{item}</DropdownMenuItem>
         ))}

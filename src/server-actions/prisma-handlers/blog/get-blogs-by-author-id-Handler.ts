@@ -1,4 +1,5 @@
 "use server";
+import { unstable_cache } from "next/cache";
 
 import { Response } from "@/server-actions/types/response";
 import { BlogService } from "@/services/prisma/blog/blog-service";
@@ -22,4 +23,15 @@ export const getBlogsByAuthorIdHandler = async (
       errorMsg: getErrorMsg(error),
     };
   }
+};
+
+
+
+export const getCachedBlogsByAuthorIdHandler = async (authorId: string) => {
+  const tag = `get-blogs-by-author-id-${authorId}`;
+  return unstable_cache(
+    () => getBlogsByAuthorIdHandler(authorId),
+    [authorId], // Cache key dependency
+    { tags: [tag] } // Tag for revalidation
+  )();
 };

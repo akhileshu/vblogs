@@ -1,5 +1,9 @@
 import type{ PrismaClient } from "@prisma/client";
 
 export async function get{{pascalCase model}}ById(prisma: PrismaClient, id: string) {
+  try{
   return prisma.{{camelCase model}}.findUnique({ where: { id } });
+  }catch(error){
+    throw error
+  }
 }

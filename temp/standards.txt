@@ -16,3 +16,7 @@ src/featuers - individual features can be access by app - to render on app route
 mutation suceess
 redirect - avoid - use multistep form renderer , sometimes we need to redirect after mutation success - use redirectOnSuccess
 prompt to redirect - toast with redirect link
+
+feedback on bussiness logic failure for user inputs
+from service throw Error with added field - fieldErrors - maintaining same types,and in handler in catch{ } process and pass to ui
+

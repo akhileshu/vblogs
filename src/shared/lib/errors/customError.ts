@@ -16,3 +16,12 @@ export class ValidationError extends Error {
     this.name = "ValidationError";
   }
 }
+
+export class FieldsError extends Error {
+  fieldErrors: Record<string, string[]>;
+  constructor(fieldErrors: Record<string, string[]>,message?: string ) {
+    super(message || "Bussiness Logic Validation failed for the fields");
+    this.name = "FieldsError";
+    this.fieldErrors = fieldErrors;
+  }
+}

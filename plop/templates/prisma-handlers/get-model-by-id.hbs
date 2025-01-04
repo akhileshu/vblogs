@@ -22,6 +22,9 @@ export const get{{pascalCase model}}ByIdHandler = async (
     const {{camelCase model}}Service = new {{pascalCase model}}Service(prisma);
     return { success: true, data: await {{camelCase model}}Service.get{{pascalCase model}}ById(validatedId) };
   } catch (error) {
-    return failure(error)
+    if(error instanceof FieldsError)return failureWithFieldErrors(error);
+    return failure(error);
   }
 };
+
+// End of handler

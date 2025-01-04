@@ -1,0 +1,10 @@
+import { unstable_cache } from "next/cache";
+
+export const {{camelCase cachedAction}}Handler = async () => {
+  const tag = `{{kebab-case action}}`; // Tag for revalidation , concat params
+  return unstable_cache(
+    () => {{camelCase action}}Handler(),
+    [], // Cache key dependency i.e params
+    { tags: [tag] } 
+  )();
+};

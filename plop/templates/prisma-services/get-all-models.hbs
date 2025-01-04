@@ -1,5 +1,9 @@
 import type{ PrismaClient } from "@prisma/client";
 
 export async function getAll{{pascalCase model}}s(prisma: PrismaClient) {
+  try{
   return prisma.{{camelCase model}}.findMany();
+  }catch(error){
+    throw error
+  }
 }

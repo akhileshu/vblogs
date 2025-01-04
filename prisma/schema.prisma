@@ -109,7 +109,7 @@ model Blog {
   title             String
   // 
   skillLevel        SkillLevel    @default(INTERMEDIATE)
-  content           BlogContent?
+  content           BlogContent? 
   description       String?
   slug              String        @unique // for sharable url
   views             Int           @default(0)
@@ -128,7 +128,7 @@ model BlogContent {
   intro          Json?
   implementation Json?
   advanced       Json?
-  blog           Blog   @relation(fields: [blogId], references: [id])
+  blog           Blog   @relation(fields: [blogId], references: [id] , onDelete: Cascade) 
   blogId         String @unique
 }
 
@@ -171,7 +171,7 @@ model TagsOnBlogs {
 
   tag    Tag    @relation(fields: [tagId], references: [id])
   tagId  String
-  blog   Blog   @relation(fields: [blogId], references: [id])
+  blog   Blog   @relation(fields: [blogId], references: [id] , onDelete: Cascade)
   blogId String
 
   @@unique([blogId, tagId]) // a blog can't have the same tag twice

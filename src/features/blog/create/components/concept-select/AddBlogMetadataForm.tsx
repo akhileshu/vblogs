@@ -1,11 +1,13 @@
 "use client";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
-import { useFormState } from "react-dom";
-import AppInput, { AppCard } from "@/shared/components/standard-components";
-import { SubmitButton } from "@/shared/components/formSubmitButton";
-import { getUrl } from "@/shared/lib/get-url";
 import { addBlogMetadataHandler } from "@/server-actions/prisma-handlers/blog/add-blog-metadata-Handler";
+import { extractResultData } from "@/server-actions/utils/response";
+import { SubmitButton } from "@/shared/components/formSubmitButton";
+import AppInput, { AppCard } from "@/shared/components/standard-components";
+import { getUrl } from "@/shared/lib/get-url";
+import { appToast } from "@/shared/lib/toast";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import { useFormState } from "react-dom";
 
 export function AddBlogMetadataForm({
   tagIds,
@@ -25,11 +27,15 @@ export function AddBlogMetadataForm({
   };
   const [result, formAction] = useFormState(addBlogMetadataHandler, null);
   const router = useRouter();
+  const { data, success, errorMsg, fieldErrors } = extractResultData(result);
+  if (success) router.push(getUrl("blogCreate", data?.slug));
 
-  if (result?.success) router.push(getUrl("blogCreate", result.data.slug));
-  else {
-    console.error(result?.errorMsg);
-  }
+  useEffect(() => {
+    if (errorMsg) {
+      appToast.error(errorMsg);
+      console.log(errorMsg);
+    }
+  }, [errorMsg]);
 
   return (
     <AppCard title="Provide additional details" widthVariant="medium">
@@ -37,6 +43,7 @@ export function AddBlogMetadataForm({
         <label className="text-gray-500" htmlFor="title">
           give a title
         </label>
+
         <AppInput
           widthVariant="full"
           type="text"
@@ -47,7 +54,9 @@ export function AddBlogMetadataForm({
           onChange={(e) => setTitle(e.target.value)}
           required
         />
+        <p className="text-red-500">{fieldErrors?.title}</p>
         <input hidden name="topicId" type="text" id="topicId" value={topicId} />
+        <p className="text-red-500">{fieldErrors?.topicId}</p>
         <input
           hidden
           name="tagIds"
@@ -55,6 +64,7 @@ export function AddBlogMetadataForm({
           id="tagIds"
           value={JSON.stringify(tagIds)}
         />
+        <p className="text-red-500">{fieldErrors?.tagIds}</p>
         <SubmitButton />
       </form>
     </AppCard>

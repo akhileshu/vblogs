@@ -6,17 +6,12 @@ import {
   failureWithFieldErrors,
 } from "@/server-actions/utils/response";
 import { BlogService } from "@/services/prisma/blog/blog-service";
+import { FieldsError } from "@/shared/lib/errors/customError";
 import prisma from "@/shared/lib/prisma";
+import { AddBlogMetadataSchema } from "@/shared/types/models/blog";
 import { z } from "zod";
 
-const AddBlogMetadataSchema = z.object({
-  title: z.string().min(1, "Title is required"),
-  topicId: z.string().uuid("Invalid Topic ID"),
-  tagIds: z.string().transform((tagsString) => {
-    const parsedTags = JSON.parse(tagsString);
-    return z.array(z.string().uuid("Invalid Tag ID")).parse(parsedTags); //After parsing the JSON string, the parsedTags is validated against an array of tagSchema objects.
-  }),
-});
+
 
 export const addBlogMetadataHandler = async (
   prevState: unknown,
@@ -38,6 +33,7 @@ export const addBlogMetadataHandler = async (
       data: await blogService.addBlogMetadata(validatedData),
     };
   } catch (error) {
+    if(error instanceof FieldsError)return failureWithFieldErrors(error);
     return failure(error);
   }
 };

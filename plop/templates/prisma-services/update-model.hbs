@@ -1,5 +1,15 @@
 import { PrismaClient, Prisma } from "@prisma/client";
+import { FieldErrors } from "@/server-actions/types/response";
+import { FieldsError } from "@/shared/lib/errors/customError";
 
 export async function update{{pascalCase model}}(prisma: PrismaClient, id: string, data: Prisma.{{pascalCase model}}UpdateInput) {
-  return prisma.{{camelCase model}}.update({ where: { id }, data });
+  try{
+    const fieldErrors: FieldErrors<{{pascalCase model}}SchemaType> = {};
+    if (Object.keys(fieldErrors).length > 0) {
+      throw new FieldsError(fieldErrors);
+    }
+    return prisma.{{camelCase model}}.update({ where: { id }, data });
+  }catch(error){
+    throw error
+  }
 }
