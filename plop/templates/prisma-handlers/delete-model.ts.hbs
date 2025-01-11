@@ -7,6 +7,7 @@ import {
   failure,
   failureWithFieldErrors,
 } from "@/server-actions/utils/response";
+import { FieldsError } from "@/shared/lib/errors/customError";
 
 const Delete{{pascalCase model}}Schema = z.object({
   blogId: IdSchema
@@ -17,7 +18,7 @@ export const delete{{pascalCase model}}Handler = async (
   formData: FormData
 ): Promise<
   Response<
-      {{pascalCase model}}ServiceReturnType<"delete{{pascalCase model}}">,
+      {{pascalCase model}}ServiceReturnType<"delete{{pascalCase model}}">
   >
 > => {
   try {

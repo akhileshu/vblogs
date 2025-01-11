@@ -19,9 +19,6 @@ export const addBlogMetadataHandler = async (
   formData: FormData
 ): Promise<
   Response<
-    //todo:update type to interface method insted of implementation method
-    // Awaited<ReturnType<BlogService["addBlogMetadata"]>>,
-    // Awaited<ReturnType<BlogServiceImplementation["addBlogMetadata"]>>,
     BlogServiceReturnType<"addBlogMetadata">,
     z.infer<typeof AddBlogMetadataSchema>
   >

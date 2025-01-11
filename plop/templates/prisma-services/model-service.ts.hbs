@@ -1,4 +1,4 @@
-import type { Prisma, PrismaClient } from "@prisma/client";
+import type { Prisma, PrismaClient ,{{pascalCase model}} } from "@prisma/client";
 import { BaseService } from "./../base-service";
 
 import { create{{pascalCase model}} } from "./create-{{kebab-case model}}";
@@ -19,7 +19,7 @@ export type {{pascalCase model}}ServiceReturnType<T extends keyof {{pascalCase m
   ReturnType<{{pascalCase model}}Service[T]>
 >;
 
-export class {{pascalCase model}}Service extends BaseService implements {{pascalCase model}}Service {
+export class {{pascalCase model}}ServiceImplementation extends BaseService implements {{pascalCase model}}Service {
   constructor(prisma: PrismaClient) {
     super(prisma);
   }

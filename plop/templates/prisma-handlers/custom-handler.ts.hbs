@@ -8,20 +8,18 @@ import {
   failureWithFieldErrors,
 } from "@/server-actions/utils/response";
 
+export const {{camelCase action}}Handler = async (
 
-export const getAll{{pascalCase model}}sHandler = async (
 ): Promise<
   Response<
-      {{pascalCase model}}ServiceReturnType<"getAll{{pascalCase model}}s">,
+    {{pascalCase model}}ServiceReturnType<"{{camelCase action}}">
   >
 > => {
   try {
-
     const {{camelCase model}}Service = new {{pascalCase model}}ServiceImplementation(prisma);
-    return { success: true, data: await {{camelCase model}}Service.getAll{{pascalCase model}}s() };
+    return { success: true, data: await {{camelCase model}}Service.{{camelCase action}}(undefined) };
   } catch (error) {
-    if(error instanceof FieldsError)return failureWithFieldErrors(error);
-    return failure(error);
+   return failure(error)
   }
 };
 

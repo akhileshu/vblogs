@@ -1,10 +1,12 @@
 import { PrismaClient, Prisma } from "@prisma/client";
 import { FieldErrors } from "@/server-actions/types/response";
 import { FieldsError } from "@/shared/lib/errors/customError";
+import { Update{{pascalCase model}}SchemaType } from "@/shared/types/models/{{kebab-case model}}";
+
 
 export async function update{{pascalCase model}}(prisma: PrismaClient, id: string, data: Prisma.{{pascalCase model}}UpdateInput) {
   try{
-    const fieldErrors: FieldErrors<{{pascalCase model}}SchemaType> = {};
+    const fieldErrors: FieldErrors<Update{{pascalCase model}}SchemaType> = {};
     if (Object.keys(fieldErrors).length > 0) {
       throw new FieldsError(fieldErrors);
     }
