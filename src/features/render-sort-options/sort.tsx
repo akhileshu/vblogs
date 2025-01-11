@@ -1,13 +1,18 @@
 import { cn } from "@/lib/utils";
 import { BlogSortOption } from "./types";
+import { doNothing } from "@/shared/utils/doNothing";
 
-export const SelectSortOption = <SortKey extends string, ModelField extends string>({
+export const SelectSortOption = <
+  SortKey extends string,
+  ModelField extends string
+>({
   groupSortOptions,
   singleSortOptions,
   setSelectedSortKey,
   selectedSortKey,
   defaultSortKey,
-  className
+  className,
+  onSortChange = doNothing,
 }: {
   groupSortOptions: BlogSortOption<SortKey, ModelField>[][];
   singleSortOptions: BlogSortOption<SortKey, ModelField>[];
@@ -15,19 +20,27 @@ export const SelectSortOption = <SortKey extends string, ModelField extends stri
   selectedSortKey: SortKey;
   defaultSortKey: SortKey;
   className?: string;
+  onSortChange?: (sortKey: SortKey) => void;
 }) => {
   function handleSortChange(key: SortKey): void {
-    setSelectedSortKey((prevKey) =>
-      key === defaultSortKey
-        ? defaultSortKey
-        : prevKey === key
-        ? defaultSortKey
-        : key
-    );
+    setSelectedSortKey((prevKey) => {
+      const newSortKey =
+        key === defaultSortKey
+          ? defaultSortKey
+          : prevKey === key
+          ? defaultSortKey
+          : key;
+
+      if (prevKey !== newSortKey) {
+        onSortChange(newSortKey); // Call onSortChange only if the key changes
+      }
+
+      return newSortKey; // Update the state
+    });
   }
 
   return (
-    <div className={cn("p-2 border rounded-sm m-2",className)}>
+    <div className={cn("p-2 border rounded-sm m-2", className)}>
       <p className="font-bold text-base">Sort</p>
       {singleSortOptions.map((option, index) => (
         <SortOptionButton
@@ -66,7 +79,7 @@ const SortOptionButton = <SortKey extends string, ModelField extends string>({
   return (
     <div style={{ marginBottom: "10px" }}>
       <button
-      type="button"
+        type="button"
         className={cn("list-none cursor-pointer p-1 border rounded-sm", {
           "text-white border bg-indigo-500": isSelectedSort,
         })}

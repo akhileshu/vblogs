@@ -3,21 +3,25 @@ import {
   HierarchialDropdowns,
   useDropdownContext,
 } from "@/features/hierarchical-dropdowns";
-import { cn } from "@/lib/utils";
-import { FaSearch } from "react-icons/fa";
-import { groupSortOptions, singleSortOptions, SortKey } from "../lib/blog-sort";
 import { SelectSortOption } from "@/features/render-sort-options";
-import React, { useState, useEffect, useRef } from "react";
+import { cn } from "@/lib/utils";
+import { getUrl } from "@/shared/lib/get-url";
 import isHotkey from "is-hotkey";
 import { useRouter } from "next/navigation";
-import { getUrl } from "@/shared/lib/get-url";
+import React, { useEffect, useRef, useState } from "react";
+import { FaSearch } from "react-icons/fa";
+import { useBlogSortParams } from "../hooks/useSortParams";
+import { groupSortOptions, singleSortOptions } from "../lib/blog-sort";
+import { appToast } from "../lib/toast";
 
 const SearchBlogs = () => {
   const [query, setQuery] = useState("");
   const { selectedOptions } = useDropdownContext();
-  const [selectedSortKey, setSelectedSortKey] = useState<SortKey>("relevance");
+  const { getSortParams, selectedSortKey, setSelectedSortKey } =
+    useBlogSortParams();
   const router = useRouter();
   const inputRef = useRef<HTMLInputElement>(null);
+  const [hideDropdown, setHideDropdown] = useState(false);
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -26,6 +30,7 @@ const SearchBlogs = () => {
         inputRef.current?.focus();
       } else if (isHotkey("esc", event)) {
         inputRef.current?.blur();
+        setHideDropdown(true);
         setQuery("");
       }
     };
@@ -38,9 +43,13 @@ const SearchBlogs = () => {
 
   const handleSearch = (event: React.FormEvent) => {
     event.preventDefault();
-    const params = new URLSearchParams();
+    if (query.length < 2) {
+      appToast.error("please search blogs with atleast 2 characters");
+      inputRef.current?.focus();
+      return;
+    }
+    const params = getSortParams();
     if (query) params.set("query", query);
-    if (selectedSortKey !== "relevance") params.set("sortKey", selectedSortKey);
     const topicIdsCsv = selectedOptions[2]
       ?.map((option) => option.id)
       .join(",");
@@ -50,11 +59,12 @@ const SearchBlogs = () => {
         selectedOptions[2]?.map((option) => option.id).join(",")
       );
     }
-
     // router.push(
     //   "/blog/search-results?query=nodejs+what+is+this%3F&sortKey=newest&topicIdsCsv=aefc6a2e-430c-494a-ae87-f1fa625e97a7%2Ce0ca8343-5dc5-47f8-9e56-ee585d8a5a8e"
     // );
     router.push(getUrl("blogSearchResults", undefined, params));
+    inputRef.current?.blur();
+    setHideDropdown(true);
   };
 
   return (
@@ -65,6 +75,7 @@ const SearchBlogs = () => {
       <div className="flex-center">
         <input
           ref={inputRef}
+          onClick={() => setHideDropdown(false)}
           onChange={(e) => setQuery(e.target.value)}
           value={query}
           type="text"
@@ -76,14 +87,24 @@ const SearchBlogs = () => {
           <span>+</span>
           <kbd className=" bg-gray-100 border px-1 rounded">K</kbd>
         </div>
-        <button className="border-l ml-2" type="submit">
+        <button
+          disabled={query.length < 2}
+          className="border-l ml-2 disabled:cursor-not-allowed"
+          type="submit"
+        >
           <FaSearch className=" size-8 p-2" />
         </button>
       </div>
       <div
+        onKeyDown={(e: React.KeyboardEvent) => {
+          if (e.key === "Enter") handleSearch(e);
+        }}
         tabIndex={-1}
         className={cn(
-          "absolute left-0 space-y-2  p-1 border bg-white border-indigo-500 rounded w-[80vw] mt-1 invisible  group-focus-within:visible"
+          "absolute left-0 space-y-2  p-1 border bg-white border-indigo-500 rounded w-[80vw] mt-1 invisible  group-focus-within:visible",
+          {
+            "opacity-0": hideDropdown,
+          }
         )}
       >
         {query ? (

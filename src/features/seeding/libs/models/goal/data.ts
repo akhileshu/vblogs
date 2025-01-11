@@ -6,12 +6,16 @@ export const jsonData = [
         title: "React",
         topics: [
           {
-            title: "State Management",
-            tags: ["Redux", "Context API"],
+            title: "Virtual DOM and React Rendering",
+            tags: ["Virtual DOM", "Reconciliation"],
           },
           {
-            title: "Styling Components",
-            tags: ["CSS Modules", "Tailwind CSS"],
+            title: "React State Management Techniques",
+            tags: ["Context API", "Redux Toolkit", "React Query"],
+          },
+          {
+            title: "React Hooks for Reusability",
+            tags: ["Custom Hooks", "useState", "useEffect"],
           },
         ],
       },
@@ -19,12 +23,16 @@ export const jsonData = [
         title: "Next.js",
         topics: [
           {
-            title: "Server-side Rendering (SSR)",
-            tags: ["API Routes", "Data Fetching"],
+            title: "Server-side Rendering (SSR) and Benefits",
+            tags: ["getServerSideProps", "Dynamic Data"],
           },
           {
-            title: "Static Site Generation (SSG)",
+            title: "Static Site Generation (SSG) for SEO",
             tags: ["getStaticProps", "getStaticPaths"],
+          },
+          {
+            title: "API Routes in Next.js",
+            tags: ["Dynamic API Routes", "Middleware"],
           },
         ],
       },
@@ -37,12 +45,12 @@ export const jsonData = [
         title: "Node.js",
         topics: [
           {
-            title: "Express Framework",
-            tags: ["Routing", "Middleware"],
+            title: "File Handling in Node.js with fs",
+            tags: ["fs.readFile", "fs.writeFile", "Promises"],
           },
           {
-            title: "RESTful APIs",
-            tags: ["HTTP Methods", "Status Codes"],
+            title: "Node.js Event Loop and Asynchronous Operations",
+            tags: ["Event Loop", "Timers", "async/await"],
           },
         ],
       },
@@ -50,12 +58,56 @@ export const jsonData = [
         title: "Prisma ORM",
         topics: [
           {
-            title: "Schema Modeling",
-            tags: ["Relations", "Data Validation"],
+            title: "Prisma Schema for Efficient Modeling",
+            tags: ["Data Relationships", "Validation"],
           },
           {
-            title: "Database Migrations",
-            tags: ["Deployment", "Rollback"],
+            title: "Seeding Data with Prisma",
+            tags: ["Seed Script", "Relations"],
+          },
+        ],
+      },
+      {
+        title: "Express.js",
+        topics: [
+          {
+            title: "Middleware and Routing in Express",
+            tags: ["Custom Middleware", "Router"],
+          },
+          {
+            title: "RESTful API Design in Express",
+            tags: ["CRUD Operations", "HTTP Status Codes"],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    goal: "Database Mastery",
+    technologies: [
+      {
+        title: "MongoDB",
+        topics: [
+          {
+            title: "MongoDB Schema Design Best Practices",
+            tags: ["Indexes", "Relationships"],
+          },
+          {
+            title: "Aggregation Framework in MongoDB",
+            tags: ["Data Pipelines", "Group and Match"],
+          },
+        ],
+      },
+      {
+        title: "SQL",
+        topics: [
+          {
+            title: "Optimizing SQL Queries",
+            tags: ["Joins", "Indexing"],
+          },
+          {
+            title: "Database Transactions",
+            tags: ["ACID Properties", "Rollback"],
           },
         ],
       },

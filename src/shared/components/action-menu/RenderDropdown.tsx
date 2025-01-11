@@ -38,16 +38,39 @@ export function RenderDropdown({
 }
 
 function DropdownOptionItem({ options }: { options: ActionItemOptions }) {
-  const { onClick, icon, label } = options;
+  const { onClick, icon, label, type, href, className } = options;
+
+  if (type === "link") {
+    return (
+      <a
+        href={href}
+        className={cn(
+          "hover:bg-gray-100 flex min-h-[28px] gap-1 items-center px-[6px] py-1 rounded-sm",
+          className
+        )}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <div className="flex-center gap-2">
+          {icon} {label}
+        </div>
+      </a>
+    );
+  }
+
+  // Default to button type if no or invalid type is provided
   return (
     <button
       onClick={onClick}
       className={cn(
         "hover:bg-gray-100 flex min-h-[28px] gap-1 items-center px-[6px] py-1 rounded-sm",
-        options.className
+        className
       )}
     >
-      {icon} {label}
+      <div className="flex-center gap-2">
+        {icon} {label}
+      </div>
     </button>
   );
 }
+

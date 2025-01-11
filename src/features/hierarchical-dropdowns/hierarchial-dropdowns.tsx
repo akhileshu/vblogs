@@ -166,7 +166,7 @@ const CollapsibleDropdown = ({
           ))}
         </div>
         <div
-          className="z-10 absolute border min-w-60 max-h-28 overflow-y-auto bg-white shadow-md invisible opacity-0 group-focus-within/dropdown:visible group-focus-within/dropdown:opacity-100 transition-opacity"
+          className="z-10 absolute border min-w-60 overflow-y-auto bg-white shadow-md invisible opacity-0 group-focus-within/dropdown:visible group-focus-within/dropdown:opacity-100 transition-opacity"
           tabIndex={-1}
         >
           {filteredOptions.map((item) => (

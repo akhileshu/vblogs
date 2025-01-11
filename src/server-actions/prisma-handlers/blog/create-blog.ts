@@ -1,7 +1,8 @@
 "use server";
 
 import { Response } from "@/server-actions/types/response";
-import { BlogService } from "@/services/prisma/blog/blog-service";import prisma from "@/shared/lib/prisma";
+import { BlogServiceImplementation } from "@/services/prisma/blog/blog-service";
+import prisma from "@/shared/lib/prisma";
 import { getErrorMsg } from "@/shared/utils/getErrorMsg";
 import { z } from "zod";
 
@@ -15,19 +16,21 @@ export const createBlogHandler = async (
   formData: FormData
 ): Promise<
   Response<
-    Awaited<ReturnType<BlogService["createBlog"]>>,
+    Awaited<ReturnType<BlogServiceImplementation["createBlog"]>>,
     z.infer<typeof CreateBlogSchema>
   >
 > => {
   try {
-    const { data: validatedData, error } = CreateBlogSchema.safeParse(Object.fromEntries(formData.entries()));
+    const { data: validatedData, error } = CreateBlogSchema.safeParse(
+      Object.fromEntries(formData.entries())
+    );
     if (error)
       return {
         success: false,
         fieldErrors: error.formErrors.fieldErrors,
         errorMsg: "validation failed",
       };
-    const blogService = new BlogService(prisma);
+    const blogService = new BlogServiceImplementation(prisma);
     return { success: true, data: await blogService.createBlog(validatedData) };
   } catch (error) {
     //handle error thrown by prisma service - throws parsed/understandable error message in Error object

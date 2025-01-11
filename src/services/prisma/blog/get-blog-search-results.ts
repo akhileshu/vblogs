@@ -1,10 +1,15 @@
-import { getBlogOrderBy } from "@/shared/lib/blog-sort";
 import { BlogSearchQueryParameters } from "@/shared/types/models/blog";
-import type { PrismaClient } from "@prisma/client";
+import type { Prisma, PrismaClient } from "@prisma/client";
 
 export async function getBlogSearchResults(
   prisma: PrismaClient,
-  { query, sortKey, topicIdsCsv }: BlogSearchQueryParameters
+  {
+    query,
+    topicIdsCsv,
+    orderBy,
+  }: BlogSearchQueryParameters & {
+    orderBy?: Prisma.BlogOrderByWithRelationInput;
+  }
 ) {
   try {
     const blogs = await prisma.blog.findMany({
@@ -16,11 +21,13 @@ export async function getBlogSearchResults(
                   {
                     title: {
                       contains: query,
+                      mode: "insensitive",
                     },
                   },
                   {
                     description: {
                       contains: query,
+                      mode: "insensitive",
                     },
                   },
                 ],
@@ -32,7 +39,7 @@ export async function getBlogSearchResults(
           in: topicIdsCsv?.split(","),
         },
       },
-      orderBy: sortKey ? getBlogOrderBy(sortKey) : undefined,
+      orderBy,
     });
     return blogs;
   } catch (error) {

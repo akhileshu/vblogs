@@ -26,26 +26,6 @@ export const SortKeyUnionForZod = [
   "longestRead",
 ] as const;
 
-export const getBlogOrderBy = (
-  sortKey: SortKey
-): Prisma.BlogOrderByWithRelationInput => {
-  switch (sortKey) {
-    case "popularity":
-      return { views: "desc" };
-    case "newest":
-      return { createdAt: "desc" };
-    case "oldest":
-      return { createdAt: "asc" };
-    case "shortestRead":
-      return { readTimeInMinutes: "asc" };
-    case "longestRead":
-      return { readTimeInMinutes: "desc" };
-    default:
-      return {};
-      throw new Error(`Unsupported sort key: ${sortKey}`);
-  }
-};
-
 export const singleSortOptions: BlogSortOption<SortKey, ModelField>[] = [
   {
     key: "popularity",

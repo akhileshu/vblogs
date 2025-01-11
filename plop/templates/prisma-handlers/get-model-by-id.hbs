@@ -1,7 +1,7 @@
 "use server";
 
 import { Response } from "@/server-actions/types/response";
-import { {{pascalCase model}}Service } from "@/services/prisma/{{kebab-case model}}/{{kebab-case model}}-service";import prisma from "@/shared/lib/prisma";
+import { {{pascalCase model}}ServiceImplementation ,{{pascalCase model}}ServiceReturnType } from "@/services/prisma/{{kebab-case model}}/{{kebab-case model}}-service";import prisma from "@/shared/lib/prisma";
 import { IdSchema } from "@/server-actions/utils/zod";
 import {
   failure,
@@ -12,14 +12,14 @@ export const get{{pascalCase model}}ByIdHandler = async (
   id: string
 ): Promise<
   Response<
-    Awaited<ReturnType<{{pascalCase model}}Service["get{{pascalCase model}}ById"]>>
+       {{pascalCase model}}ServiceReturnType<"get{{pascalCase model}}ById">,
   >
 > => {
   try {
     const { data: validatedId, error } = IdSchema.safeParse(id);
     if (error)
       return failure("Invalid ID format");
-    const {{camelCase model}}Service = new {{pascalCase model}}Service(prisma);
+    const {{camelCase model}}Service = new {{pascalCase model}}ServiceImplementation(prisma);
     return { success: true, data: await {{camelCase model}}Service.get{{pascalCase model}}ById(validatedId) };
   } catch (error) {
     if(error instanceof FieldsError)return failureWithFieldErrors(error);

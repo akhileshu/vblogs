@@ -2,8 +2,15 @@ import { PrismaClient } from "@prisma/client";
 import fs from "fs";
 import path from "path";
 
-//cannot be instantiated directly - must be extended
-//contains both concrete(can be inherited/overridden) and abstract methods(meant to be overridden by subclasses)
+
+/* 
+cannot be instantiated directly - must be extended
+contains both concrete(can be inherited/overridden) and abstract methods(meant to be overridden by subclasses)
+
+interface - to define a contract for the external world (i.e public methods/properties only)
+Choose interface if you want to define a contract with no shared implementation.
+Choose abstract class if you need shared implementation and want to enforce a common structure while still allowing flexibility for subclasses to provide their own implementations.
+*/
 
 export abstract class BaseService {
   constructor(protected readonly prisma: PrismaClient) {}

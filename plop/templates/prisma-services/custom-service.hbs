@@ -3,8 +3,15 @@ import { BaseService } from "./../base-service";
 
 import { {{camelCase action}} } from "./{{kebab-case action}}";
 
+interface {{pascalCase model}}Service {
+  {{camelCase action}}(data: any): Promise<any>;
+}
 
-export class {{pascalCase model}}Service extends BaseService {
+export type {{pascalCase model}}ServiceReturnType<T extends keyof {{pascalCase model}}Service> = Awaited<
+  ReturnType<{{pascalCase model}}Service[T]>
+>;
+
+export class {{pascalCase model}}Service extends BaseService implements {{pascalCase model}}Service {
   constructor(prisma: PrismaClient) {
     super(prisma);
   }

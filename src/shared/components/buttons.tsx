@@ -21,13 +21,11 @@ export const FancyBtn: React.FC<FancyBtnProps> = ({
   text,
 }) => {
   return (
-    <div>
-      <div
-        className={`text-xs bg-${color}-100 border-[1px] border-solid border-${color}-300 text-${color}-600 rounded-sm px-1 ${className}`}
+      <button
+        className={`px-1 m-1 text-xs bg-${color}-100 border-[1px] border-solid border-${color}-300 text-${color}-600 rounded-sm px-1 ${className}`}
       >
         {text}
-      </div>
-    </div>
+      </button>
   );
 };
 

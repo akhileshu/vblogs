@@ -1,7 +1,7 @@
 "use server";
 
 import { Response } from "@/server-actions/types/response";
-import { BlogService } from "@/services/prisma/blog/blog-service";
+import { BlogServiceImplementation } from "@/services/prisma/blog/blog-service";
 import { SortKeyUnionForZod } from "@/shared/lib/blog-sort";
 import prisma from "@/shared/lib/prisma";
 import { BlogSearchQueryParameters } from "@/shared/types/models/blog";
@@ -27,7 +27,7 @@ export const getBlogSearchResultsHandler = async (
   params: BlogSearchQueryParameters
 ): Promise<
   Response<
-    Awaited<ReturnType<BlogService["getBlogSearchResults"]>>,
+    Awaited<ReturnType<BlogServiceImplementation["getBlogSearchResults"]>>,
     z.infer<typeof blogSearchFiltersSchema>
   >
 > => {
@@ -39,7 +39,7 @@ export const getBlogSearchResultsHandler = async (
         fieldErrors: error.formErrors.fieldErrors,
         errorMsg: "validation failed",
       };
-    const blogService = new BlogService(prisma);
+    const blogService = new BlogServiceImplementation(prisma);
     return {
       success: true,
       data: await blogService.getBlogSearchResults(params),

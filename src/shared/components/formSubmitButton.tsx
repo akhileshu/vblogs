@@ -1,17 +1,20 @@
+import { cn } from "@/lib/utils";
 import { useFormStatus } from "react-dom";
 
 export function SubmitButton({
   label = "submit",
   pendingLabel = "Submiting...",
+  className,
 }: {
-  label?: string;
-  pendingLabel?: string;
+  label?: React.ReactNode;
+  pendingLabel?: React.ReactNode;
+  className?: string;
 }) {
   const { pending } = useFormStatus();
 
   return (
     <button
-      className="p-2 my-1 border rounded-sm"
+      className={cn("p-2 my-1 border rounded-sm", className)}
       type="submit"
       aria-disabled={pending}
     >

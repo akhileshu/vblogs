@@ -3,7 +3,7 @@
 import { useSessionUserByRole } from "@/features/Auth/utils/useClientSessionUtils";
 import SlateRichText from "@/features/blog/richText/slate-rich-text";
 import { saveBlogContentHandler } from "@/server-actions/prisma-handlers/blog/save-blog-content-Handler";
-import { BlogService } from "@/services/prisma/blog/blog-service";
+import { BlogServiceImplementation } from "@/services/prisma/blog/blog-service";
 import { revalidateTagUtil } from "@/shared/utils/revalidateTagUtils";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -17,7 +17,9 @@ export default function SaveBlogContentForm({
 }: {
   params: { slug: string };
   mode: "create" | "edit";
-  blogContent?: Awaited<ReturnType<BlogService["getBlogContentBySlug"]>>;
+  blogContent?: Awaited<
+    ReturnType<BlogServiceImplementation["getBlogContentBySlug"]>
+  >;
 }) {
   const [result, formAction] = useFormState(saveBlogContentHandler, null);
   const router = useRouter();

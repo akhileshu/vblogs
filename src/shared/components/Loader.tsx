@@ -11,9 +11,9 @@ interface LoaderWrapperProps {
   children: React.ReactNode;
   className?: string;
 }
-export const  LoaderWrapper: React.FC<LoaderWrapperProps> = ({
+export const LoaderWrapper: React.FC<LoaderWrapperProps> = ({
   errorMsg,
-  isLoading=false, // unnecessary if promise being used in the componet ,suspense auto calcuates it
+  isLoading = false, // unnecessary if promise being used in the componet ,suspense auto calcuates it
   children,
   className,
   toRender = true,
@@ -23,10 +23,10 @@ export const  LoaderWrapper: React.FC<LoaderWrapperProps> = ({
   ) : (
     <Suspense fallback={<Loader />}>
       <div className={cn(className)}>
-        {errorMsg ? (
-          <p className="text-red-500">{errorMsg}</p>
-        ) : isLoading ? (
+        {isLoading ? (
           <Loader />
+        ) : errorMsg ? (
+          <p className="text-red-500">{errorMsg}</p>
         ) : (
           children
         )}
@@ -36,7 +36,7 @@ export const  LoaderWrapper: React.FC<LoaderWrapperProps> = ({
 };
 export function Loader({ className }: LoaderProps) {
   return (
-    <div role="status">
+    <div className="flex-center" role="status">
       <svg
         aria-hidden="true"
         className={cn(

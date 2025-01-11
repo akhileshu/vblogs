@@ -7,7 +7,19 @@ import { update{{pascalCase model}} } from "./update-{{kebab-case model}}";
 import { delete{{pascalCase model}} } from "./delete-{{kebab-case model}}";
 import { getAll{{pascalCase model}}s } from "./get-all-{{kebab-case model}}s";
 
-export class {{pascalCase model}}Service extends BaseService {
+interface {{pascalCase model}}Service {
+  create{{pascalCase model}}(data: Prisma.{{pascalCase model}}CreateInput): Promise<{{pascalCase model}}>;
+  get{{pascalCase model}}ById(id: string): Promise<{{pascalCase model}} | null>;
+  update{{pascalCase model}}(id: string, data: Prisma.{{pascalCase model}}UpdateInput): Promise<{{pascalCase model}}>;
+  delete{{pascalCase model}}(id: string): Promise<{{pascalCase model}}>;
+  getAll{{pascalCase model}}s(): Promise<{{pascalCase model}}[]>;
+}
+
+export type {{pascalCase model}}ServiceReturnType<T extends keyof {{pascalCase model}}Service> = Awaited<
+  ReturnType<{{pascalCase model}}Service[T]>
+>;
+
+export class {{pascalCase model}}Service extends BaseService implements {{pascalCase model}}Service {
   constructor(prisma: PrismaClient) {
     super(prisma);
   }

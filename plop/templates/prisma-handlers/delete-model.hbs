@@ -1,7 +1,7 @@
 "use server";
 
 import { Response } from "@/server-actions/types/response";
-import { {{pascalCase model}}Service } from "@/services/prisma/{{kebab-case model}}/{{kebab-case model}}-service";import prisma from "@/shared/lib/prisma";
+import { {{pascalCase model}}ServiceImplementation,{{pascalCase model}}ServiceReturnType } from "@/services/prisma/{{kebab-case model}}/{{kebab-case model}}-service";import prisma from "@/shared/lib/prisma";
 import { IdSchema } from "@/server-actions/utils/zod";
 import {
   failure,
@@ -17,14 +17,14 @@ export const delete{{pascalCase model}}Handler = async (
   formData: FormData
 ): Promise<
   Response<
-    Awaited<ReturnType<{{pascalCase model}}Service["delete{{pascalCase model}}"]>>
+      {{pascalCase model}}ServiceReturnType<"delete{{pascalCase model}}">,
   >
 > => {
   try {
     const { data: validatedData, error } = Delete{{pascalCase model}}Schema.safeParse(Object.fromEntries(formData.entries()));
     if (error)
       return failure("Invalid ID format");
-    const {{camelCase model}}Service = new {{pascalCase model}}Service(prisma);
+    const {{camelCase model}}Service = new {{pascalCase model}}ServiceImplementation(prisma);
     return { success: true, data: await {{camelCase model}}Service.delete{{pascalCase model}}(validatedData.id) };
   } catch (error) {
     if(error instanceof FieldsError)return failureWithFieldErrors(error);

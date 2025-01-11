@@ -7,7 +7,7 @@ const nextConfig = {
   //   };
   //   return config;
   // },
-  productionBrowserSourceMaps: true,
+
   reactStrictMode: true,
   images: {
     remotePatterns: [
@@ -44,6 +44,9 @@ const nextConfig = {
   // },
 
   //fix slow page compilation on dev server
+  experimental: {
+    serverSourceMaps: false,
+  },
   swcMinify: true,
   productionBrowserSourceMaps: false, // Disable source maps in development
   optimizeFonts: false, // Disable font optimization
@@ -56,8 +59,6 @@ const nextConfig = {
     // number of pages that should be kept simultaneously without being disposed
     pagesBufferLength: 4,
   },
-
-  
 };
 
 export default nextConfig;

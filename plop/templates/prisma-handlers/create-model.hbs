@@ -1,7 +1,8 @@
 "use server";
 
 import { Response } from "@/server-actions/types/response";
-import { {{pascalCase model}}Service } from "@/services/prisma/{{kebab-case model}}/{{kebab-case model}}-service";import prisma from "@/shared/lib/prisma";
+import { {{pascalCase model}}ServiceImplementation,{{pascalCase model}}ServiceReturnType } from "@/services/prisma/{{kebab-case model}}/{{kebab-case model}}-service";
+import prisma from "@/shared/lib/prisma";
 import { z } from "zod";
 import {
   failure,
@@ -17,14 +18,14 @@ export const create{{pascalCase model}}Handler = async (
   formData: FormData
 ): Promise<
   Response<
-    Awaited<ReturnType<{{pascalCase model}}Service["create{{pascalCase model}}"]>>,
+    {{pascalCase model}}ServiceReturnType<"create{{pascalCase model}}">,
     z.infer<typeof Create{{pascalCase model}}Schema>
   >
 > => {
   try {
     const { data: validatedData, error } = Create{{pascalCase model}}Schema.safeParse(Object.fromEntries(formData.entries()));
     if (error) return failureWithFieldErrors(error);
-    const {{camelCase model}}Service = new {{pascalCase model}}Service(prisma);
+    const {{camelCase model}}Service = new {{pascalCase model}}ServiceImplementation(prisma);
     return { success: true, data: await {{camelCase model}}Service.create{{pascalCase model}}(validatedData) };
   } catch (error) {
     if(error instanceof FieldsError)return failureWithFieldErrors(error);

@@ -1,7 +1,7 @@
 "use server";
 
 import { Response } from "@/server-actions/types/response";
-import { BlogService } from "@/services/prisma/blog/blog-service";
+import { BlogServiceImplementation } from "@/services/prisma/blog/blog-service";
 import prisma from "@/shared/lib/prisma";
 import { getErrorMsg } from "@/shared/utils/getErrorMsg";
 import { z } from "zod";
@@ -16,7 +16,7 @@ export const saveBlogContentHandler = async (
   formData: FormData
 ): Promise<
   Response<
-    Awaited<ReturnType<BlogService["saveBlogContent"]>>,
+    Awaited<ReturnType<BlogServiceImplementation["saveBlogContent"]>>,
     z.infer<typeof SaveBlogContentSchema>
   >
 > => {
@@ -30,7 +30,7 @@ export const saveBlogContentHandler = async (
         fieldErrors: error.formErrors.fieldErrors,
         errorMsg: "validation failed",
       };
-    const blogService = new BlogService(prisma);
+    const blogService = new BlogServiceImplementation(prisma);
     return {
       success: true,
       data: await blogService.saveBlogContent(validatedData),
