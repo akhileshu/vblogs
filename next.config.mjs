@@ -43,12 +43,19 @@ const nextConfig = {
   //   ];
   // },
 
+  // "dev:sourcemaps": "ENABLE_SOURCEMAPS=true next dev",
+  // serverSourceMaps: process.env.ENABLE_SOURCEMAPS === "true",
+  //found disabled sourcemaps causing no issue in debugging
+  // "dev": "next dev --turbo", turbo is also causing no issue
+
   //fix slow page compilation on dev server
+// below config might be causing full page reload on code even minor code changes
+
   experimental: {
     serverSourceMaps: false,
   },
+  productionBrowserSourceMaps: false,
   swcMinify: true,
-  productionBrowserSourceMaps: false, // Disable source maps in development
   optimizeFonts: false, // Disable font optimization
   minify: false, // Disable minification
   concurrentFeatures: true,
@@ -59,6 +66,8 @@ const nextConfig = {
     // number of pages that should be kept simultaneously without being disposed
     pagesBufferLength: 4,
   },
+
+  
 };
 
 export default nextConfig;

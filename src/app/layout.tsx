@@ -3,7 +3,7 @@ import "./globals.css";
 
 import { getServerSession } from "next-auth";
 import SessionProvider from "@/shared/providers/session-provider";
-import { ToasterProvider } from "@/shared/providers/toaster";
+import { ToasterProvider } from "@/shared/providers/ToasterProvider";
 import TopLoader from "@/shared/components/Toploader";
 
 export const metadata: Metadata = {

@@ -1,6 +1,6 @@
 "use client";
 
-import { AddBlogMetadataForm } from "@/features/blog/create/components/concept-select/AddBlogMetadataForm";
+import { AddBlogMetadataForm } from "@/features/blog/create/components/AddBlogMetadataForm";
 import {
   DropdownProvider,
   fetchCreateBlogConcepts,

@@ -1,14 +1,16 @@
 "use client";
 
-import { useSessionUserByRole } from "@/features/Auth/utils/useClientSessionUtils";
+import { useSessionUserByRole } from "@/shared/lib/auth/useClientSessionUtils";
 import SlateRichText from "@/features/blog/richText/slate-rich-text";
 import { saveBlogContentHandler } from "@/server-actions/prisma-handlers/blog/save-blog-content-Handler";
 import { BlogServiceImplementation } from "@/services/prisma/blog/blog-service";
 import { revalidateTagUtil } from "@/shared/utils/revalidateTagUtils";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useFormState } from "react-dom";
 import { Descendant } from "slate";
+import { extractResultData } from "@/server-actions/utils/response";
+import { appToast } from "@/shared/lib/toast";
 
 export default function SaveBlogContentForm({
   params: { slug },
@@ -30,10 +32,18 @@ export default function SaveBlogContentForm({
     throw new Error("Author not found");
   }
 
-  if (result?.success) {
+const {  success, errorMsg } = extractResultData(result);
+  if (success) {
     router.push(`/dashboard`);
     revalidateTagUtil(`get-blogs-by-author-id-${author.id}`);
   }
+  //todo : utilizing fieldErrors for errorfeedback whenever appropriate
+  useEffect(() => {
+    if (errorMsg) {
+      appToast.error(errorMsg);
+      console.log(errorMsg);
+    }
+  }, [errorMsg]);
 
   return (
     <div>

@@ -1,10 +1,10 @@
+import { getServerSessionUserByRole } from "@/shared/lib/auth/getServerSessionUtils";
 import { PrismaClient } from "@prisma/client";
 import fs from "fs";
 import path from "path";
 
-
 /* 
-cannot be instantiated directly - must be extended
+abstract class - cannot be instantiated directly - must be extended
 contains both concrete(can be inherited/overridden) and abstract methods(meant to be overridden by subclasses)
 
 interface - to define a contract for the external world (i.e public methods/properties only)
@@ -23,6 +23,16 @@ export abstract class BaseService {
   protected async afterAction(action: string, result: unknown) {
     this.log(`[After ${action}]`, result);
     // Shared post-action logic
+  }
+  protected async getLoggedInAuthor() {
+    const user = await getServerSessionUserByRole("AUTHOR");
+    if (!user) throw new Error("Please login as Author");
+    return user;
+  }
+  protected async getLoggedInUser() {
+    const user = await getServerSessionUserByRole("LEARNER");
+    if (!user) throw new Error("Please login with Learner Account");
+    return user;
   }
 
   protected log(action: string, payload: unknown) {

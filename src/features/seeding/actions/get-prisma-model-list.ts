@@ -2,7 +2,7 @@
 
 import fs from "fs";
 import path from "path";
-import { getCachedModelRowCount } from "./get-model-row-count";
+import { getCachedModelRowCount } from "./getCachedModelRowCount";
 
 export async function getPrismaModelsForSeed() {
   const MODELS_FOLDER_PATH = path.join(
@@ -25,7 +25,7 @@ export async function getPrismaModelsForSeed() {
   }
 }
 
-export const getModelCountList = async () => {
+export const getModelRowCounts = async () => {
   const modelCountList = await Promise.all(
     (
       await getPrismaModelsForSeed()

@@ -1,31 +1,31 @@
 "use server";
 
 import { Response } from "@/server-actions/types/response";
-import { BlogContentService } from "@/services/prisma/blog-content/blog-content-service";import prisma from "@/shared/lib/prisma";
-import { getErrorMsg } from "@/shared/utils/getErrorMsg";
+import { BlogContentServiceImplementation ,BlogContentServiceReturnType } from "@/services/prisma/blog-content/blog-content-service";import prisma from "@/shared/lib/prisma";
 import { IdSchema } from "@/server-actions/utils/zod";
+import {
+  failure,
+  failureWithFieldErrors,
+} from "@/server-actions/utils/response";
+import { FieldsError } from "@/shared/lib/errors/customError";
 
 export const getBlogContentByIdHandler = async (
   id: string
 ): Promise<
   Response<
-    Awaited<ReturnType<BlogContentService["getBlogContentById"]>>
+       BlogContentServiceReturnType<"getBlogContentById">
   >
 > => {
   try {
     const { data: validatedId, error } = IdSchema.safeParse(id);
     if (error)
-      return {
-        success: false,
-        errorMsg: "Invalid ID format",
-      };
-    const blogContentService = new BlogContentService(prisma);
+      return failure("Invalid ID format");
+    const blogContentService = new BlogContentServiceImplementation(prisma);
     return { success: true, data: await blogContentService.getBlogContentById(validatedId) };
   } catch (error) {
-    //handle error thrown by prisma service - throws parsed/understandable error message in Error object
-    return {
-      success: false,
-      errorMsg: getErrorMsg(error),
-    };
+    if(error instanceof FieldsError)return failureWithFieldErrors(error);
+    return failure(error);
   }
 };
+
+// End of handler

@@ -8,19 +8,23 @@ import { BlogSearchQueryParameters } from "@/shared/types/models/blog";
 import { getErrorMsg } from "@/shared/utils/getErrorMsg";
 import { z } from "zod";
 
+const csvUUIDSchema = z
+  .string()
+  .optional()
+  .refine(
+    (val) => {
+      if (!val) return true; // Allow undefined or empty values
+      const ids = val.split(",").map((id) => id.trim());
+      return ids.every((id) => z.string().uuid().safeParse(id).success);
+    },
+    { message: "Each item in the CSV must be a valid UUID" }
+  );
+
 const blogSearchFiltersSchema = z.object({
   query: z.string().optional(),
   sortKey: z.enum(SortKeyUnionForZod).optional(),
-  topicIdsCsv: z
-    .string()
-    .optional()
-    .transform((val) => (val ? val.split(",").map((id) => id.trim()) : []))
-    .refine(
-      (ids) => ids.every((id) => z.string().uuid().safeParse(id).success),
-      {
-        message: "Each topic ID must be a valid UUID",
-      }
-    ),
+  topicIdsCsv: csvUUIDSchema,
+  tagIdsCsv: csvUUIDSchema,
 });
 
 export const getBlogSearchResultsHandler = async (

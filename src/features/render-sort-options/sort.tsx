@@ -1,42 +1,32 @@
 import { cn } from "@/lib/utils";
 import { BlogSortOption } from "./types";
-import { doNothing } from "@/shared/utils/doNothing";
 
-export const SelectSortOption = <
-  SortKey extends string,
-  ModelField extends string
->({
+export const SelectSortOption = <SortKey extends string, ModelField extends string>({
   groupSortOptions,
   singleSortOptions,
   setSelectedSortKey,
   selectedSortKey,
   defaultSortKey,
   className,
-  onSortChange = doNothing,
 }: {
   groupSortOptions: BlogSortOption<SortKey, ModelField>[][];
   singleSortOptions: BlogSortOption<SortKey, ModelField>[];
-  setSelectedSortKey: React.Dispatch<React.SetStateAction<SortKey>>;
+  setSelectedSortKey: (sortKey: SortKey) => void;
   selectedSortKey: SortKey;
   defaultSortKey: SortKey;
   className?: string;
   onSortChange?: (sortKey: SortKey) => void;
 }) => {
   function handleSortChange(key: SortKey): void {
-    setSelectedSortKey((prevKey) => {
-      const newSortKey =
-        key === defaultSortKey
-          ? defaultSortKey
-          : prevKey === key
-          ? defaultSortKey
-          : key;
-
-      if (prevKey !== newSortKey) {
-        onSortChange(newSortKey); // Call onSortChange only if the key changes
+    const determineNewSortKey = (): SortKey => {
+      if (key === defaultSortKey || selectedSortKey === key) {
+        return defaultSortKey;
       }
+      return key;
+    };
 
-      return newSortKey; // Update the state
-    });
+    const newSortKey = determineNewSortKey();
+    if (selectedSortKey !== newSortKey)setSelectedSortKey(newSortKey);
   }
 
   return (

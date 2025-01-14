@@ -1,0 +1,5 @@
+export {createLinkedResourceHandler} from './create-linked-resource'
+export {deleteLinkedResourceHandler} from './delete-linked-resource'
+export {getAllLinkedResourcesHandler} from './get-all-linked-resources' 
+export {getLinkedResourceByIdHandler} from './get-linked-resource-by-id' 
+export {updateLinkedResourceHandler} from './update-linked-resource'

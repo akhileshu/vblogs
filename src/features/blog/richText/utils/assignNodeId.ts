@@ -1,7 +1,7 @@
 import { Editor, Transforms } from "slate";
 import { ReactEditor } from "slate-react";
 import { HeadingElement } from "../types";
-import { generateIdFromText } from "./generate-id-from-text";
+import { generateSlugFromText } from "./generateSlugFromText";
 
 export const assignNodeId = (
   editor: Editor,
@@ -9,6 +9,6 @@ export const assignNodeId = (
   text: string
 ) => {
   const path = ReactEditor.findPath(editor, element as never);
-  const id = generateIdFromText(text);
+  const id = generateSlugFromText(text);
   Transforms.setNodes(editor, { id }, { at: path });
 };

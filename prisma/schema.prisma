@@ -32,8 +32,8 @@ model Technology {
   updatedAt DateTime @updatedAt
   title     String
   topics    Topic[]
-  goal      Goal?    @relation(fields: [goalId], references: [id])
-  goalId    String?
+  goal      Goal     @relation(fields: [goalId], references: [id])
+  goalId    String // todo : refactor by making necessary fields as required 
 
   userInterests UserInterest[]
 }
@@ -63,15 +63,19 @@ model Tag {
 }
 
 model User {
-  id        String         @id @default(uuid())
-  createdAt DateTime       @default(now())
-  updatedAt DateTime       @updatedAt
-  role      UserRole       @default(LEARNER)
-  name      String
-  blogs     Blog[]
-  email     String         @unique
-  image     String
-  interests UserInterest[]
+  id                     String            @id @default(uuid())
+  createdAt              DateTime          @default(now())
+  updatedAt              DateTime          @updatedAt
+  role                   UserRole          @default(LEARNER)
+  name                   String
+  email                  String            @unique
+  image                  String
+  blogs                  Blog[]
+  interests              UserInterest[]
+  blogReadHistory        BlogReadHistory[]
+  blogBookmarks          BlogBookmark[]
+  ownedBlogPlaylists     BlogPlaylist[]    @relation("ownedBlogPlaylists")
+  followingBlogPlaylists BlogPlaylist[]    @relation("followingBlogPlaylists")
 }
 
 model UserInterest {
@@ -101,20 +105,28 @@ model Blog {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  topic             Topic?        @relation(fields: [topicId], references: [id])
+  topic             Topic?            @relation(fields: [topicId], references: [id])
   topicId           String?
   tags              TagsOnBlogs[]
-  author            User?         @relation(fields: [authorId], references: [id])
+  author            User?             @relation(fields: [authorId], references: [id])
   authorId          String?
   title             String
   // 
-  skillLevel        SkillLevel    @default(INTERMEDIATE)
-  content           BlogContent? 
+  skillLevel        SkillLevel        @default(INTERMEDIATE)
+  content           BlogContent?
   description       String?
-  slug              String        @unique // for sharable url
-  views             Int           @default(0)
+  slug              String            @unique // for sharable url
+  views             Int               @default(0)
   readTimeInMinutes Int?
   Video             Video?
+  LinkedResource    LinkedResource[]
+  BlogReadHistory   BlogReadHistory[]
+  BlogBookmark      BlogBookmark[]
+  // Outgoing blog links (blogs that this blog is linking to)
+  blogLinksAsSource BlogLink[]        @relation("BlogLinksAsSource") //all the links where this blog is the source
+
+  // Incoming blog links (blogs linking to this blog)
+  linkedBlogsAsTarget BlogLink[] @relation("BlogLinksAsTarget") //all the links where this blog is the target
 
   @@unique([topicId, title]) // Ensure unique title for each topic
 }
@@ -128,7 +140,7 @@ model BlogContent {
   intro          Json?
   implementation Json?
   advanced       Json?
-  blog           Blog   @relation(fields: [blogId], references: [id] , onDelete: Cascade) 
+  blog           Blog   @relation(fields: [blogId], references: [id], onDelete: Cascade) // todo : Use default restrict deletion behavior where possible
   blogId         String @unique
 }
 
@@ -171,10 +183,130 @@ model TagsOnBlogs {
 
   tag    Tag    @relation(fields: [tagId], references: [id])
   tagId  String
-  blog   Blog   @relation(fields: [blogId], references: [id] , onDelete: Cascade)
+  blog   Blog   @relation(fields: [blogId], references: [id], onDelete: Cascade)
   blogId String
 
   @@unique([blogId, tagId]) // a blog can't have the same tag twice
+}
+
+//todo : naming consistency
+
+model LinkedResource {
+  id                       String                          @id @default(uuid())
+  createdAt                DateTime                        @default(now())
+  updatedAt                DateTime                        @updatedAt
+  type                     LinkedResourceType
+  title                    String?
+  externalResourceCategory ExternalLinkedResourceCategory?
+  url                      String?
+  linkedBlog               Blog?                           @relation(fields: [linkedBlogId], references: [id], onDelete: Cascade)
+  linkedBlogId             String?
+}
+
+model BlogLink {
+  // Relation to the source blog (the blog from which the link originates)
+  sourceBlog   Blog   @relation("BlogLinksAsSource", fields: [sourceBlogId], references: [id], onDelete: Cascade)
+  sourceBlogId String
+  // Relation to the target blog (the blog to which the link points)
+  targetBlog   Blog   @relation("BlogLinksAsTarget", fields: [targetBlogId], references: [id], onDelete: Cascade)
+  targetBlogId String
+
+  relation  BlogLink_Relation
+  id        String            @id @default(uuid())
+  createdAt DateTime          @default(now())
+  updatedAt DateTime          @updatedAt
+
+  @@unique([sourceBlogId, targetBlogId]) // can't link 2 same blogs twice
+}
+
+model BlogReadHistory {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+  blog      Blog     @relation(fields: [blogId], references: [id], onDelete: Cascade)
+  blogId    String
+  viewCount Int      @default(1)
+
+  @@unique([userId, blogId]) // if a user reads same blog twice , increment viewCount
+}
+
+model BlogBookmark {
+  id                 String            @id @default(uuid())
+  createdAt          DateTime          @default(now())
+  updatedAt          DateTime          @updatedAt
+  user               User              @relation(fields: [userId], references: [id])
+  userId             String
+  blog               Blog              @relation(fields: [blogId], references: [id], onDelete: Cascade)
+  blogId             String
+  bookmarkList       BlogBookmarkList? @relation(fields: [blogBookmarkListId], references: [id])
+  blogBookmarkListId String?
+
+  @@unique([userId, blogId])
+}
+
+model BlogBookmarkList {
+  id        String         @id @default(uuid())
+  createdAt DateTime       @default(now())
+  updatedAt DateTime       @updatedAt
+  title     String
+  bookmarks BlogBookmark[]
+}
+
+model BlogPlaylist {
+  id          String             @id @default(uuid())
+  createdAt   DateTime           @default(now())
+  updatedAt   DateTime           @updatedAt
+  title       String
+  description String?
+  owner       User               @relation("ownedBlogPlaylists", fields: [ownerId], references: [id])
+  ownerId     String
+  followers   User[]             @relation("followingBlogPlaylists")
+  items       BlogPlaylistItem[]
+}
+
+model BlogPlaylistItem {
+  id             String               @id @default(uuid())
+  createdAt      DateTime             @default(now())
+  updatedAt      DateTime             @updatedAt
+  order          Int
+  type           BlogPlaylistItemType
+  BlogPlaylist   BlogPlaylist?        @relation(fields: [blogPlaylistId], references: [id])
+  blogPlaylistId String?
+
+  @@unique([blogPlaylistId, order]) // Ensure unique order per playlist //todo : enforce more constraints 
+}
+
+enum BlogPlaylistItemType {
+  PLATFORM_BLOG
+  GIT_REPO
+  ARTICLE
+  TUTORIAL
+}
+
+enum ExternalLinkedResourceCategory {
+  GIT_REPO
+  ARTICLE
+  TUTORIAL
+}
+
+enum BlogBookmarkType {
+  LIST
+  NO_LIST
+}
+
+// will consider this naming converntion
+enum BlogLink_Relation {
+  DEPENDS_UPON
+  IS_PREREQUISITE_FOR
+  EXPANDS_ON
+  IS_EXPANDED_BY
+}
+
+enum LinkedResourceType {
+  INTERNAL
+  EXTERNAL
 }
 
 enum SkillLevel {

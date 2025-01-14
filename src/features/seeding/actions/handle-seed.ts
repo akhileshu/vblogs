@@ -6,6 +6,7 @@ export async function handleSeedAction(
   models: string[],
   action: (typeof ACTIONS)[keyof typeof ACTIONS]
 ): Promise<string> {
+  //todo : improve error feedback on ui
   const prismaModels = await getPrismaModelsForSeed();
   if (!models || models.length === 0) {
     throw new Error("No models selected.");
@@ -23,7 +24,7 @@ export async function handleSeedAction(
   return `${action} successfully executed for models: ${models.join(", ")}`;
 }
 
-export async function executeDynamicSeedAction(
+async function executeDynamicSeedAction(
   model: string,
   action: (typeof ACTIONS)[keyof typeof ACTIONS]
 ): Promise<void> {

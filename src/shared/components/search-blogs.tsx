@@ -48,7 +48,7 @@ const SearchBlogs = () => {
       inputRef.current?.focus();
       return;
     }
-    const params = getSortParams();
+    const params = getSortParams(undefined,true);
     if (query) params.set("query", query);
     const topicIdsCsv = selectedOptions[2]
       ?.map((option) => option.id)
@@ -59,9 +59,6 @@ const SearchBlogs = () => {
         selectedOptions[2]?.map((option) => option.id).join(",")
       );
     }
-    // router.push(
-    //   "/blog/search-results?query=nodejs+what+is+this%3F&sortKey=newest&topicIdsCsv=aefc6a2e-430c-494a-ae87-f1fa625e97a7%2Ce0ca8343-5dc5-47f8-9e56-ee585d8a5a8e"
-    // );
     router.push(getUrl("blogSearchResults", undefined, params));
     inputRef.current?.blur();
     setHideDropdown(true);
@@ -75,7 +72,7 @@ const SearchBlogs = () => {
       <div className="flex-center">
         <input
           ref={inputRef}
-          onClick={() => setHideDropdown(false)}
+          onFocus={() => setHideDropdown(false)}
           onChange={(e) => setQuery(e.target.value)}
           value={query}
           type="text"

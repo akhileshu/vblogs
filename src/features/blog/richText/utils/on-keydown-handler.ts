@@ -11,7 +11,7 @@ export const onKeydownHandler = (
   if (handleShortcut(event, editor)) return;
   for (const hotkey in HOTKEYS) {
     if (isHotkey(hotkey, event)) {
-      event.preventDefault(); // bug : preventing on backspace
+      event.preventDefault(); // bug : preventing on backspace , todo: need to investigate , this should not happen
       const mark = HOTKEYS[hotkey as keyof typeof HOTKEYS];
       toggleMark(editor, mark);
       return;

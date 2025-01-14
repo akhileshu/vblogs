@@ -26,7 +26,7 @@ import { cn } from "@/lib/utils";
 import { BookmarkComponent } from "./components.ts/bookmark-navigation";
 import { RenderHeading } from "./components.ts/render-heading";
 import useDebouncedHeadings from "./hooks/useDebouncedHeadings";
-import useHandleHashNavigation from "./hooks/useHandleHashNavigation";
+import useScrollToHash from "./hooks/useScrollToHash";
 import { InitialTestContent } from "./utils/initial-test-content";
 
 type SlateRichTextProps = ReadProps | CreateProps | EditProps;
@@ -65,7 +65,7 @@ const SlateRichText = (props: SlateRichTextProps) => {
   const editor = useMemo(() => withHistory(withReact(createEditor())), []);
   const decorate = useDecorate(editor);
   const { headings, updateBookmarks } = useDebouncedHeadings(editor, 2000); //todo : no debounce on first render
-  useHandleHashNavigation();
+  useScrollToHash();
 
   return (
     <div className="">

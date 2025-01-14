@@ -12,6 +12,7 @@ export const fetchCreateBlogConcepts: FetchOptionsForLevel<Option> = async (
   let result;
   switch (levelIndex) {
     case 0:
+      //todo handle loading / error feedback for hierarchial dropdowns
      result = await getAllGoalsHandler();
       if (!result.success) return null;
       return {

@@ -5,6 +5,7 @@ export type BlogSearchQueryParameters = {
   query?: string;
   sortKey?: SortKey;
   topicIdsCsv?: string;
+  tagIdsCsv?: string;
 };
 
 export type AddBlogMetadataInput = {

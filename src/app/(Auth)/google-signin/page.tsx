@@ -1,7 +1,7 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { LoaderWrapper } from "@/shared/components/Loader";
+import { LoaderErrorWrapper } from "@/shared/components/Loader";
 import { signIn, useSession } from "next-auth/react";
 import { useEffect } from "react";
 
@@ -24,13 +24,13 @@ const GoogleSignIn = () => {
   }, [session, isLoading]);
 
   return (
-    <LoaderWrapper
+    <LoaderErrorWrapper
       isLoading={showLoaderAtStart}
       // error={error}
       className={cn("", { "flex-center h-screen bg-white": showLoaderAtStart })}
     >
       <></>
-    </LoaderWrapper>
+    </LoaderErrorWrapper>
   );
 };
 

@@ -1,6 +1,6 @@
 import SlateRichText from "@/features/blog/richText/slate-rich-text";
 import { getBlogContentBySlugHandler } from "@/server-actions/prisma-handlers/blog/get-blog-content-by-slug-Handler";
-import { LoaderWrapper } from "@/shared/components/Loader";
+import { LoaderErrorWrapper } from "@/shared/components/Loader";
 import { Descendant } from "slate";
 import SaveBlogContentForm from "../../../../../features/blog/components/save-blog-content-form";
 import { ErrorWhileFetching } from "@/shared/components/error";
@@ -26,7 +26,7 @@ export default async function BlogReadOrCreateOrEdit({
   }
 
   return (
-    <LoaderWrapper>
+    <LoaderErrorWrapper result={result!}>
       {mode === "create" || mode === "edit" ? (
         <SaveBlogContentForm
           blogContent={result?.data}
@@ -41,6 +41,6 @@ export default async function BlogReadOrCreateOrEdit({
       ) : (
         <p>Invalid mode specified</p>
       )}
-    </LoaderWrapper>
+    </LoaderErrorWrapper>
   );
 }

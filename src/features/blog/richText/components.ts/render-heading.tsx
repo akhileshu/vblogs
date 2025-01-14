@@ -24,7 +24,7 @@ export const RenderHeading = ({
 }: HeadingProps): JSX.Element => {
   const type = element.type;
     const headingText = element.type.startsWith("heading")
-      ? children?.[0]?.props?.text?.text
+      ? children?.[0]?.props?.text?.text // todo : review this and improve access of headingText
       : undefined;
   if (headingText) assignNodeId(editor, element, headingText);
 

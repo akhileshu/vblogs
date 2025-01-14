@@ -4,20 +4,35 @@ import { Suspense } from "react";
 interface LoaderProps {
   className?: string;
 }
-interface LoaderWrapperProps {
+interface LoaderWrapperProps<T = unknown> {
   errorMsg?: string | null;
   isLoading?: boolean;
   toRender?: boolean;
   children: React.ReactNode;
   className?: string;
+  result: {
+    errorMsg?: string | null;
+    data?: T | T[] | null;
+  };
 }
-export const LoaderWrapper: React.FC<LoaderWrapperProps> = ({
+export const LoaderErrorWrapper: React.FC<LoaderWrapperProps> = ({
   errorMsg,
   isLoading = false, // unnecessary if promise being used in the componet ,suspense auto calcuates it
   children,
   className,
   toRender = true,
+  result,
 }) => {
+  const errorMessage = !result
+    ? errorMsg
+    : result.errorMsg
+    ? result.errorMsg
+    : !result.data
+    ? "you are trying to fetch data that didn't exist"
+    : Array.isArray(result.data) && !result.data.length
+    ? "No data found"
+    : undefined;
+
   return !toRender ? (
     <></>
   ) : (
@@ -25,8 +40,8 @@ export const LoaderWrapper: React.FC<LoaderWrapperProps> = ({
       <div className={cn(className)}>
         {isLoading ? (
           <Loader />
-        ) : errorMsg ? (
-          <p className="text-red-500">{errorMsg}</p>
+        ) : errorMessage ? (
+          <p className="text-red-500">{errorMessage}</p>
         ) : (
           children
         )}
@@ -34,6 +49,11 @@ export const LoaderWrapper: React.FC<LoaderWrapperProps> = ({
     </Suspense>
   );
 };
+
+export const AppSuspense = ({ children }: { children: React.ReactNode }) => {
+  return <Suspense fallback={<Loader />}>{children}</Suspense>;
+};
+
 export function Loader({ className }: LoaderProps) {
   return (
     <div className="flex-center" role="status">

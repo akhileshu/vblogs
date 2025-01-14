@@ -1,0 +1,5 @@
+export {createVideoHandler} from './create-video'
+export {deleteVideoHandler} from './delete-video'
+export {getAllVideosHandler} from './get-all-videos' 
+export {getVideoByIdHandler} from './get-video-by-id' 
+export {updateVideoHandler} from './update-video'

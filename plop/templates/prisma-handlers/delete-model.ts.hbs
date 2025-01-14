@@ -8,6 +8,7 @@ import {
   failureWithFieldErrors,
 } from "@/server-actions/utils/response";
 import { FieldsError } from "@/shared/lib/errors/customError";
+import { z } from "zod";
 
 const Delete{{pascalCase model}}Schema = z.object({
   blogId: IdSchema

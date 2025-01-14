@@ -1,7 +1,10 @@
-import { generateIdFromText } from "@/features/blog/richText/utils/generate-id-from-text";
+import { generateSlugFromText } from "@/features/blog/richText/utils/generateSlugFromText";
 import { FieldErrors } from "@/server-actions/types/response";
 import { FieldsError } from "@/shared/lib/errors/customError";
-import { AddBlogMetadataInput, AddBlogMetadataSchemaType } from "@/shared/types/models/blog";
+import {
+  AddBlogMetadataInput,
+  AddBlogMetadataSchemaType,
+} from "@/shared/types/models/blog";
 import type { PrismaClient } from "@prisma/client";
 
 export async function addBlogMetadata(
@@ -10,7 +13,7 @@ export async function addBlogMetadata(
   authorId: string
 ) {
   try {
-/* 
+    /* 
     const fieldErrors: FieldErrors<AddBlogMetadataSchemaType> = {};
     if (!title || true) {
       fieldErrors.title = ["Title failed at bussiness logic validation"];
@@ -27,7 +30,7 @@ export async function addBlogMetadata(
      */
     const blogData = await prisma.blog.create({
       data: {
-        slug: generateIdFromText(title),
+        slug: generateSlugFromText(title),
         title,
         topicId,
         authorId,

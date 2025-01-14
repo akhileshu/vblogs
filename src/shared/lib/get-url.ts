@@ -1,10 +1,18 @@
-type Page = "blogRead" | "blogEdit" | "blogCreate"| "blogFillMetadata" | "blogSearchResults" | "authorDashboard";
+type Page =
+  | "blogRead"
+  | "blogEdit"
+  | "blogCreate"
+  | "blogFillMetadata"
+  | "blogSearchResults"
+  | "authorDashboard"
+  | "userProfile";
 
 export function getUrl(
   page: Page,
   slug?: string,
-  params?: URLSearchParams
+  params?: string | URLSearchParams
 ): string {
+  const query = params instanceof URLSearchParams ? params.toString() : params;
   switch (page) {
     case "blogRead":
       return `/blog/read/${slug}`;
@@ -15,9 +23,11 @@ export function getUrl(
     case "blogFillMetadata":
       return "/blog/create/fill-metadata";
     case "blogSearchResults":
-      return `/blog/search-results?${params?.toString()}`;
+      return `/blog/search-results?${query}`;
     case "authorDashboard":
-      return `/dashboard?${params?.toString()}`;
+      return `/dashboard?${query}`;
+    case "userProfile":
+      return `/profile`;
     default:
       throw new Error(`Unknown page: ${page}`);
   }

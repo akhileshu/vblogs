@@ -1,4 +1,4 @@
-import { generateIdFromText } from "@/features/blog/richText/utils/generate-id-from-text";
+import { generateSlugFromText } from "@/features/blog/richText/utils/generateSlugFromText";
 import { blogContents } from "@/features/seeding/blog-contents/blogContents";
 import { topicWithTagIdsList } from "@/features/seeding/blog-contents/topicWithTagIdsList";
 import prisma from "@/shared/lib/prisma";
@@ -28,13 +28,13 @@ export const bulkInsert = async () => {
   const readTimes = [5, 10, 15, 20, 25]; // Example read times in minutes
   const viewsCount = [10, 50, 100, 150, 200, 500, 1000]; // Example views count
 
-  function getRandomItem<T>(arr:T[]) {
+  function getRandomItem<T>(arr: T[]) {
     return arr[Math.floor(Math.random() * arr.length)];
   }
 
   topicWithTagIdsList.forEach(async (topic, index) => {
     // Randomly generate the read time, views, and skill level
-    const {content,description,title}=blogContents[index]
+    const { content, description, title } = blogContents[index];
     const randomReadTime = getRandomItem(readTimes);
     const randomViews = getRandomItem(viewsCount);
     const randomSkillLevel = getRandomItem(skillLevels);
@@ -46,7 +46,7 @@ export const bulkInsert = async () => {
         topicId: topic.id,
         views: randomViews,
         title: title,
-        slug: generateIdFromText(title),
+        slug: generateSlugFromText(title),
         skillLevel: randomSkillLevel as SkillLevel,
         content: {
           create: {
@@ -54,8 +54,8 @@ export const bulkInsert = async () => {
           },
         },
         tags: {
-          create: topic.tagIds.map(({id}) => ({
-            tagId:id,
+          create: topic.tagIds.map(({ id }) => ({
+            tagId: id,
           })),
         },
       },

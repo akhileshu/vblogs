@@ -1,4 +1,4 @@
-import { getUserRoleByEmailId } from "@/shared/lib/auth";
+import { getUserRoleByEmailId } from "@/shared/lib/auth/getUserRoleByEmailId";
 import prisma from "@/shared/lib/prisma";
 import NextAuth, { NextAuthOptions } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
@@ -34,8 +34,8 @@ export const authOptions: NextAuthOptions = {
   callbacks: {
     //callbacks called after signin
 
-    async signIn({ account, profile, user }) {
-      //debugger;
+    async signIn({ profile, user }) {
+      
       const { email, name, role, picture } = user;
       if (
         !email ||
@@ -58,11 +58,12 @@ export const authOptions: NextAuthOptions = {
         user.id = userprofile.id;
         return true;
       } catch (error) {
+        console.log(error)
         return false;
       }
     },
     async session({ token, session }) {
-      //debugger;
+      
       /* 
       saw a bug where token.id was giving a id that didn't exist in the database
       fix: check if token.id exists in the database - in jwt callback
@@ -77,9 +78,9 @@ export const authOptions: NextAuthOptions = {
       }
       return session;
     },
-    async jwt({ token, user, profile }) {
+    async jwt({ token, user}) {
       // very wierd behaviour , it wont work if use any field before making sure it must exist , have this consistent structure
-      //debugger;
+      
       if (user && user.id && user.role && user.picture) {
         token.id = user.id;
         token.role = user.role;

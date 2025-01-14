@@ -1,4 +1,3 @@
-// SuggestionInput.tsx
 import React from "react";
 
 interface SuggestionInputProps {

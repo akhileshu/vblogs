@@ -16,10 +16,9 @@ import { getAllBlogs } from "./get-blogs";
 import { getBlogsByAuthorId } from "./get-blogs-by-author-id";
 import { updateBlog } from "./update-blog";
 
-import { getServerSessionUserByRole } from "@/features/Auth/utils/getServerSessionUtils";
 import { SortKey } from "@/shared/lib/blog-sort";
-import { saveBlogContent } from "./save-blog-content";
 import { BlogContent } from "../../../../generated/type-graphql";
+import { saveBlogContent } from "./save-blog-content";
 
 /* 
 . Returning null or undefined
@@ -83,11 +82,6 @@ export class BlogServiceImplementation
     }
   }
 
-  private async getLoggedInAuthor() {
-    const user = await getServerSessionUserByRole("AUTHOR");
-    if (!user) throw new Error("Please login as an author.");
-    return user;
-  }
   async createBlog(data: Prisma.BlogCreateInput) {
     await this.beforeAction("create", data);
     const result = await createBlog(this.prisma, data);
@@ -111,6 +105,7 @@ export class BlogServiceImplementation
 
   async deleteBlog(id: string) {
     await this.beforeAction("delete", id);
+    const {}=this.getLoggedInUser()
     const result = await deleteBlog(this.prisma, id);
     await this.afterAction("delete", result);
     return result;

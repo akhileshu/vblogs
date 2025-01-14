@@ -6,6 +6,7 @@ export async function getBlogSearchResults(
   {
     query,
     topicIdsCsv,
+    tagIdsCsv,
     orderBy,
   }: BlogSearchQueryParameters & {
     orderBy?: Prisma.BlogOrderByWithRelationInput;
@@ -37,6 +38,32 @@ export async function getBlogSearchResults(
 
         topicId: {
           in: topicIdsCsv?.split(","),
+        },
+        tags: {
+          //blog must be associated with at least one tag that matches the tagIdsCsv values
+          some: {
+            tagId: {
+              in: tagIdsCsv?.split(","),
+            },
+          },
+        },
+      },
+      include: {
+        tags: {
+          select: {
+            tag: {
+              select: {
+                id: true,
+                title: true,
+              },
+            },
+          },
+        },
+        topic: {
+          select: {
+            id: true,
+            title: true,
+          },
         },
       },
       orderBy,

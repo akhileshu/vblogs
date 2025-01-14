@@ -4,8 +4,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "concurrently \"npx prisma studio\" \"next dev --turbo\"",
-    "debug": "cross-env NODE_OPTIONS='--inspect' concurrently \"npx prisma studio\" \"next dev --turbo\"",
+    "dev": "next dev --turbo",
+    "debug": "cross-env NODE_OPTIONS='--inspect' concurrently \"npx prisma studio\" \"next dev \"",
     "dev-ui": "next dev --turbo",
     "build": "next build",
     "codegen": "graphql-codegen",

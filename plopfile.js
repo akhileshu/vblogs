@@ -40,8 +40,7 @@ export default function plop(/** @type {import('plop').NodePlopAPI} */ plop) {
     description: "Generate Prisma model services",
     prompts: [],
     actions: () => {
-      const models = ["video", "videoSection"];
-      // const models = allPrismaModels();
+      const models = allPrismaModels();
       return models.flatMap((model) =>
         createModelActions(
           model,
@@ -64,8 +63,7 @@ export default function plop(/** @type {import('plop').NodePlopAPI} */ plop) {
     description: "Generate Prisma model handlers",
     prompts: [],
     actions: () => {
-      // const models = allPrismaModels();
-      const models = ["video", "videoSection"];
+      const models = allPrismaModels();
       return models.flatMap((model) =>
         createModelActions(
           model,
@@ -213,6 +211,7 @@ export default function plop(/** @type {import('plop').NodePlopAPI} */ plop) {
         message: "Select the type of file to generate:",
         choices: [
           { name: "Functional Component", value: "component" },
+          { name: "Nextjs page route", value: "nextjsPageRoute" },
           { name: "Function", value: "function" },
           { name: "Context with Provider", value: "contextWithProvider" },
           { name: "Custom Hook", value: "customHook" },
@@ -222,44 +221,70 @@ export default function plop(/** @type {import('plop').NodePlopAPI} */ plop) {
       },
       {
         type: "input",
-        name: "name",
-        message: "Enter the name (e.g., Button, calculateSum):",
+        name: "names",
+        message:
+          //improvement : added csv as input feature for multiple file generations
+          "Enter a comma-separated list of names (e.g., Button, Card, Form):",
       },
     ],
     actions: (data) => {
-      const { fileType, name } = data;
-      const additionalDataMap = {
-        mutationForm: () => ({ action: name }),
-        dataRenderer: () => ({ action: name }),
-        contextWithProvider: () => ({ contextName: name }),
+      const { fileType } = data;
+      const names = data.names.split(",").map((name) => name.trim());
+
+      const config = (name) => {
+        return {
+          component: {
+            templateFile: `${templateBasePaths.reactNextjs}/functional-component.tsx.hbs`,
+            outputSubPath: "components",
+            data: { name },
+          },
+          function: {
+            templateFile: `${templateBasePaths.reactNextjs}/function.ts.hbs`,
+            outputSubPath: "utils",
+            data: { name },
+          },
+          contextWithProvider: {
+            templateFile: `${templateBasePaths.reactNextjs}/context-api-provider.tsx.hbs`,
+            outputSubPath: "context",
+            data: { contextName: name, name },
+          },
+          customHook: {
+            templateFile: `${templateBasePaths.reactNextjs}/useCustomHook.ts.hbs`,
+            outputSubPath: "hooks",
+            data: { name },
+          },
+          mutationForm: {
+            templateFile: `${templateBasePaths.reactNextjs}/mutation-form.tsx.hbs`,
+            outputSubPath: "components",
+            data: { action: name, name },
+          },
+          dataRenderer: {
+            templateFile: `${templateBasePaths.reactNextjs}/data-renderer.tsx.hbs`,
+            outputSubPath: "components",
+            data: { action: name, name },
+          },
+          nextjsPageRoute: {
+            templateFile: `${templateBasePaths.reactNextjs}/nextjs-page-route.tsx.hbs`,
+            data: { name },
+          },
+        };
       };
 
-      const templatePaths = {
-        component: `${templateBasePaths.reactNextjs}/functional-component.tsx.hbs`,
-        function: `${templateBasePaths.reactNextjs}/function.ts.hbs`,
-        contextWithProvider: `${templateBasePaths.reactNextjs}/context-api-provider.tsx.hbs`,
-        customHook: `${templateBasePaths.reactNextjs}/useCustomHook.ts.hbs`,
-        mutationForm: `${templateBasePaths.reactNextjs}/mutation-form.tsx.hbs`,
-        dataRenderer: `${templateBasePaths.reactNextjs}/data-renderer.tsx.hbs`,
-      };
-
-      const outputSubPaths = {
-        component: "components",
-        function: "utils",
-        contextWithProvider: "context",
-        customHook: "hooks",
-        mutationForm: "components",
-        dataRenderer: "components",
-      };
-
-      return [
-        {
+      const actions = names.map((name) => {
+        const { data, outputSubPath, templateFile } = config(name)[fileType];
+        const path =
+          fileType === "nextjsPageRoute"
+            ? `${currentPath}/{{kebab-case name}}/page.tsx`
+            : `${currentPath}/${outputSubPath}/{{kebab-case name}}.tsx`;
+        return {
           type: "add",
-          path: `${currentPath}/${outputSubPaths[fileType]}/{{kebab-case name}}.tsx`,
-          templateFile: templatePaths[fileType],
-          data: additionalDataMap[fileType]?.() || {},
-        },
-      ];
+          path,
+          templateFile,
+          data,
+        };
+      });
+
+      return actions;
     },
   });
 }

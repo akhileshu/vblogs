@@ -1,31 +1,31 @@
 "use server";
 
 import { Response } from "@/server-actions/types/response";
-import { TagsOnBlogsService } from "@/services/prisma/tags-on-blogs/tags-on-blogs-service";import prisma from "@/shared/lib/prisma";
-import { getErrorMsg } from "@/shared/utils/getErrorMsg";
+import { TagsOnBlogsServiceImplementation ,TagsOnBlogsServiceReturnType } from "@/services/prisma/tags-on-blogs/tags-on-blogs-service";import prisma from "@/shared/lib/prisma";
 import { IdSchema } from "@/server-actions/utils/zod";
+import {
+  failure,
+  failureWithFieldErrors,
+} from "@/server-actions/utils/response";
+import { FieldsError } from "@/shared/lib/errors/customError";
 
 export const getTagsOnBlogsByIdHandler = async (
   id: string
 ): Promise<
   Response<
-    Awaited<ReturnType<TagsOnBlogsService["getTagsOnBlogsById"]>>
+       TagsOnBlogsServiceReturnType<"getTagsOnBlogsById">
   >
 > => {
   try {
     const { data: validatedId, error } = IdSchema.safeParse(id);
     if (error)
-      return {
-        success: false,
-        errorMsg: "Invalid ID format",
-      };
-    const tagsOnBlogsService = new TagsOnBlogsService(prisma);
+      return failure("Invalid ID format");
+    const tagsOnBlogsService = new TagsOnBlogsServiceImplementation(prisma);
     return { success: true, data: await tagsOnBlogsService.getTagsOnBlogsById(validatedId) };
   } catch (error) {
-    //handle error thrown by prisma service - throws parsed/understandable error message in Error object
-    return {
-      success: false,
-      errorMsg: getErrorMsg(error),
-    };
+    if(error instanceof FieldsError)return failureWithFieldErrors(error);
+    return failure(error);
   }
 };
+
+// End of handler
