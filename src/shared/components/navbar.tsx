@@ -8,6 +8,7 @@ import { HoverDropdown } from "./hover-dropdown";
 import SearchBlogs from "./search-blogs";
 import { DropdownProvider } from "@/features/hierarchical-dropdowns";
 import { getUrl } from "../lib/get-url";
+import Link from "next/link";
 
 interface InputProps {
   className?: string;
@@ -27,6 +28,7 @@ export function Navbar({ className }: InputProps) {
         <Discover />
         <StyledLink href={getUrl("blogFillMetadata")} text="create a blog" />
         <Notifications />
+        <Link href={"/dashboard"}>dashboard</Link>
       </div>
 
       <div className="flex gap-2 items-center">

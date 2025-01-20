@@ -27,7 +27,8 @@ export const AppCard: React.FC<CardProps> = ({
       )}
       {...props}
     >
-      <p className="font-semibold my-2">{title}</p>
+      {title ? <p className="font-semibold my-2">{title}</p>: null}
+      
       {children}
     </div>
   );

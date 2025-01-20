@@ -18,7 +18,7 @@ const links = [
   },
 ];
 
-const ProfileInnerSidebar: React.FC<ProfileInnerSidebarProps> = ({
+const ProfileSidebarNavigation: React.FC<ProfileInnerSidebarProps> = ({
   className,
 }) => {
   const pathname = usePathname();
@@ -41,4 +41,4 @@ const ProfileInnerSidebar: React.FC<ProfileInnerSidebarProps> = ({
   );
 };
 
-export default ProfileInnerSidebar;
+export default ProfileSidebarNavigation;

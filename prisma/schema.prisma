@@ -86,10 +86,10 @@ model UserInterest {
   userId String
   user   User   @relation(fields: [userId], references: [id])
 
-  technologyId String?
+  technologyId String? @unique
   technology   Technology? @relation(fields: [technologyId], references: [id])
 
-  topicId String?
+  topicId String? @unique
   topic   Topic?  @relation(fields: [topicId], references: [id])
 
   interestType InterestType //field to determine the type of interest (technology or topic)
