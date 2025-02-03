@@ -3,7 +3,8 @@ import { Option } from "./types";
 
 
 type DropdownContextType = {
-  selectedOptions: Option[][];
+  // selectedOptions: (Option[] | undefined)[]; // initially its empty array []
+  selectedOptions: Option[][] | []; // initially its empty array []
   setSelectedOptions: React.Dispatch<React.SetStateAction<Option[][]>>;
 };
 
@@ -24,7 +25,7 @@ export const useDropdownContext = () => {
 export const DropdownProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  const [selectedOptions, setSelectedOptions] = useState<Option[][]>([]);
+  const [selectedOptions, setSelectedOptions] = useState<Option[][] | []>([]);
 
   return (
     <DropdownContext.Provider value={{ selectedOptions, setSelectedOptions }}>

@@ -3,7 +3,14 @@ import { getErrorMsg } from "@/shared/utils/getErrorMsg";
 import { useEffect, useId, useState } from "react";
 import { TiDelete } from "react-icons/ti";
 import { useDropdownContext } from ".";
-import { ACTION_TYPE, ActionType, FetchOptionsForLevel, Option, SELECT_TYPE, SelectType } from "./types";
+import {
+  ACTION_TYPE,
+  ActionType,
+  FetchOptionsForLevel,
+  Option,
+  SELECT_TYPE,
+  SelectType,
+} from "./types";
 
 export const HierarchialDropdowns = ({
   fetchOptionsForLevel,
@@ -22,12 +29,13 @@ export const HierarchialDropdowns = ({
     }[]
   >([]);
 
-  const { selectedOptions,setSelectedOptions } = useDropdownContext();
+  const { selectedOptions, setSelectedOptions } = useDropdownContext();
 
   const fetchNextOrUpdateLevels = async () => {
     const levelIndex = selectedOptions.length;
     const dependentOptions =
       levelIndex > 0 ? selectedOptions[levelIndex - 1] : [];
+      //todo : simplify logic 
     const isRequiredDependencySelectedOptionsNotAvailable =
       levelIndex !== 0 && dependentOptions.length === 0;
     if (isRequiredDependencySelectedOptionsNotAvailable) {
@@ -75,14 +83,12 @@ export const HierarchialDropdowns = ({
     );
   };
 
-  
   useEffect(() => {
     fetchNextOrUpdateLevels();
   }, [selectedOptions]);
 
-
   return (
-    <div className={cn("p-2 border rounded-sm m-2 space-y-2", className)}>
+    <div className={cn("p-2 border rounded-sm m-2 space-y-2 ", className)}>
       <p className="font-bold text-base">Filter Topics</p>
       {levels.map((level, index) => (
         <CollapsibleDropdown
@@ -139,12 +145,12 @@ const CollapsibleDropdown = ({
   };
   const id = useId();
   return (
-    <div className="flex items-center gap-2">
-      <label htmlFor={`${id}-${label}-dropdown-input`} className="w-24">
+    <div className="flex items-center gap-2 max-w-lg text-sm">
+      <label htmlFor={`${id}-${label}-dropdown-input`} className="flex-[2]">
         {label}
       </label>
-      <div className={cn("relative group/dropdown", className)}>
-        <div className="flex items-center border p-1 rounded-sm gap-2">
+      <div className={cn("relative group/dropdown flex-[8]", className)}>
+        <div className="flex items-center border p-1 rounded-sm gap-2 flex-wrap">
           <input
             value={query}
             onChange={(e) => setQuery(e.target.value)}
@@ -155,7 +161,7 @@ const CollapsibleDropdown = ({
           {selectedOptionList.map((item) => (
             <div
               key={item.id}
-              className="border p-1 rounded-sm flex items-center gap-1"
+              className="border p-1 rounded-sm flex items-center gap-1 bg-gray-100"
             >
               {item.title}
               <TiDelete
@@ -169,15 +175,19 @@ const CollapsibleDropdown = ({
           className="z-10 absolute border min-w-60 overflow-y-auto bg-white shadow-md invisible opacity-0 group-focus-within/dropdown:visible group-focus-within/dropdown:opacity-100 transition-opacity"
           tabIndex={-1}
         >
-          {filteredOptions.map((item) => (
-            <p
-              key={item.id}
-              className="p-2 hover:bg-gray-200 cursor-pointer"
-              onClick={() => handleAdd(item.id)}
-            >
-              {item.title}
-            </p>
-          ))}
+          {filteredOptions.length > 0 ? (
+            filteredOptions.map((item) => (
+              <p
+                key={item.id}
+                className="p-2 hover:bg-gray-200 cursor-pointer"
+                onClick={() => handleAdd(item.id)}
+              >
+                {item.title}
+              </p>
+            ))
+          ) : (
+            <p className="p-2 text-gray-500">No results</p>
+          )}
         </div>
       </div>
     </div>

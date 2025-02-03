@@ -1,19 +1,14 @@
 "use server";
 
 import { Response } from "@/server-actions/types/response";
-import { TopicService } from "@/services/prisma/topic/topic-service";import prisma from "@/shared/lib/prisma";
+import { TopicService } from "@/services/prisma/topic/topic-service";
+import prisma from "@/shared/lib/prisma";
 import { getErrorMsg } from "@/shared/utils/getErrorMsg";
-import { IdSchema } from "@/server-actions/utils/zod";
-
-
+import { IdSchema } from "@/shared/lib/zod";
 
 export const deleteTopicHandler = async (
   id: string
-): Promise<
-  Response<
-    Awaited<ReturnType<TopicService["deleteTopic"]>>
-  >
-> => {
+): Promise<Response<Awaited<ReturnType<TopicService["deleteTopic"]>>>> => {
   try {
     const { data: validatedId, error } = IdSchema.safeParse(id);
     if (error)

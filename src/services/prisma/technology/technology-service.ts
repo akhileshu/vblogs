@@ -14,37 +14,27 @@ export class TechnologyService extends BaseService {
   }
 
   async createTechnology(data: Prisma.TechnologyCreateInput) {
-    await this.beforeAction("create", data);
     const result = await createTechnology(this.prisma, data);
-    await this.afterAction("create", result);
     return result;
   }
 
   async getTechnologyById(id: string) {
-    await this.beforeAction("getById", id);
     const result = await getTechnologyById(this.prisma, id);
-    await this.afterAction("getById", result);
     return result;
   }
 
   async updateTechnology(id: string, data: Prisma.TechnologyUpdateInput) {
-    await this.beforeAction("update", { id, data });
     const result = await updateTechnology(this.prisma, id, data);
-    await this.afterAction("update", result);
     return result;
   }
 
   async deleteTechnology(id: string) {
-    await this.beforeAction("delete", id);
     const result = await deleteTechnology(this.prisma, id);
-    await this.afterAction("delete", result);
     return result;
   }
 
   async getAllTechnologys() {
-    await this.beforeAction("getAll", null);
     const result = await getAllTechnologys(this.prisma);
-    await this.afterAction("getAll", result);
     return result;
   }
   async getTechnologiesByGoalId(goalId: string) {

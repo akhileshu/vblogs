@@ -1,13 +1,11 @@
 "use client";
 import { addBlogMetadataHandler } from "@/server-actions/prisma-handlers/blog/add-blog-metadata-Handler";
-import { extractResultData } from "@/server-actions/utils/response";
 import { SubmitButton } from "@/shared/components/formSubmitButton";
 import AppInput, { AppCard } from "@/shared/components/standard-components";
+import { useFormHandler } from "@/shared/hooks/useFormHandler";
 import { getUrl } from "@/shared/lib/get-url";
-import { appToast } from "@/shared/lib/toast";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
-import { useFormState } from "react-dom";
+import { useState } from "react";
 
 export function AddBlogMetadataForm({
   tagIds,
@@ -17,25 +15,15 @@ export function AddBlogMetadataForm({
   topicId: string;
 }) {
   const [title, setTitle] = useState<string>("");
-
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const initialState = {
-    fieldErrors: undefined,
-    errorMsg: undefined,
-    data: undefined,
-    success:false
-  };
-  const [result, formAction] = useFormState(addBlogMetadataHandler, null);
   const router = useRouter();
-  const { data, success, errorMsg, fieldErrors } = extractResultData(result);
-  if (success) router.push(getUrl("blogCreate", data?.slug));
 
-  useEffect(() => {
-    if (errorMsg) {
-      appToast.error(errorMsg);
-      console.log(errorMsg);
-    }
-  }, [errorMsg]);
+  const { fieldErrors, formAction } = useFormHandler({
+    actionHandler: addBlogMetadataHandler,
+    onSuccess: (data) => {
+      router.push(getUrl("blogCreate", data?.slug));
+    },
+    successMessage: "Blog metadata added successfully!",
+  });
 
   return (
     <AppCard title="Provide additional details" widthVariant="medium">

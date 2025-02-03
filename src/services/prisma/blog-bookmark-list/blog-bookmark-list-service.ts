@@ -25,37 +25,27 @@ export class BlogBookmarkListServiceImplementation extends BaseService implement
   }
 
   async createBlogBookmarkList(data: Prisma.BlogBookmarkListCreateInput) {
-    await this.beforeAction("createBlogBookmarkList", data);
     const result = await createBlogBookmarkList(this.prisma, data);
-    await this.afterAction("reateBlogBookmarkList", result);
     return result;
   }
 
   async getBlogBookmarkListById(id: string) {
-    await this.beforeAction("getBlogBookmarkListById", id);
     const result = await getBlogBookmarkListById(this.prisma, id);
-    await this.afterAction("getBlogBookmarkListById", result);
     return result;
   }
 
   async updateBlogBookmarkList(id: string, data: Prisma.BlogBookmarkListUpdateInput) {
-    await this.beforeAction("updateBlogBookmarkList", { id, data });
     const result = await updateBlogBookmarkList(this.prisma, id, data);
-    await this.afterAction("updateBlogBookmarkList", result);
     return result;
   }
 
   async deleteBlogBookmarkList(id: string) {
-    await this.beforeAction("deleteBlogBookmarkList", id);
     const result = await deleteBlogBookmarkList(this.prisma, id);
-    await this.afterAction("deleteBlogBookmarkList", result);
     return result;
   }
 
   async getAllBlogBookmarkLists() {
-    await this.beforeAction("getAllBlogBookmarkLists", null);
     const result = await getAllBlogBookmarkLists(this.prisma);
-    await this.afterAction("getAllBlogBookmarkLists", result);
     return result;
   }
 

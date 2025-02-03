@@ -50,9 +50,24 @@ export const LoaderErrorWrapper: React.FC<LoaderWrapperProps> = ({
   );
 };
 
-export const AppSuspense = ({ children }: { children: React.ReactNode }) => {
-  return <Suspense fallback={<Loader />}>{children}</Suspense>;
+export const AppSuspense = ({
+  children,
+  message,
+}: {
+  children: React.ReactNode;
+  message?: string;
+}) => {
+  return <Suspense fallback={<LoaderCard message={message} />}>{children}</Suspense>;
 };
+
+export function LoaderCard({ message }: { message?: string }) {
+  return (
+    <div className="text-center space-y-5 min-w-56 border rounded-md p-5 m-auto">
+      <Loader />
+      <p>{message}</p>
+    </div>
+  );
+}
 
 export function Loader({ className }: LoaderProps) {
   return (

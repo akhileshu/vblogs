@@ -25,37 +25,27 @@ export class BlogPlaylistServiceImplementation extends BaseService implements Bl
   }
 
   async createBlogPlaylist(data: Prisma.BlogPlaylistCreateInput) {
-    await this.beforeAction("createBlogPlaylist", data);
     const result = await createBlogPlaylist(this.prisma, data);
-    await this.afterAction("reateBlogPlaylist", result);
     return result;
   }
 
   async getBlogPlaylistById(id: string) {
-    await this.beforeAction("getBlogPlaylistById", id);
     const result = await getBlogPlaylistById(this.prisma, id);
-    await this.afterAction("getBlogPlaylistById", result);
     return result;
   }
 
   async updateBlogPlaylist(id: string, data: Prisma.BlogPlaylistUpdateInput) {
-    await this.beforeAction("updateBlogPlaylist", { id, data });
     const result = await updateBlogPlaylist(this.prisma, id, data);
-    await this.afterAction("updateBlogPlaylist", result);
     return result;
   }
 
   async deleteBlogPlaylist(id: string) {
-    await this.beforeAction("deleteBlogPlaylist", id);
     const result = await deleteBlogPlaylist(this.prisma, id);
-    await this.afterAction("deleteBlogPlaylist", result);
     return result;
   }
 
   async getAllBlogPlaylists() {
-    await this.beforeAction("getAllBlogPlaylists", null);
     const result = await getAllBlogPlaylists(this.prisma);
-    await this.afterAction("getAllBlogPlaylists", result);
     return result;
   }
 

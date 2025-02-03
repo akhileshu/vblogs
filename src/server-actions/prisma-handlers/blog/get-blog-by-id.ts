@@ -2,7 +2,7 @@
 
 import { Response } from "@/server-actions/types/response";
 import { failure } from "@/server-actions/utils/response";
-import { IdSchema } from "@/server-actions/utils/zod";
+import { IdSchema } from "@/shared/lib/zod";
 import { BlogServiceImplementation } from "@/services/prisma/blog/blog-service";
 import prisma from "@/shared/lib/prisma";
 

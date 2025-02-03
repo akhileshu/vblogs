@@ -1,12 +1,13 @@
 "use server";
 
 import { Response } from "@/server-actions/types/response";
-import { TagService } from "@/services/prisma/tag/tag-service";import prisma from "@/shared/lib/prisma";
+import { TagService } from "@/services/prisma/tag/tag-service";
+import prisma from "@/shared/lib/prisma";
 import { getErrorMsg } from "@/shared/utils/getErrorMsg";
 import { z } from "zod";
 
 const UpdateTagSchema = z.object({
-id: z.string().uuid(),
+  id: z.string().uuid(),
 });
 
 export const updateTagHandler = async (
@@ -19,7 +20,10 @@ export const updateTagHandler = async (
   >
 > => {
   try {
-    const { data: {id,...validatedData}, error } = UpdateTagSchema.safeParse(formData);
+    const {
+      data: { id, ...validatedData },
+      error,
+    } = UpdateTagSchema.safeParse(Object.fromEntries(formData.entries()));
     if (error)
       return {
         success: false,
@@ -27,7 +31,10 @@ export const updateTagHandler = async (
         errorMsg: "validation failed",
       };
     const tagService = new TagService(prisma);
-    return { success: true, data: await tagService.updateTag(id,validatedData) };
+    return {
+      success: true,
+      data: await tagService.updateTag(id, validatedData),
+    };
   } catch (error) {
     //handle error thrown by prisma service - throws parsed/understandable error message in Error object
     return {

@@ -9,11 +9,8 @@ export const JoinWithGoogleButton = () => {
       onClick={() =>
         openPopupWindow({ url: "/google-signin", windowName: "google-signin" })
       }
-      text={
-        <span className="flex-center font-bold">
-          Join with <FcGoogle size={25} className="ml-1" />
-        </span>
-      }
+      icon={<FcGoogle size={25} className="ml-1" />}
+      text="Join with"
       variant="outline"
     />
   );

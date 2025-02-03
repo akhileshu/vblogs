@@ -23,7 +23,7 @@ export const update{{pascalCase model}}Handler = async (
   >
 > => {
   try {
-    const { data: {id,...validatedData}, error } = Update{{pascalCase model}}Schema.safeParse(formData);
+    const { data: {id,...validatedData}, error } = Update{{pascalCase model}}Schema.safeParse(Object.fromEntries(formData.entries()));
     if (error) return failureWithFieldErrors(error);
     const {{camelCase model}}Service = new {{pascalCase model}}ServiceImplementation(prisma);
     return { success: true, data: await {{camelCase model}}Service.update{{pascalCase model}}(id,validatedData) };

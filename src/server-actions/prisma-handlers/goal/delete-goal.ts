@@ -1,19 +1,14 @@
 "use server";
 
 import { Response } from "@/server-actions/types/response";
-import { GoalService } from "@/services/prisma/goal/goal-service";import prisma from "@/shared/lib/prisma";
+import { GoalService } from "@/services/prisma/goal/goal-service";
+import prisma from "@/shared/lib/prisma";
 import { getErrorMsg } from "@/shared/utils/getErrorMsg";
-import { IdSchema } from "@/server-actions/utils/zod";
-
-
+import { IdSchema } from "@/shared/lib/zod";
 
 export const deleteGoalHandler = async (
   id: string
-): Promise<
-  Response<
-    Awaited<ReturnType<GoalService["deleteGoal"]>>
-  >
-> => {
+): Promise<Response<Awaited<ReturnType<GoalService["deleteGoal"]>>>> => {
   try {
     const { data: validatedId, error } = IdSchema.safeParse(id);
     if (error)

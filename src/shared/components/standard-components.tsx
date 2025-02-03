@@ -1,4 +1,5 @@
 import { cn } from "@/lib/utils";
+import Link from "next/link";
 
 interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
   widthVariant?: "small" | "medium" | "large" | "full" | "auto" | "fit";
@@ -27,8 +28,8 @@ export const AppCard: React.FC<CardProps> = ({
       )}
       {...props}
     >
-      {title ? <p className="font-semibold my-2">{title}</p>: null}
-      
+      {title ? <p className="font-semibold my-2">{title}</p> : null}
+
       {children}
     </div>
   );
@@ -61,4 +62,41 @@ export const AppInput: React.FC<InputProps> = ({
   );
 };
 
-export default AppInput;
+interface LinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
+  isActive?: boolean;
+  href: string;
+  children: string;
+  className?:string
+}
+
+export const AppLink: React.FC<LinkProps> = ({
+  href,isActive,children,className,
+  ...props
+}) => {
+  return (
+    <Link
+      href={href}
+      className={cn(
+        " text-blue-500  underline cursor-pointer border border-transparent transition-all duration-200 px-2 py-1",
+        {
+          " rounded-md bg-blue-50 border-blue-300": isActive,
+          "hover:text-blue-600": !isActive,
+        },
+       className
+      )}
+      {...props}
+    >{children}</Link>
+  );
+};
+
+
+const LabeledSection = ({ label, children }: { label: string; children: React.ReactNode }) => {
+  return (
+    <div className="flex flex-col gap-2">
+      <span className="text-sm font-medium text-gray-700">{label}</span>
+      <div className="border p-3 rounded-md">{children}</div>
+    </div>
+  );
+};
+
+export default LabeledSection;

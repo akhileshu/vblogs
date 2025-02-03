@@ -5,6 +5,7 @@ import { allPrismaModels } from "@/shared/utils/allPrismaModels";
 import Image from "next/image";
 import Link from "next/link";
 
+
 export default function Home() {
   return (
     <div className="flex-center h-svh bg-gradient-to-r from-indigo-500 to-blue-500">

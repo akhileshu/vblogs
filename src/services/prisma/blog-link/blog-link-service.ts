@@ -25,37 +25,27 @@ export class BlogLinkServiceImplementation extends BaseService implements BlogLi
   }
 
   async createBlogLink(data: Prisma.BlogLinkCreateInput) {
-    await this.beforeAction("createBlogLink", data);
     const result = await createBlogLink(this.prisma, data);
-    await this.afterAction("reateBlogLink", result);
     return result;
   }
 
   async getBlogLinkById(id: string) {
-    await this.beforeAction("getBlogLinkById", id);
     const result = await getBlogLinkById(this.prisma, id);
-    await this.afterAction("getBlogLinkById", result);
     return result;
   }
 
   async updateBlogLink(id: string, data: Prisma.BlogLinkUpdateInput) {
-    await this.beforeAction("updateBlogLink", { id, data });
     const result = await updateBlogLink(this.prisma, id, data);
-    await this.afterAction("updateBlogLink", result);
     return result;
   }
 
   async deleteBlogLink(id: string) {
-    await this.beforeAction("deleteBlogLink", id);
     const result = await deleteBlogLink(this.prisma, id);
-    await this.afterAction("deleteBlogLink", result);
     return result;
   }
 
   async getAllBlogLinks() {
-    await this.beforeAction("getAllBlogLinks", null);
     const result = await getAllBlogLinks(this.prisma);
-    await this.afterAction("getAllBlogLinks", result);
     return result;
   }
 

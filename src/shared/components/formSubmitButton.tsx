@@ -14,7 +14,7 @@ export function SubmitButton({
 
   return (
     <button
-      className={cn("p-2 my-1 border rounded-sm", className)}
+      className={cn("px-2 my-1 border rounded-sm", className)}
       type="submit"
       aria-disabled={pending}
     >

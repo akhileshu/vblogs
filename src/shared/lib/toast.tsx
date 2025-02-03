@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { toast } from "sonner";
+import { AppLink } from "../components/standard-components";
 
 export const appToast = {
   success(message: string, description?: string) {
@@ -65,12 +66,11 @@ export type Failure<Schema> = {
         <p>{message}</p>
         <p>{description}</p>
         {redirectPath ? (
-          <Link
+          <AppLink
             href={redirectPath}
-            style={{ color: "#007185", textDecoration: "underline" }}
           >
             Go to the page
-          </Link>
+          </AppLink>
         ) : null}
       </div>,
       {

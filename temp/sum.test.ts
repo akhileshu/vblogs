@@ -8,3 +8,4 @@ describe("sum function", () => {
     expect(sum(0, 0)).toBe(0);
   });
 });
+

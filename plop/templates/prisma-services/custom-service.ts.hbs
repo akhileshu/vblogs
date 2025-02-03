@@ -17,9 +17,7 @@ export class {{pascalCase model}}ServiceImplementation extends BaseService imple
   }
 
   async {{camelCase action}}(data: any) {
-    await this.beforeAction("{{camelCase action}}", data);
     const result = await {{camelCase action}}(this.prisma, data);
-    await this.afterAction("{{camelCase action}}", result);
     return result;
   }
 

@@ -1,12 +1,13 @@
 "use server";
 
 import { Response } from "@/server-actions/types/response";
-import { GoalService } from "@/services/prisma/goal/goal-service";import prisma from "@/shared/lib/prisma";
+import { GoalService } from "@/services/prisma/goal/goal-service";
+import prisma from "@/shared/lib/prisma";
 import { getErrorMsg } from "@/shared/utils/getErrorMsg";
 import { z } from "zod";
 
 const UpdateGoalSchema = z.object({
-id: z.string().uuid(),
+  id: z.string().uuid(),
 });
 
 export const updateGoalHandler = async (
@@ -19,7 +20,10 @@ export const updateGoalHandler = async (
   >
 > => {
   try {
-    const { data: {id,...validatedData}, error } = UpdateGoalSchema.safeParse(formData);
+    const {
+      data: { id, ...validatedData },
+      error,
+    } = UpdateGoalSchema.safeParse(Object.fromEntries(formData.entries()));
     if (error)
       return {
         success: false,
@@ -27,7 +31,10 @@ export const updateGoalHandler = async (
         errorMsg: "validation failed",
       };
     const goalService = new GoalService(prisma);
-    return { success: true, data: await goalService.updateGoal(id,validatedData) };
+    return {
+      success: true,
+      data: await goalService.updateGoal(id, validatedData),
+    };
   } catch (error) {
     //handle error thrown by prisma service - throws parsed/understandable error message in Error object
     return {

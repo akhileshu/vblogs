@@ -1,7 +1,11 @@
 "use server";
 
 import { Response } from "@/server-actions/types/response";
-import { TagsOnBlogsServiceImplementation ,TagsOnBlogsServiceReturnType } from "@/services/prisma/tags-on-blogs/tags-on-blogs-service";import prisma from "@/shared/lib/prisma";
+import {
+  TagsOnBlogsServiceImplementation,
+  TagsOnBlogsServiceReturnType,
+} from "@/services/prisma/tags-on-blogs/tags-on-blogs-service";
+import prisma from "@/shared/lib/prisma";
 import { z } from "zod";
 import {
   failure,
@@ -10,7 +14,7 @@ import {
 import { FieldsError } from "@/shared/lib/errors/customError";
 
 const UpdateTagsOnBlogsSchema = z.object({
-id: z.string().uuid(),
+  id: z.string().uuid(),
 });
 
 export const updateTagsOnBlogsHandler = async (
@@ -18,17 +22,25 @@ export const updateTagsOnBlogsHandler = async (
   formData: FormData
 ): Promise<
   Response<
-       TagsOnBlogsServiceReturnType<"updateTagsOnBlogs">,
+    TagsOnBlogsServiceReturnType<"updateTagsOnBlogs">,
     z.infer<typeof UpdateTagsOnBlogsSchema>
   >
 > => {
   try {
-    const { data: {id,...validatedData}, error } = UpdateTagsOnBlogsSchema.safeParse(formData);
+    const {
+      data: { id, ...validatedData },
+      error,
+    } = UpdateTagsOnBlogsSchema.safeParse(
+      Object.fromEntries(formData.entries())
+    );
     if (error) return failureWithFieldErrors(error);
     const tagsOnBlogsService = new TagsOnBlogsServiceImplementation(prisma);
-    return { success: true, data: await tagsOnBlogsService.updateTagsOnBlogs(id,validatedData) };
+    return {
+      success: true,
+      data: await tagsOnBlogsService.updateTagsOnBlogs(id, validatedData),
+    };
   } catch (error) {
-    if(error instanceof FieldsError)return failureWithFieldErrors(error);
+    if (error instanceof FieldsError) return failureWithFieldErrors(error);
     return failure(error);
   }
 };

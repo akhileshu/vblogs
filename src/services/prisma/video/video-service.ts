@@ -25,37 +25,27 @@ export class VideoServiceImplementation extends BaseService implements VideoServ
   }
 
   async createVideo(data: Prisma.VideoCreateInput) {
-    await this.beforeAction("createVideo", data);
     const result = await createVideo(this.prisma, data);
-    await this.afterAction("reateVideo", result);
     return result;
   }
 
   async getVideoById(id: string) {
-    await this.beforeAction("getVideoById", id);
     const result = await getVideoById(this.prisma, id);
-    await this.afterAction("getVideoById", result);
     return result;
   }
 
   async updateVideo(id: string, data: Prisma.VideoUpdateInput) {
-    await this.beforeAction("updateVideo", { id, data });
     const result = await updateVideo(this.prisma, id, data);
-    await this.afterAction("updateVideo", result);
     return result;
   }
 
   async deleteVideo(id: string) {
-    await this.beforeAction("deleteVideo", id);
     const result = await deleteVideo(this.prisma, id);
-    await this.afterAction("deleteVideo", result);
     return result;
   }
 
   async getAllVideos() {
-    await this.beforeAction("getAllVideos", null);
     const result = await getAllVideos(this.prisma);
-    await this.afterAction("getAllVideos", result);
     return result;
   }
 

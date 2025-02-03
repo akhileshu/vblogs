@@ -1,19 +1,14 @@
 "use server";
 
 import { Response } from "@/server-actions/types/response";
-import { TagService } from "@/services/prisma/tag/tag-service";import prisma from "@/shared/lib/prisma";
+import { TagService } from "@/services/prisma/tag/tag-service";
+import prisma from "@/shared/lib/prisma";
 import { getErrorMsg } from "@/shared/utils/getErrorMsg";
-import { IdSchema } from "@/server-actions/utils/zod";
-
-
+import { IdSchema } from "@/shared/lib/zod";
 
 export const deleteTagHandler = async (
   id: string
-): Promise<
-  Response<
-    Awaited<ReturnType<TagService["deleteTag"]>>
-  >
-> => {
+): Promise<Response<Awaited<ReturnType<TagService["deleteTag"]>>>> => {
   try {
     const { data: validatedId, error } = IdSchema.safeParse(id);
     if (error)

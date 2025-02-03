@@ -14,6 +14,7 @@ export default async function BlogReadOrCreateOrEdit({
   }>;
 }) {
   const { mode, slug } = await params;
+  // todo : simpilfy this setup of conditional fetching
 
   //conditional fetching from serveraction
   const result: Awaited<ReturnType<typeof getBlogContentBySlugHandler>> | null =

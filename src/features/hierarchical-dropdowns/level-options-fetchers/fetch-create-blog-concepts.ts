@@ -1,8 +1,7 @@
-
-import { getAllGoalsHandler } from "@/server-actions/prisma-handlers/goal";
+import { getCachedAllGoalsHandler } from "@/server-actions/prisma-handlers/goal";
 import { FetchOptionsForLevel, Option, SELECT_TYPE } from "../types";
-import { getTechnologiesByGoalIdHandler } from "@/server-actions/prisma-handlers/technology/get-technologies-by-goal-id-Handler";
-import { getTopicsByTechnologyIdHandler } from "@/server-actions/prisma-handlers/topic/get-topics-by-technology-id-Handler";
+import { getTechnologiesByGoalIdHandler } from "@/server-actions/prisma-handlers/technology/get-technologies-by-goal-id";
+import { getTopicsByTechnologyIdHandler } from "@/server-actions/prisma-handlers/topic/get-topics-by-technology-id";
 import { getTagsByTopicIdHandler } from "@/server-actions/prisma-handlers/tag/get-tags-by-topic-id-Handler";
 
 export const fetchCreateBlogConcepts: FetchOptionsForLevel<Option> = async (
@@ -13,7 +12,7 @@ export const fetchCreateBlogConcepts: FetchOptionsForLevel<Option> = async (
   switch (levelIndex) {
     case 0:
       //todo handle loading / error feedback for hierarchial dropdowns
-     result = await getAllGoalsHandler();
+      result = await getCachedAllGoalsHandler();
       if (!result.success) return null;
       return {
         label: "Goal",
@@ -22,9 +21,7 @@ export const fetchCreateBlogConcepts: FetchOptionsForLevel<Option> = async (
       };
 
     case 1:
-      result = await getTechnologiesByGoalIdHandler(
-        selectedOptions[0].id
-      );
+      result = await getTechnologiesByGoalIdHandler(selectedOptions[0].id);
       if (!result.success) return null;
       return {
         label: "Technology",
@@ -32,7 +29,7 @@ export const fetchCreateBlogConcepts: FetchOptionsForLevel<Option> = async (
         selectType: SELECT_TYPE.single,
       };
     case 2:
-     result = await getTopicsByTechnologyIdHandler(selectedOptions[0].id);
+      result = await getTopicsByTechnologyIdHandler(selectedOptions[0].id);
       if (!result.success) return null;
       return {
         label: "Topic",
@@ -40,7 +37,7 @@ export const fetchCreateBlogConcepts: FetchOptionsForLevel<Option> = async (
         selectType: SELECT_TYPE.single,
       };
     case 3:
-     result = await getTagsByTopicIdHandler(selectedOptions[0].id);
+      result = await getTagsByTopicIdHandler(selectedOptions[0].id);
       if (!result.success) return null;
       return {
         label: "Tags",

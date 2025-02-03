@@ -20,3 +20,15 @@ export const getTopicsByTechnologyIdHandler = async (
     return failure(error);
   }
 };
+
+// End of handler
+import { unstable_cache } from "next/cache";
+
+export const getCachedTopicsByTechnologyIdHandler = async (technologyId: string) => {
+  const tag = `get-topics-by-technology-id`; // Tag for revalidation , concat params
+  return unstable_cache(
+    () => getTopicsByTechnologyIdHandler(technologyId),
+    [], // Cache key dependency i.e params
+    { tags: [tag] }
+  )();
+};

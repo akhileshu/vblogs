@@ -23,7 +23,7 @@ export const updateBlogHandler = async (
     const {
       data: { id, ...validatedData },
       error,
-    } = UpdateBlogSchema.safeParse(formData);
+    } = UpdateBlogSchema.safeParse(Object.fromEntries(formData.entries()));
     if (error)
       return {
         success: false,

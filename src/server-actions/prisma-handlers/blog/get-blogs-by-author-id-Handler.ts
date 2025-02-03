@@ -2,7 +2,7 @@
 import { unstable_cache } from "next/cache";
 
 import { Response } from "@/server-actions/types/response";
-import { BlogServiceImplementation } from "@/services/prisma/blog/blog-service";
+import { BlogServiceImplementation, BlogServiceReturnType } from "@/services/prisma/blog/blog-service";
 import prisma from "@/shared/lib/prisma";
 import { getErrorMsg } from "@/shared/utils/getErrorMsg";
 import { BlogSearchQueryParameters } from "@/shared/types/models/blog";
@@ -10,9 +10,7 @@ import { BlogSearchQueryParameters } from "@/shared/types/models/blog";
 export const getBlogsByAuthorIdHandler = async (
   authorId: string,
   filters: BlogSearchQueryParameters
-): Promise<
-  Response<Awaited<ReturnType<BlogServiceImplementation["getBlogsByAuthorId"]>>>
-> => {
+): Promise<Response<BlogServiceReturnType<"getBlogsByAuthorId">>> => {
   try {
     const blogService = new BlogServiceImplementation(prisma);
     return {

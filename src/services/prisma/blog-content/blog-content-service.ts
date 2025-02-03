@@ -25,37 +25,27 @@ export class BlogContentServiceImplementation extends BaseService implements Blo
   }
 
   async createBlogContent(data: Prisma.BlogContentCreateInput) {
-    await this.beforeAction("createBlogContent", data);
     const result = await createBlogContent(this.prisma, data);
-    await this.afterAction("reateBlogContent", result);
     return result;
   }
 
   async getBlogContentById(id: string) {
-    await this.beforeAction("getBlogContentById", id);
     const result = await getBlogContentById(this.prisma, id);
-    await this.afterAction("getBlogContentById", result);
     return result;
   }
 
   async updateBlogContent(id: string, data: Prisma.BlogContentUpdateInput) {
-    await this.beforeAction("updateBlogContent", { id, data });
     const result = await updateBlogContent(this.prisma, id, data);
-    await this.afterAction("updateBlogContent", result);
     return result;
   }
 
   async deleteBlogContent(id: string) {
-    await this.beforeAction("deleteBlogContent", id);
     const result = await deleteBlogContent(this.prisma, id);
-    await this.afterAction("deleteBlogContent", result);
     return result;
   }
 
   async getAllBlogContents() {
-    await this.beforeAction("getAllBlogContents", null);
     const result = await getAllBlogContents(this.prisma);
-    await this.afterAction("getAllBlogContents", result);
     return result;
   }
 

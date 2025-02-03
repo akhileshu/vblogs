@@ -1,20 +1,34 @@
-
-
 describe("Cypress login", () => {
+  
   it("should provide a valid session", () => {
-    // Call your custom cypress command
     cy.login();
-    // Visit a route in order to allow cypress to actually set the cookie
     cy.visit("/dashboard");
-    // Wait until the intercepted request is ready
     cy.wait("@session");
-    // This is where you can now add assertions
-    // Example: provide a data-test-id on an element.
-    // This can be any selector that "always and only" exists when the user is logged in
-    cy.get("[data-test-id='authenticated']")
-      .should("exist")
-      .then(() => {
-        cy.log("Cypress login successful");
-      });
+    // cy.get("[data-test-id='authenticated']")
+    //   .should("exist")
+    //   .then(() => {
+    //     cy.log("Cypress login successful");
+    //   });
+    cy.contains("Dashboard").should("be.visible");
+    // cy.contains("Loading your blogs").should("be.visible"); // need to think how wil i test delay of server actions 
+    cy.contains("My Blogs").should("be.visible");
+    // Wait for blogs to load and validate the content renders
   });
 });
+
+// Test each blog item
+//   cy.get("[data-test-id^='blog-link-']").each(($el) => {
+//     // Get the blog title and URL from the element
+//     const blogTitle = $el.text();
+//     const blogHref = $el.attr("href");
+
+//     // Click the blog link
+//     cy.wrap($el).should("be.visible").click();
+
+//     // Validate the redirection and the blog title on the new page
+//     cy.url().should("include", blogHref);
+//     cy.contains(blogTitle).should("be.visible");
+
+//     // Navigate back to the blogs list page
+//     cy.go("back");
+//   });

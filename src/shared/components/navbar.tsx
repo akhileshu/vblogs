@@ -1,14 +1,13 @@
 "use client";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import { AuthNavItem } from "@/features/Auth/components/auth-nav-item";
+import { DropdownProvider } from "@/features/hierarchical-dropdowns";
 import { cn } from "@/lib/utils";
 import { CiBellOn } from "react-icons/ci";
-import { StyledLink } from "./buttons";
+import { getUrl } from "../lib/get-url";
 import { HoverDropdown } from "./hover-dropdown";
 import SearchBlogs from "./search-blogs";
-import { DropdownProvider } from "@/features/hierarchical-dropdowns";
-import { getUrl } from "../lib/get-url";
-import Link from "next/link";
+import { AppLink } from "./standard-components";
 
 interface InputProps {
   className?: string;
@@ -26,9 +25,11 @@ export function Navbar({ className }: InputProps) {
           <SearchBlogs />
         </DropdownProvider>
         <Discover />
-        <StyledLink href={getUrl("blogFillMetadata")} text="create a blog" />
+        <AppLink href={getUrl("blogFillMetadata")}>
+          create a blog
+        </AppLink>
         <Notifications />
-        <Link href={"/dashboard"}>dashboard</Link>
+        <AppLink href={"/dashboard"}>dashboard</AppLink>
       </div>
 
       <div className="flex gap-2 items-center">

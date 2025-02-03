@@ -13,10 +13,12 @@ export default function plop(/** @type {import('plop').NodePlopAPI} */ plop) {
     prismaHandlers: "./plop/templates/prisma-handlers",
     prismaServices: "./plop/templates/prisma-services",
     reactNextjs: "./plop/templates/react-nextjs",
+    e2eTesting:"./plop/templates/e2e-testing"
   };
   const outputBasePaths = {
     prismaServices: "src/services/prisma",
     prismaHandlers: "src/server-actions/prisma-handlers",
+    e2eTesting:"cypress/e2e"
   };
 
   const createModelActions = (
@@ -276,6 +278,50 @@ export default function plop(/** @type {import('plop').NodePlopAPI} */ plop) {
           fileType === "nextjsPageRoute"
             ? `${currentPath}/{{kebab-case name}}/page.tsx`
             : `${currentPath}/${outputSubPath}/{{kebab-case name}}.tsx`;
+        return {
+          type: "add",
+          path,
+          templateFile,
+          data,
+        };
+      });
+
+      return actions;
+    },
+  });
+
+  plop.setGenerator("generate-test-templates", {
+    description: "generate tests temlates for cy,vitest etc",
+    prompts: [
+      {
+        type: "list",
+        name: "fileType",
+        message: "Select test type to generate:",
+        choices: [{ name: "cypress e2e test file", value: "cyE2e" }],
+      },
+      {
+        type: "input",
+        name: "names",
+        message:
+          "Enter a comma-separated list of names (e.g., course-page, complete-lesson-button):",
+      },
+    ],
+    actions: (data) => {
+      const { fileType } = data;
+      const names = data.names.split(",").map((name) => name.trim());
+
+      const config = (name) => {
+        return {
+          cyE2e: {
+            templateFile: `${templateBasePaths.e2eTesting}/base.cy.ts.hbs`,
+            data: { name },
+            path:`${outputBasePaths.e2eTesting}/{{kebab-case name}}.cy.ts`,
+          },
+        };
+      };
+      const actions = names.map((name) => {
+        const { data, path, templateFile } = config(name)[fileType];
+
         return {
           type: "add",
           path,

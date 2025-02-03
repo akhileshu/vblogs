@@ -4,7 +4,7 @@ import { Response } from "@/server-actions/types/response";
 import { BlogServiceImplementation } from "@/services/prisma/blog/blog-service";
 import prisma from "@/shared/lib/prisma";
 import { getErrorMsg } from "@/shared/utils/getErrorMsg";
-import { IdSchema } from "@/server-actions/utils/zod";
+import { IdSchema } from "@/shared/lib/zod";
 import { z } from "zod";
 
 const DeleteBlogSchema = z.object({

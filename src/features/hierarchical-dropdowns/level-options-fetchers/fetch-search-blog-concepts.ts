@@ -1,7 +1,7 @@
-import { getAllGoalsHandler } from "@/server-actions/prisma-handlers/goal";
+import { getCachedAllGoalsHandler } from "@/server-actions/prisma-handlers/goal";
 import { FetchOptionsForLevel, Option, SELECT_TYPE } from "../types";
-import { getTechnologiesByGoalIdHandler } from "@/server-actions/prisma-handlers/technology/get-technologies-by-goal-id-Handler";
-import { getTopicsByTechnologyIdHandler } from "@/server-actions/prisma-handlers/topic/get-topics-by-technology-id-Handler";
+import { getTechnologiesByGoalIdHandler } from "@/server-actions/prisma-handlers/technology/get-technologies-by-goal-id";
+import { getTopicsByTechnologyIdHandler } from "@/server-actions/prisma-handlers/topic/get-topics-by-technology-id";
 
 export const fetchSearchBlogConcepts: FetchOptionsForLevel<Option> = async (
   levelIndex,
@@ -10,7 +10,7 @@ export const fetchSearchBlogConcepts: FetchOptionsForLevel<Option> = async (
   let result;
   switch (levelIndex) {
     case 0:
-      result = await getAllGoalsHandler();
+      result = await getCachedAllGoalsHandler();
       if (!result.success) return null;
       return {
         label: "Goal",

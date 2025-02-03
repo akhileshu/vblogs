@@ -5,8 +5,8 @@ import { LoaderErrorWrapper } from "@/shared/components/Loader";
 import { signIn, useSession } from "next-auth/react";
 import { useEffect } from "react";
 
-//bug :
 /* 
+bug :
 if existing user is erased from db , user still loggedin in app , but will cause error in db query/mutation
 */
 const GoogleSignIn = () => {

@@ -1,8 +1,8 @@
 "use client";
-import React from "react";
 import { cn } from "@/lib/utils";
+import { AppLink } from "@/shared/components/standard-components";
 import { usePathname } from "next/navigation";
-import Link from "next/link";
+import React from "react";
 
 type ProfileInnerSidebarProps = {
   className?: string;
@@ -25,16 +25,15 @@ const ProfileSidebarNavigation: React.FC<ProfileInnerSidebarProps> = ({
 
   return (
     <ul className={cn("flex flex-col", className)}>
-      {links.map((link) => (
-        <li key={link.href}>
-          <Link
-            href={link.href}
-            className={cn("", {
-              "text-blue-500": pathname === link.href,
-            })}
+      {links.map(({ href, label }, index) => (
+        <li key={index}>
+          <AppLink
+            isActive={pathname === href}
+            className="block px-3 py-2"
+            href={href}
           >
-            {link.label}
-          </Link>
+            {label}
+          </AppLink>
         </li>
       ))}
     </ul>

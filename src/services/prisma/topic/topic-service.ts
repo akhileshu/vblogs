@@ -14,37 +14,27 @@ export class TopicService extends BaseService {
   }
 
   async createTopic(data: Prisma.TopicCreateInput) {
-    await this.beforeAction("create", data);
     const result = await createTopic(this.prisma, data);
-    await this.afterAction("create", result);
     return result;
   }
 
   async getTopicById(id: string) {
-    await this.beforeAction("getById", id);
     const result = await getTopicById(this.prisma, id);
-    await this.afterAction("getById", result);
     return result;
   }
 
   async updateTopic(id: string, data: Prisma.TopicUpdateInput) {
-    await this.beforeAction("update", { id, data });
     const result = await updateTopic(this.prisma, id, data);
-    await this.afterAction("update", result);
     return result;
   }
 
   async deleteTopic(id: string) {
-    await this.beforeAction("delete", id);
     const result = await deleteTopic(this.prisma, id);
-    await this.afterAction("delete", result);
     return result;
   }
 
   async getAllTopics() {
-    await this.beforeAction("getAll", null);
     const result = await getAllTopics(this.prisma);
-    await this.afterAction("getAll", result);
     return result;
   }
   async getTopicsByTechnologyId(technologyId: string) {

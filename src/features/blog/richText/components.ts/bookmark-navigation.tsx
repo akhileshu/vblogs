@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Bookmark } from "../types";
+import { AppLink } from "@/shared/components/standard-components";
 
 export const BookmarkComponent = ({ BookMarks }:{BookMarks:Bookmark[]}) => {
   const getStyles = (type:string) => {
@@ -18,14 +19,14 @@ export const BookmarkComponent = ({ BookMarks }:{BookMarks:Bookmark[]}) => {
   return (
     <div className="text-indigo-700 space-y-2">
       {BookMarks.map((bookmark) => (
-        <Link
+        <AppLink
           className="line-clamp-2"
           href={`#${bookmark.id}`}
           key={bookmark.id}
           style={getStyles(bookmark.type)}
         >
           {bookmark.title}
-        </Link>
+        </AppLink>
       ))}
     </div>
   );

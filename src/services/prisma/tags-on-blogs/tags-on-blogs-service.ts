@@ -25,37 +25,27 @@ export class TagsOnBlogsServiceImplementation extends BaseService implements Tag
   }
 
   async createTagsOnBlogs(data: Prisma.TagsOnBlogsCreateInput) {
-    await this.beforeAction("createTagsOnBlogs", data);
     const result = await createTagsOnBlogs(this.prisma, data);
-    await this.afterAction("reateTagsOnBlogs", result);
     return result;
   }
 
   async getTagsOnBlogsById(id: string) {
-    await this.beforeAction("getTagsOnBlogsById", id);
     const result = await getTagsOnBlogsById(this.prisma, id);
-    await this.afterAction("getTagsOnBlogsById", result);
     return result;
   }
 
   async updateTagsOnBlogs(id: string, data: Prisma.TagsOnBlogsUpdateInput) {
-    await this.beforeAction("updateTagsOnBlogs", { id, data });
     const result = await updateTagsOnBlogs(this.prisma, id, data);
-    await this.afterAction("updateTagsOnBlogs", result);
     return result;
   }
 
   async deleteTagsOnBlogs(id: string) {
-    await this.beforeAction("deleteTagsOnBlogs", id);
     const result = await deleteTagsOnBlogs(this.prisma, id);
-    await this.afterAction("deleteTagsOnBlogs", result);
     return result;
   }
 
   async getAllTagsOnBlogss() {
-    await this.beforeAction("getAllTagsOnBlogss", null);
     const result = await getAllTagsOnBlogss(this.prisma);
-    await this.afterAction("getAllTagsOnBlogss", result);
     return result;
   }
 

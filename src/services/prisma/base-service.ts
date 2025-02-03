@@ -1,4 +1,4 @@
-import { getServerSessionUserByRole } from "@/shared/lib/auth/getServerSessionUtils";
+import { getServerSessionUser, getServerSessionUserByRole } from "@/shared/lib/auth/getServerSessionUtils";
 import { PrismaClient } from "@prisma/client";
 import fs from "fs";
 import path from "path";
@@ -32,6 +32,11 @@ export abstract class BaseService {
   protected async getLoggedInUser() {
     const user = await getServerSessionUserByRole("LEARNER");
     if (!user) throw new Error("Please login with Learner Account");
+    return user;
+  }
+  protected async getLoggedInAccount() {
+    const user = await getServerSessionUser();
+    if (!user) throw new Error("Please login to continue");
     return user;
   }
 

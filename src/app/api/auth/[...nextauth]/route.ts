@@ -35,7 +35,6 @@ export const authOptions: NextAuthOptions = {
     //callbacks called after signin
 
     async signIn({ profile, user }) {
-      
       const { email, name, role, picture } = user;
       if (
         !email ||
@@ -58,12 +57,11 @@ export const authOptions: NextAuthOptions = {
         user.id = userprofile.id;
         return true;
       } catch (error) {
-        console.log(error)
+        console.log(error);
         return false;
       }
     },
     async session({ token, session }) {
-      
       /* 
       saw a bug where token.id was giving a id that didn't exist in the database
       fix: check if token.id exists in the database - in jwt callback
@@ -78,14 +76,22 @@ export const authOptions: NextAuthOptions = {
       }
       return session;
     },
-    async jwt({ token, user}) {
+    async jwt({ token, user, trigger, session }) {
       // very wierd behaviour , it wont work if use any field before making sure it must exist , have this consistent structure
-      
+
       if (user && user.id && user.role && user.picture) {
         token.id = user.id;
         token.role = user.role;
         token.picture = user.picture;
-      } 
+      }
+      /* 
+     improve if needed
+     https://medium.com/@youngjun625/next-js14-nextauth-v5-2-session-update-b977cb6afd47
+       */
+      if (trigger === "update" && session) {
+        token = { ...token, ...session, picture: session.image };
+        return token;
+      }
       // below code might be causing session clerning after server restart
       /* else if (token.id) {
         const dbUser = await prisma.user.findUnique({

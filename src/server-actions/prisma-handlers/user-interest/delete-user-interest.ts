@@ -1,17 +1,16 @@
 "use server";
 
 import { Response } from "@/server-actions/types/response";
-import { UserInterestServiceImplementation,UserInterestServiceReturnType } from "@/services/prisma/user-interest/user-interest-service";import prisma from "@/shared/lib/prisma";
-import { IdSchema } from "@/server-actions/utils/zod";
 import {
   failure,
   failureWithFieldErrors,
 } from "@/server-actions/utils/response";
+import { UserInterestServiceImplementation, UserInterestServiceReturnType } from "@/services/prisma/user-interest/user-interest-service";
 import { FieldsError } from "@/shared/lib/errors/customError";
+import prisma from "@/shared/lib/prisma";
+import { DeleteUserInterestSchema } from "@/shared/types/models/user-interest";
 
-const DeleteUserInterestSchema = z.object({
-  blogId: IdSchema
-});
+
 
 export const deleteUserInterestHandler = async (
    prevState: unknown,
@@ -26,7 +25,7 @@ export const deleteUserInterestHandler = async (
     if (error)
       return failure("Invalid ID format");
     const userInterestService = new UserInterestServiceImplementation(prisma);
-    return { success: true, data: await userInterestService.deleteUserInterest(validatedData.id) };
+    return { success: true, data: await userInterestService.deleteUserInterest(validatedData.userInterestId) };
   } catch (error) {
     if(error instanceof FieldsError)return failureWithFieldErrors(error);
     return failure(error);

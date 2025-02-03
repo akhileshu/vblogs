@@ -12,6 +12,7 @@ interface AppTooltipProps {
   tooltipContent: React.ReactNode; // Content to display in the tooltip
 }
 
+//todo : clean all shared components , most important jsx should be a children prop not a custom prop ex: here its trigger
 export const AppToolTip: React.FC<AppTooltipProps> = ({
   className,
   trigger,

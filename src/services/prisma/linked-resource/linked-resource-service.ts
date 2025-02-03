@@ -25,37 +25,27 @@ export class LinkedResourceServiceImplementation extends BaseService implements 
   }
 
   async createLinkedResource(data: Prisma.LinkedResourceCreateInput) {
-    await this.beforeAction("createLinkedResource", data);
     const result = await createLinkedResource(this.prisma, data);
-    await this.afterAction("reateLinkedResource", result);
     return result;
   }
 
   async getLinkedResourceById(id: string) {
-    await this.beforeAction("getLinkedResourceById", id);
     const result = await getLinkedResourceById(this.prisma, id);
-    await this.afterAction("getLinkedResourceById", result);
     return result;
   }
 
   async updateLinkedResource(id: string, data: Prisma.LinkedResourceUpdateInput) {
-    await this.beforeAction("updateLinkedResource", { id, data });
     const result = await updateLinkedResource(this.prisma, id, data);
-    await this.afterAction("updateLinkedResource", result);
     return result;
   }
 
   async deleteLinkedResource(id: string) {
-    await this.beforeAction("deleteLinkedResource", id);
     const result = await deleteLinkedResource(this.prisma, id);
-    await this.afterAction("deleteLinkedResource", result);
     return result;
   }
 
   async getAllLinkedResources() {
-    await this.beforeAction("getAllLinkedResources", null);
     const result = await getAllLinkedResources(this.prisma);
-    await this.afterAction("getAllLinkedResources", result);
     return result;
   }
 

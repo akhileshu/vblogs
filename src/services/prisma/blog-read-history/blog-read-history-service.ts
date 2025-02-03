@@ -25,37 +25,27 @@ export class BlogReadHistoryServiceImplementation extends BaseService implements
   }
 
   async createBlogReadHistory(data: Prisma.BlogReadHistoryCreateInput) {
-    await this.beforeAction("createBlogReadHistory", data);
     const result = await createBlogReadHistory(this.prisma, data);
-    await this.afterAction("reateBlogReadHistory", result);
     return result;
   }
 
   async getBlogReadHistoryById(id: string) {
-    await this.beforeAction("getBlogReadHistoryById", id);
     const result = await getBlogReadHistoryById(this.prisma, id);
-    await this.afterAction("getBlogReadHistoryById", result);
     return result;
   }
 
   async updateBlogReadHistory(id: string, data: Prisma.BlogReadHistoryUpdateInput) {
-    await this.beforeAction("updateBlogReadHistory", { id, data });
     const result = await updateBlogReadHistory(this.prisma, id, data);
-    await this.afterAction("updateBlogReadHistory", result);
     return result;
   }
 
   async deleteBlogReadHistory(id: string) {
-    await this.beforeAction("deleteBlogReadHistory", id);
     const result = await deleteBlogReadHistory(this.prisma, id);
-    await this.afterAction("deleteBlogReadHistory", result);
     return result;
   }
 
   async getAllBlogReadHistorys() {
-    await this.beforeAction("getAllBlogReadHistorys", null);
     const result = await getAllBlogReadHistorys(this.prisma);
-    await this.afterAction("getAllBlogReadHistorys", result);
     return result;
   }
 

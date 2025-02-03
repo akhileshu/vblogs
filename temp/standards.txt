@@ -20,3 +20,23 @@ prompt to redirect - toast with redirect link
 feedback on bussiness logic failure for user inputs
 from service throw Error with added field - fieldErrors - maintaining same types,and in handler in catch{ } process and pass to ui
 
+================
+rendering fetched data
+
+(cc)
+const { data } = extractResultData(result);
+<LoaderErrorWrapper result={result}>
+    //use data to render
+<LoaderErrorWrapper/>
+
+(sc)
+const result = await getCachedBlogsByAuthorIdHandler(author.id, filters);
+<AppSuspense message="Loading your blogs">
+    <Blogs authorId={author.id} result={result} />
+</AppSuspense>
+
+prevent unauthorrized access  (sc)
+
+const author = await getServerSessionUserByRole("AUTHOR");
+  if (!author || !author.id) return <UnauthorizedAccess />;
+  const result = await getCachedBlogsByAuthorIdHandler(author.id, filters);

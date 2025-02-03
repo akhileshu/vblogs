@@ -19,6 +19,11 @@ Cypress.Commands.add("login", () => {
   });
 });
 
+Cypress.Commands.add("getHeading", (text, options = {}) => {
+  return cy.get("h1, h2, h3, h4, h5, h6", options).contains(text, options);
+});
+
+
 // ***********************************************
 // This example commands.ts shows you how to
 // create various custom commands and overwrite

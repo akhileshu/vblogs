@@ -98,7 +98,7 @@ const SearchBlogs = () => {
         }}
         tabIndex={-1}
         className={cn(
-          "absolute left-0 space-y-2  p-1 border bg-white border-indigo-500 rounded w-[80vw] mt-1 invisible  group-focus-within:visible",
+          "absolute left-0 space-y-2  p-1 border bg-white border-indigo-500 rounded w-[80vw] mt-1 invisible group-focus-within:visible",
           {
             "opacity-0": hideDropdown,
           }

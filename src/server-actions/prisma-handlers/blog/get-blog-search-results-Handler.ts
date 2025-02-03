@@ -1,24 +1,15 @@
 "use server";
 
 import { Response } from "@/server-actions/types/response";
-import { BlogServiceImplementation } from "@/services/prisma/blog/blog-service";
+import { BlogServiceImplementation, BlogServiceReturnType } from "@/services/prisma/blog/blog-service";
 import { SortKeyUnionForZod } from "@/shared/lib/blog-sort";
 import prisma from "@/shared/lib/prisma";
+import { csvUUIDSchema } from "@/shared/lib/zod/csvUUIDSchema";
 import { BlogSearchQueryParameters } from "@/shared/types/models/blog";
 import { getErrorMsg } from "@/shared/utils/getErrorMsg";
 import { z } from "zod";
 
-const csvUUIDSchema = z
-  .string()
-  .optional()
-  .refine(
-    (val) => {
-      if (!val) return true; // Allow undefined or empty values
-      const ids = val.split(",").map((id) => id.trim());
-      return ids.every((id) => z.string().uuid().safeParse(id).success);
-    },
-    { message: "Each item in the CSV must be a valid UUID" }
-  );
+
 
 const blogSearchFiltersSchema = z.object({
   query: z.string().optional(),
@@ -31,7 +22,7 @@ export const getBlogSearchResultsHandler = async (
   params: BlogSearchQueryParameters
 ): Promise<
   Response<
-    Awaited<ReturnType<BlogServiceImplementation["getBlogSearchResults"]>>,
+    Awaited<BlogServiceReturnType<"getBlogSearchResults">>,
     z.infer<typeof blogSearchFiltersSchema>
   >
 > => {

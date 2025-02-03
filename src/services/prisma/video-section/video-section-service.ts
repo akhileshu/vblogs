@@ -25,37 +25,27 @@ export class VideoSectionServiceImplementation extends BaseService implements Vi
   }
 
   async createVideoSection(data: Prisma.VideoSectionCreateInput) {
-    await this.beforeAction("createVideoSection", data);
     const result = await createVideoSection(this.prisma, data);
-    await this.afterAction("reateVideoSection", result);
     return result;
   }
 
   async getVideoSectionById(id: string) {
-    await this.beforeAction("getVideoSectionById", id);
     const result = await getVideoSectionById(this.prisma, id);
-    await this.afterAction("getVideoSectionById", result);
     return result;
   }
 
   async updateVideoSection(id: string, data: Prisma.VideoSectionUpdateInput) {
-    await this.beforeAction("updateVideoSection", { id, data });
     const result = await updateVideoSection(this.prisma, id, data);
-    await this.afterAction("updateVideoSection", result);
     return result;
   }
 
   async deleteVideoSection(id: string) {
-    await this.beforeAction("deleteVideoSection", id);
     const result = await deleteVideoSection(this.prisma, id);
-    await this.afterAction("deleteVideoSection", result);
     return result;
   }
 
   async getAllVideoSections() {
-    await this.beforeAction("getAllVideoSections", null);
     const result = await getAllVideoSections(this.prisma);
-    await this.afterAction("getAllVideoSections", result);
     return result;
   }
 
